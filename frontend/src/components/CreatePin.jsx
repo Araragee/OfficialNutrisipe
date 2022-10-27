@@ -245,10 +245,6 @@ const handleIngredientValDelete=(i)=>{
                     placeholder='Ingredient'/>
                </div>
                </div> 
-               
-
-
-
                 </div>
           <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
              <label className='mt-4, ml-6'>Procedure</label>

@@ -17,6 +17,7 @@ const PinDetail = ({ user }) => {
   const [addingComment, setAddingComment] = useState(false);
   const [ingredient, setIngredient] = useState();
 
+  
   const fetchPinDetails = () => {
     const query = pinDetailQuery(pinId);
 
@@ -34,7 +35,7 @@ const PinDetail = ({ user }) => {
   };
 
  const deleteComment = async (key) => {
-      client.patch(pinId)
+      client.patch(pinDetail)
       .unset([`comments[_key=="${key}"]`])
       .commit()
       .then(() => {
@@ -43,6 +44,17 @@ const PinDetail = ({ user }) => {
         setAddingComment(false);
       });
       window.location.reload();
+  };
+
+  const Unsave = (id) => {
+    const ToRemove = [`save[userId=="${user.sub}"]`]
+    client
+      .patch(id)
+      .unset(ToRemove)
+      .commit()
+        .then(() => {
+          window.location.reload();
+    });
   };
 
   useEffect(() => {
@@ -139,7 +151,6 @@ const PinDetail = ({ user }) => {
                     type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    deleteComment(key);
                   }}>
                       <AiTwotoneDelete />
                     </button>)}</p>
