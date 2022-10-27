@@ -73,11 +73,6 @@ const handleIngredientValDelete=(i)=>{
       setProcedure(deleteProcedure)  
   }
 
-
-
-
-
-  
   const navigate = useNavigate();
 
   const uploadImage = (e) => {
@@ -102,12 +97,13 @@ const handleIngredientValDelete=(i)=>{
   };
 
   const savePin = () => {
-    if (title && about && procedure && imageAsset?._id && ingredient && category) {
+    if (title && about && procedure && imageAsset?._id && ingredient && ingredientVal && category) {
       const doc = {
         _type: 'pin',
         title,
         about,
         ingredient,
+        ingredientVal,
         procedure,
         image: {
           _type: 'image',
@@ -227,38 +223,47 @@ const handleIngredientValDelete=(i)=>{
             </div>
 
 
-            <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-1/2">
-              <div>
-           <label className='mt-4, ml-6'>Ingredients</label>
-           {ingredient.map((data,i)=>{
-                  return(
-                 <div className='w-1/2'>
-                    <input className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2" 
-                    placeholder='Ingredient'
-                     value={data} 
-                     onChange={e=>handleIngredientChange(e,i)} />
-                      <button onClick={() => handleIngredientDelete(i)}> x </button>
-               </div> )})}
-               <button onClick = {() => handleIngredientAdd()}> <AiOutlinePlus /> </button>
-               <div className='w-1/2'>
-               <input className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2" 
-                    placeholder='Ingredient'/>
-               </div>
-               </div> 
-                </div>
-          <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
-             <label className='mt-4, ml-6'>Procedure</label>
-               
-                {procedure.map((data,u)=>{
-                  return(
-                 <div>
-                    <input className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2" placeholder='Procedure' value={data} onChange={e=>handleProcedureChange(e,u)} />
-                    <button onClick={()=>handleProcedureDelete(u)}>x</button>
-               </div>
-                )})}
-                <button 
-                onClick = {() => handleProcedureAdd() }> <AiOutlinePlus /> </button>
-            </div>
+                              <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-1/2" class="float-root">
+                  <div class='float-left'>
+                  <label className='mt-4, ml-6'>Ingredients</label>
+                  {ingredient.map((data,i)=>{
+                      return(
+                    <div >
+                        <input className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2" 
+                        placeholder='Ingredient'
+                        value={data} 
+                        onChange={e=>handleIngredientChange(e,i)} />
+
+                  </div> )})}
+                  </div> 
+                  
+                  <div class='float-middle'>
+                      <label className='mt-4, ml-6' >Grams</label>
+                  {ingredientVal.map((data,i)=>{
+                      return(
+                    <div >
+                        <input className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2" 
+                        placeholder='Grams'
+                        value={data} 
+                        onChange={e=>handleIngredientValChange(e,i)} />
+                        <button onClick={() => {handleIngredientValDelete(i); handleIngredientDelete(i)}}>x</button>
+                  </div> )})}
+                  </div>
+                     <button onClick = {() => {handleIngredientAdd(); handleIngredientValAdd()}}> <AiOutlinePlus /></button>
+                   </div>
+
+                   <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
+                   <label className='mt-4, ml-6'>Procedure</label>
+                      {procedure.map((data,u)=>{
+                    return(
+                            <div>
+                      <input className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2" placeholder='Procedure' value={data} onChange={e=>handleProcedureChange(e,u)} />
+                      <button onClick={()=>handleProcedureDelete(u)}>x</button>
+                           </div>
+                            )})}
+                      <button 
+                      onClick = {() => handleProcedureAdd() }> <AiOutlinePlus /> </button>
+                      </div>
 
           <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
             <div>
