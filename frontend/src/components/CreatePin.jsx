@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
+import { AiOutlineCloudUpload, AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { MdDelete } from 'react-icons/md';
 import { categories } from '../utils/data';
 import { client } from '../client';
 import Spinner from './Spinner';
+import { MDBInput } from 'mdb-react-ui-kit';
 
 
 
@@ -12,14 +13,17 @@ const CreatePin = ({ user }) => {
   const [title, setTitle] = useState('');
   const [about, setAbout] = useState('');
   const [loading, setLoading] = useState(false);
-  const [procedure, setProcedure] = useState();
   const [fields, setFields] = useState();
   const [category, setCategory] = useState();
   const [imageAsset, setImageAsset] = useState();
   const [wrongImageType, setWrongImageType] = useState(false);
   const [ingredient, setIngredient] = useState(['']);
+  const [ingredientVal, setIngredientVal] = useState(['']);
+  const [procedure, setProcedure] = useState(['']);
+  
 
 
+  // handle ingredient
   const handleIngredientAdd=()=>{
       const abc=[...ingredient,[]]
       setIngredient(abc)
@@ -34,6 +38,46 @@ const CreatePin = ({ user }) => {
       deleteIngredient.splice(i,1)
       setIngredient(deleteIngredient)  
   }
+
+  // handle ingredientval
+  const handleIngredientValChange=(onChangeValue,u)=>{
+    const inputdata=[...ingredientVal]
+    inputdata[u]=onChangeValue.target.value;
+    setIngredientVal(inputdata)
+   }
+   
+   const handleIngredientValAdd=()=>{
+    const qwe=[...ingredientVal,[]]
+    setIngredientVal(qwe)
+}
+const handleIngredientValDelete=(i)=>{
+  const deleteIngredientVal=[...ingredientVal]
+  deleteIngredientVal.splice(i,1)
+  setIngredientVal(deleteIngredientVal)  
+}
+
+  // handle procedure
+
+    const handleProcedureAdd=()=>{
+      const qwe=[...procedure,[]]
+      setProcedure(qwe)
+  }
+  const handleProcedureChange=(onChangeValue,u)=>{
+   const inputdata=[...procedure]
+   inputdata[u]=onChangeValue.target.value;
+   setProcedure(inputdata)
+  }
+  const handleProcedureDelete=(u)=>{
+      const deleteProcedure=[...procedure]
+      deleteProcedure.splice(u,1)
+      setProcedure(deleteProcedure)  
+  }
+
+
+
+
+
+  
   const navigate = useNavigate();
 
   const uploadImage = (e) => {
@@ -179,29 +223,46 @@ const CreatePin = ({ user }) => {
             value={about}
             onChange={(e) => setAbout(e.target.value)}
             placeholder="Recipe Description"
-            className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2"
-          /></div>
+            className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2"/>
+            </div>
 
-       <label>Ingredients</label>
-       <>
-    <button onClick={()=>handleIngredientAdd()}>Add</button>
-        {ingredient.map((data,i)=>{
-            return(
-               <div>
-                    <input value={data} onChange={e=>handleIngredientChange(e,i)} />
-                    <button onClick={()=>handleIngredientDelete(i)}>x</button>
+
+            <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-1/2">
+              <div>
+           <label className='mt-4, ml-6'>Ingredients</label>
+           {ingredient.map((data,i)=>{
+                  return(
+                 <div className='w-1/2'>
+                    <input className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2" 
+                    placeholder='Ingredient'
+                     value={data} 
+                     onChange={e=>handleIngredientChange(e,i)} />
+                      <button onClick={() => handleIngredientDelete(i)}> x </button>
+               </div> )})}
+               <button onClick = {() => handleIngredientAdd()}> <AiOutlinePlus /> </button>
+               <div className='w-1/2'>
+               <input className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2" 
+                    placeholder='Ingredient'/>
                </div>
-            )
-        })}
-    </>
+               </div> 
+               
+
+
+
+                </div>
           <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
-          <input
-            type="text"
-            value={procedure}
-            onChange={(e) => setProcedure(e.target.value)}
-            placeholder="Recipe procedures"
-            className="outline-none text-base sm:text-lg border-b-2 p-2"
-          /></div>
+             <label className='mt-4, ml-6'>Procedure</label>
+               
+                {procedure.map((data,u)=>{
+                  return(
+                 <div>
+                    <input className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2" placeholder='Procedure' value={data} onChange={e=>handleProcedureChange(e,u)} />
+                    <button onClick={()=>handleProcedureDelete(u)}>x</button>
+               </div>
+                )})}
+                <button 
+                onClick = {() => handleProcedureAdd() }> <AiOutlinePlus /> </button>
+            </div>
 
           <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
             <div>

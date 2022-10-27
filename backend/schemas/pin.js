@@ -16,7 +16,8 @@ export default {
     {
       name: 'procedure',
       title: 'Procedure',
-      type: 'string',
+      type: 'array',
+      of: [{type: 'string'}]
     },
     {
       name: 'category',
