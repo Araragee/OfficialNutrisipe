@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import Spinner from './Spinner';
-import { useParams, Link } from 'react-router-dom';
-import { client } from '../client';
-import { fetchUser } from '../utils/fetchUser';
+import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom';
 
+import { client } from '../client';
 import { userfollowing } from '../utils/data';
+import { fetchUser } from '../utils/fetchUser';
+import Spinner from './Spinner';
 
 const Following = () => {
     const [following, setFollowing] = useState([]);
