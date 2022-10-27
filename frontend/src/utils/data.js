@@ -62,6 +62,7 @@ export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
       _id,
       procedure[],
       ingredient[],
+      ingredientVal[],
       postedBy->{
         _id,
         userName,
@@ -88,8 +89,9 @@ export const pinDetailQuery = (pinId) => {
     title, 
     about,
     ingredient[],
-    category,
+    ingredientVal[],
     procedure[],
+    category,
     postedBy->{
       _id,
       userName,
@@ -125,6 +127,7 @@ export const pinDetailMorePinQuery = (pin) => {
     _id,
     procedure[],
     ingredient[],
+    ingredientVal[],
     postedBy->{
       _id,
       userName,
@@ -152,6 +155,7 @@ export const searchQuery = (searchTerm) => {
             _id,
             procedure[],
             ingredient[],
+            ingredientVal[],
             postedBy->{
               _id,
               userName,
@@ -184,9 +188,11 @@ export const userCreatedPinsQuery = (userId) => {
     _id,
     procedure[],
     ingredient[],
+    ingredientVal[],
     postedBy->{
       _id,
       userName,
+      
       image
     },
     save[]{
@@ -210,10 +216,10 @@ export const userSavedPinsQuery = (userId) => {
     _id,
     procedure[],
     ingredient[],
+    ingredientVal[],
     postedBy->{
       _id,
       userName,
-      ingredient[],
       image
     },
     save[]{

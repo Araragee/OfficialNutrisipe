@@ -128,5 +128,4 @@ const Pin = ({ pin }) => {
     </div>
   );
 };
-
 export default Pin;

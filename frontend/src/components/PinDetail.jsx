@@ -6,7 +6,7 @@ import { client, urlFor } from '../client';
 import MasonryLayout from './MasonryLayout';
 import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/data';
 import Spinner from './Spinner';
-import { savePin, pin,  } from './Pin';
+
 
 
 const PinDetail = ({ user }) => {
@@ -118,14 +118,19 @@ const PinDetail = ({ user }) => {
                   </div>
               ))}  
 
+            <p style={{marginBottom:'15px', marginTop: '10px'}}> Ingredients Value: </p>
+              {pinDetail.ingredientVal.map((item) => (
+                <div>
+                  <li>{item}</li>
+                  </div>
+              ))}     
+
               <p style={{marginBottom:'15px'}}> Procedure: </p>
               {pinDetail.procedure.map((item) => (
                 <div style={{width:'auto', height:'auto', marginLeft: '10px', position:'relative' }}>
                   <li>{item}</li>
                   </div>
               ))} 
-
-                
 
             </div>
 
