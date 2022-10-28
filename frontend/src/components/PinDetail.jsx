@@ -5,9 +5,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { client, urlFor } from '../client';
 import MasonryLayout from './MasonryLayout';
 import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/data';
-import ReactTooltip from 'react-tooltip';
 import Spinner from './Spinner';
-
+import { savePin, user, pin,  } from './Pin';
 
 
 const PinDetail = ({ user }) => {
@@ -16,15 +15,7 @@ const PinDetail = ({ user }) => {
   const [pinDetail, setPinDetail] = useState();
   const [comment, setComment] = useState('');
   const [addingComment, setAddingComment] = useState(false);
-  const [savingPost, setSavingPost] = useState(false);
   const [ingredient, setIngredient] = useState();
-
-
-  const User = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
- 
-  let alreadySaved = pinDetail?.save?.filter((item) => item?.postedBy?._id === User?.sub);
-
-  alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
 
   const fetchPinDetails = () => {
     const query = pinDetailQuery(pinId);
@@ -42,62 +33,9 @@ const PinDetail = ({ user }) => {
     }
   };
 
-<<<<<<< HEAD
  const deleteComment = async (key) => {
       client.patch(pinId)
       .unset([`comments[_key=="${key}"]`])
-=======
-  const deletePin = (id) => {
-    client
-      .delete(id)
-      .then(() => {
-        navigate('/');
-      });
-  };
-
-  const savePin = (id) => {
-    if (alreadySaved?.length === 0) {
-      setSavingPost(true);
-
-      client
-        .patch(id)
-        .setIfMissing({ save: [] })
-        .insert('after', 'save[-1]', [{
-          _key: uuidv4(),
-          userId: User?.sub,
-          postedBy: {
-            _type: 'postedBy',
-            _ref: User?.sub,
-          },
-        }])
-        .commit()
-        .then(() => {
-          setSavingPost(false);
-          window.location.reload();
-        });
-    }
-  };
-
-  //unsave a post
-  const Unsave = (id) => {
-    const ToRemove = [`save[userId=="${User.sub}"]`]
-    client
-      .patch(id)
-      .unset(ToRemove)
-      .commit()
-      .then(() => {
-        setSavingPost(false);
-        window.location.reload();
-      });
-      
-  };
-  
-  const deleteComment = (id) => {
-    const ToRemove = [`comments[comment=="${id}"]`]
-    client
-      .patch(pinId)
-      .unset(ToRemove)
->>>>>>> 22823b8fbae27a094ba57fc39adb3a345a533c4b
       .commit()
       .then(() => {
         fetchPinDetails();
@@ -105,12 +43,7 @@ const PinDetail = ({ user }) => {
         setAddingComment(false);
       });
       window.location.reload();
-<<<<<<< HEAD
   };
-=======
-  }
-
->>>>>>> 22823b8fbae27a094ba57fc39adb3a345a533c4b
 
   useEffect(() => {
     fetchPinDetails();
@@ -155,42 +88,7 @@ const PinDetail = ({ user }) => {
           </div>
 
           <div className="w-full p-5 flex-1 xl:min-w-620">
-          {alreadySaved?.length !== 0 ? (
-                <button 
-                  type="button" 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    Unsave(pinDetail._id);
-                    
-                  }}
-                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none">
-                    <AiFillHeart/>
-                </button>
-              ) : (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    savePin(pinDetail._id);
-                  }}
-                  type="button"
-                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none">
-                 <AiOutlineHeart/>
-                </button>
-              )}
-
-                {pinDetail.postedBy?._id === User.sub && (
-                 <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deletePin(pinDetail._id);
-                    navigate('/home');
-                  }}
-                  className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
-                >
-                  <AiTwotoneDelete />
-                </button>
-                  )}
+            
             <div>
               <div>
               <h1 className="text-4xl font-bold break-words mt-3">
@@ -204,7 +102,6 @@ const PinDetail = ({ user }) => {
               <p style={{marginBottom:'15px'}}> Ingredients: </p>
               {pinDetail.ingredient.map((item) => (
                 <div>
-<<<<<<< HEAD
                   <li>{item}</li>
                   </div>
               ))}  
@@ -218,63 +115,39 @@ const PinDetail = ({ user }) => {
 
                 
 
-=======
-                  <li key="{item}">{item}</li>
-                  </div>
-              ))}  
-
-            <p style={{marginBottom:'15px', marginTop: '10px'}}> Ingredients Value: </p>
-              {pinDetail.ingredientVal.map((item) => (
-                <div>
-                  <li  key="{item}">{item}</li>
-                  </div>
-              ))}     
-
-              <p style={{marginBottom:'15px'}}> Procedure: </p>
-              {pinDetail.procedure.map((item) => (
-                <div style={{width:'auto', height:'auto', marginLeft: '10px', position:'relative' }}>
-                  <li key="{item}">{item}</li>
-                  </div>
-              ))} 
-
->>>>>>> 22823b8fbae27a094ba57fc39adb3a345a533c4b
             </div>
+
+
             <Link to={`/user-profile/${pinDetail?.postedBy._id}`} className="flex gap-2 mt-5 items-center bg-white rounded-lg ">
               <img src={pinDetail?.postedBy.image} className="w-10 h-10 rounded-full" alt="user-profile" />
-              <p className="font-semibold capitalize">{pinDetail.postedBy?.userName}</p>
-        </Link>
-      <h2 className='mt-5 text-2xl'> Comments </h2>
-      <div className='max-h-370 overflow-y-auto'>
-        {pinDetail?.comments?.map((comment) => (
-          <div className="flex gap-2 mt-5 items-center bg-white rounded-lg" key={comment.comment}>
-            
-            <img
-              src={comment.postedBy?.image}
-              alt="user-profile"
-              className='pointer-events-none w-10 h-10 rounded-full cursor-pointer' 
-            />
-          
-            <div className='flex flex-col'>
-              <p className='font-bold'>{comment.postedBy?.userName}</p>
-              <p>{comment.comment}</p>
-            </div>
-            <div className='flex flex-col mt-4'>
-              {comment?.postedBy?._id === user._id ?(
-                <button 
+              <p className="font-bold">{pinDetail?.postedBy.userName}</p>
+            </Link>
+            <h2 className="mt-5 text-2xl">Comments</h2>
+            <div className="max-h-370 overflow-y-auto">
+              
+              {pinDetail?.comments?.map((item) => (
+                <div className="flex gap-2 mt-5 items-center bg-white rounded-lg" key={item.comment}>
+                  <img
+                    src={item.postedBy?.image}
+                    className="w-10 h-10 rounded-full cursor-pointer"
+                    alt="user-profile"
+                    /> 
+                  <div className="flex flex-col"> 
+                    <p className="font-bold">{item.postedBy?.userName} </p>
+                    <p>{item.comment} {item.postedBy?._id === user._id && (
+                    <button 
+                    type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    deleteComment(comment?.comment);
-                  }}
-                  className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
-                >
-                  <ReactTooltip />
-                  <p data-tip="Delete Comment"><AiTwotoneDelete /></p>
-                </button>
-              ):null}
+                    deleteComment(key);
+                  }}>
+                      <AiTwotoneDelete />
+                    </button>)}</p>
+                    
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
-        ))}
-      </div>
             <div className="flex flex-wrap mt-6 gap-3">
               <Link to={`/user-profile/${user._id}`}>
                 <img src={user.image} className="w-10 h-10 rounded-full cursor-pointer" alt="user-profile" />

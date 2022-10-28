@@ -17,23 +17,6 @@ export default {
        name: 'id',
        title: 'ID',
        type: 'string',
-    },
-    {
-      title: "Following",
-      name: "following",
-      type: "array",
-      of: [
-        {
-          type: "reference",
-          to: [{ type: "user" }],
-        },
-      ],
-      validation: (Rule) => Rule.unique(),
-    },
-    {
-      title: "Created At",
-      name: "created_at",
-      type: "datetime",
-    },
+    }
   ],
 };

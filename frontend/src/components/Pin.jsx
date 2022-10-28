@@ -5,8 +5,6 @@ import { AiTwotoneDelete} from 'react-icons/ai';
 import { client, urlFor } from '../client';
 
 
-
-
 const Pin = ({ pin }) => {
   const [postHovered, setPostHovered] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
@@ -130,4 +128,5 @@ const Pin = ({ pin }) => {
     </div>
   );
 };
+
 export default Pin;

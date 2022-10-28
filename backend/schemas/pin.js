@@ -60,10 +60,5 @@ export default {
       type: 'array',
       of: [{ type: 'comment' }],
     },
-    {
-      title: "Created At",
-      name: "created_at",
-      type: "datetime",
-    },
   ],
 };
