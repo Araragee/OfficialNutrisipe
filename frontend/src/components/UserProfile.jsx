@@ -1,8 +1,14 @@
 import { googleLogout } from '@react-oauth/google';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineLogout } from 'react-icons/ai';
+<<<<<<< HEAD
 import { useNavigate, useParams } from 'react-router-dom';
 
+=======
+import { useParams, useNavigate } from 'react-router-dom';
+import { googleLogout } from '@react-oauth/google';
+import { userCreatedPinsQuery, userQuery, userSavedPinsQuery } from '../utils/data';
+>>>>>>> 22823b8fbae27a094ba57fc39adb3a345a533c4b
 import { client } from '../client';
 import { userCreatedPinsQuery, userQuery, userSavedPinsQuery } from '../utils/data';
 import MasonryLayout from './MasonryLayout';
@@ -74,7 +80,7 @@ const UserProfile = () => {
             {user.userName}
           </h1>
           <div className="absolute top-0 z-1 right-0 p-2">
-          {userId === user._id && (
+          {userId === User.sub && (
                  <button  type="button"
                  className="bg-white p-2 rounded-full cursor-pointer outline-none shadow-md"
                  onClick={() => {
