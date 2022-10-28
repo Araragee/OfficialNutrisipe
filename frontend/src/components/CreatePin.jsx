@@ -1,3 +1,4 @@
+/* eslint-disable no-alert, no-console */
 import React, { useState } from 'react';
 import { AiOutlineCloudUpload, AiOutlinePlus } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
@@ -6,6 +7,7 @@ import { categories } from '../utils/data';
 import { client } from '../client';
 import Spinner from './Spinner';
 import { MDBInput } from 'mdb-react-ui-kit';
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -100,6 +102,7 @@ const handleIngredientValDelete=(i)=>{
     if (title && about && procedure && imageAsset?._id && ingredient && ingredientVal && category) {
       const doc = {
         _type: 'pin',
+        _key: uuidv4(),
         title,
         about,
         ingredient,
@@ -121,6 +124,7 @@ const handleIngredientValDelete=(i)=>{
       };
       client.create(doc).then(() => {
         navigate('/');
+        console.log(doc)
       });
     } else {
       setFields(true);

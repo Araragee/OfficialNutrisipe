@@ -234,35 +234,4 @@ export const userSavedPinsQuery = (userId) => {
 };
 
 
-
-export const userfollowers = (userId) => {
-  const query = `*[_type == 'user' && _id == '${userId}'] | order(_createdAt desc) {
-    save[]{
-      postedBy->{
-        _id,
-        userName,
-        image
-      },
-    },
-  }`;
-  return query;
-};
-
-
-export const userfollowing = `*[_type == "user"] | order(_createdAt desc) {
-  image,
-  _id,
-  _type,
-  userName,
-      save[]{
-        _key,
-        postedBy->{
-          _id,
-          userName,
-          image
-        },
-      },
-} `;
-
-
 export const image = `*[_type == "user"] | or` 

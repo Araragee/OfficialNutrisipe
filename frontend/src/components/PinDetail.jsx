@@ -16,9 +16,16 @@ const PinDetail = ({ user }) => {
   const [pinDetail, setPinDetail] = useState();
   const [comment, setComment] = useState('');
   const [addingComment, setAddingComment] = useState(false);
+  const [savingPost, setSavingPost] = useState(false);
   const [ingredient, setIngredient] = useState();
 
-  
+
+  const User = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
+ 
+  let alreadySaved = pinDetail?.save?.filter((item) => item?.postedBy?._id === User?.sub);
+
+  alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
+
   const fetchPinDetails = () => {
     const query = pinDetailQuery(pinId);
 
@@ -35,7 +42,51 @@ const PinDetail = ({ user }) => {
     }
   };
 
+  const deletePin = (id) => {
+    client
+      .delete(id)
+      .then(() => {
+        navigate('/');
+      });
+  };
 
+  const savePin = (id) => {
+    if (alreadySaved?.length === 0) {
+      setSavingPost(true);
+
+      client
+        .patch(id)
+        .setIfMissing({ save: [] })
+        .insert('after', 'save[-1]', [{
+          _key: uuidv4(),
+          userId: User?.sub,
+          postedBy: {
+            _type: 'postedBy',
+            _ref: User?.sub,
+          },
+        }])
+        .commit()
+        .then(() => {
+          setSavingPost(false);
+          window.location.reload();
+        });
+    }
+  };
+
+  //unsave a post
+  const Unsave = (id) => {
+    const ToRemove = [`save[userId=="${User.sub}"]`]
+    client
+      .patch(id)
+      .unset(ToRemove)
+      .commit()
+      .then(() => {
+        setSavingPost(false);
+        window.location.reload();
+      });
+      
+  };
+  
   const deleteComment = (id) => {
     const ToRemove = [`comments[comment=="${id}"]`]
     client
@@ -94,7 +145,42 @@ const PinDetail = ({ user }) => {
           </div>
 
           <div className="w-full p-5 flex-1 xl:min-w-620">
-            
+          {alreadySaved?.length !== 0 ? (
+                <button 
+                  type="button" 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    Unsave(pinDetail._id);
+                    
+                  }}
+                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none">
+                    <AiFillHeart/>
+                </button>
+              ) : (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    savePin(pinDetail._id);
+                  }}
+                  type="button"
+                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none">
+                 <AiOutlineHeart/>
+                </button>
+              )}
+
+                {pinDetail.postedBy?._id === User.sub && (
+                 <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deletePin(pinDetail._id);
+                    navigate('/home');
+                  }}
+                  className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
+                >
+                  <AiTwotoneDelete />
+                </button>
+                  )}
             <div>
               <div>
               <h1 className="text-4xl font-bold break-words mt-3">
@@ -108,21 +194,21 @@ const PinDetail = ({ user }) => {
               <p style={{marginBottom:'15px'}}> Ingredients: </p>
               {pinDetail.ingredient.map((item) => (
                 <div>
-                  <li>{item}</li>
+                  <li key="{item}">{item}</li>
                   </div>
               ))}  
 
             <p style={{marginBottom:'15px', marginTop: '10px'}}> Ingredients Value: </p>
               {pinDetail.ingredientVal.map((item) => (
                 <div>
-                  <li>{item}</li>
+                  <li  key="{item}">{item}</li>
                   </div>
               ))}     
 
               <p style={{marginBottom:'15px'}}> Procedure: </p>
               {pinDetail.procedure.map((item) => (
                 <div style={{width:'auto', height:'auto', marginLeft: '10px', position:'relative' }}>
-                  <li>{item}</li>
+                  <li key="{item}">{item}</li>
                   </div>
               ))} 
 
