@@ -50,16 +50,6 @@ const PinDetail = ({ user }) => {
       window.location.reload();
   }
 
-  const Unsave = (id) => {
-    const ToRemove = [`save[userId=="${user.sub}"]`]
-    client
-      .patch(id)
-      .unset(ToRemove)
-      .commit()
-        .then(() => {
-          window.location.reload();
-    });
-  };
 
   useEffect(() => {
     fetchPinDetails();
@@ -137,8 +127,6 @@ const PinDetail = ({ user }) => {
               ))} 
 
             </div>
-
-
             <Link to={`/user-profile/${pinDetail?.postedBy._id}`} className="flex gap-2 mt-5 items-center bg-white rounded-lg ">
               <img src={pinDetail?.postedBy.image} className="w-10 h-10 rounded-full" alt="user-profile" />
               <p className="font-semibold capitalize">{pinDetail.postedBy?.userName}</p>

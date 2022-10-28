@@ -235,7 +235,6 @@ export const userSavedPinsQuery = (userId) => {
 
 
 
-/*
 export const userfollowers = (userId) => {
   const query = `*[_type == 'user' && _id == '${userId}'] | order(_createdAt desc) {
     save[]{
@@ -266,4 +265,4 @@ export const userfollowing = `*[_type == "user"] | order(_createdAt desc) {
 } `;
 
 
-export const image = `*[_type == "user"] | or` */
+export const image = `*[_type == "user"] | or` 
