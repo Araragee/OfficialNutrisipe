@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { client, urlFor } from '../client';
 import MasonryLayout from './MasonryLayout';
 import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/data';
+import ReactTooltip from 'react-tooltip';
 import Spinner from './Spinner';
 
 
@@ -34,9 +35,12 @@ const PinDetail = ({ user }) => {
     }
   };
 
- const deleteComment = async (key) => {
-      client.patch(pinDetail)
-      .unset([`comments[_key=="${key}"]`])
+
+  const deleteComment = (id) => {
+    const ToRemove = [`comments[comment=="${id}"]`]
+    client
+      .patch(pinId)
+      .unset(ToRemove)
       .commit()
       .then(() => {
         fetchPinDetails();
@@ -44,7 +48,7 @@ const PinDetail = ({ user }) => {
         setAddingComment(false);
       });
       window.location.reload();
-  };
+  }
 
   const Unsave = (id) => {
     const ToRemove = [`save[userId=="${user.sub}"]`]
@@ -137,33 +141,40 @@ const PinDetail = ({ user }) => {
 
             <Link to={`/user-profile/${pinDetail?.postedBy._id}`} className="flex gap-2 mt-5 items-center bg-white rounded-lg ">
               <img src={pinDetail?.postedBy.image} className="w-10 h-10 rounded-full" alt="user-profile" />
-              <p className="font-bold">{pinDetail?.postedBy.userName}</p>
-            </Link>
-            <h2 className="mt-5 text-2xl">Comments</h2>
-            <div className="max-h-370 overflow-y-auto">
-              
-              {pinDetail?.comments?.map((item) => (
-                <div className="flex gap-2 mt-5 items-center bg-white rounded-lg" key={item.comment}>
-                  <img
-                    src={item.postedBy?.image}
-                    className="w-10 h-10 rounded-full cursor-pointer"
-                    alt="user-profile"
-                    /> 
-                  <div className="flex flex-col"> 
-                    <p className="font-bold">{item.postedBy?.userName} </p>
-                    <p>{item.comment} {item.postedBy?._id === user._id && (
-                    <button 
-                    type="button"
+              <p className="font-semibold capitalize">{pinDetail.postedBy?.userName}</p>
+        </Link>
+      <h2 className='mt-5 text-2xl'> Comments </h2>
+      <div className='max-h-370 overflow-y-auto'>
+        {pinDetail?.comments?.map((comment) => (
+          <div className="flex gap-2 mt-5 items-center bg-white rounded-lg" key={comment.comment}>
+            
+            <img
+              src={comment.postedBy?.image}
+              alt="user-profile"
+              className='pointer-events-none w-10 h-10 rounded-full cursor-pointer' 
+            />
+          
+            <div className='flex flex-col'>
+              <p className='font-bold'>{comment.postedBy?.userName}</p>
+              <p>{comment.comment}</p>
+            </div>
+            <div className='flex flex-col mt-4'>
+              {comment?.postedBy?._id === user._id ?(
+                <button 
                   onClick={(e) => {
                     e.stopPropagation();
-                  }}>
-                      <AiTwotoneDelete />
-                    </button>)}</p>
-                    
-                  </div>
-                </div>
-              ))}
+                    deleteComment(comment?.comment);
+                  }}
+                  className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
+                >
+                  <ReactTooltip />
+                  <p data-tip="Delete Comment"><AiTwotoneDelete /></p>
+                </button>
+              ):null}
             </div>
+          </div>
+        ))}
+      </div>
             <div className="flex flex-wrap mt-6 gap-3">
               <Link to={`/user-profile/${user._id}`}>
                 <img src={user.image} className="w-10 h-10 rounded-full cursor-pointer" alt="user-profile" />
