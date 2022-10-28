@@ -116,6 +116,7 @@ export const pinDetailMorePinQuery = (pin) => {
     },
     _id,
     procedure,
+    ingredient[],
     postedBy->{
       _id,
       userName,
@@ -142,10 +143,10 @@ export const searchQuery = (searchTerm) => {
         },
             _id,
             procedure,
+            ingredient[],
             postedBy->{
               _id,
               userName,
-              ingredient[],
               image
             },
             save[]{
@@ -200,6 +201,7 @@ export const userSavedPinsQuery = (userId) => {
     },
     _id,
     procedure,
+    ingredient[]
     postedBy->{
       _id,
       userName,
@@ -217,6 +219,9 @@ export const userSavedPinsQuery = (userId) => {
   return query;
 };
 
+
+
+/*
 export const userfollowers = (userId) => {
   const query = `*[_type == 'user' && _id == '${userId}'] | order(_createdAt desc) {
     save[]{
@@ -247,4 +252,4 @@ export const userfollowing = `*[_type == "user"] | order(_createdAt desc) {
 } `;
 
 
-export const image = `*[_type == "user"] | or`
+export const image = `*[_type == "user"] | or` */

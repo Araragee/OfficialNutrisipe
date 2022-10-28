@@ -1,10 +1,10 @@
+import { googleLogout } from '@react-oauth/google';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineLogout } from 'react-icons/ai';
-import { useParams, useNavigate } from 'react-router-dom';
-import { googleLogout } from '@react-oauth/google';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { userCreatedPinsQuery, userQuery, userSavedPinsQuery } from '../utils/data';
 import { client } from '../client';
+import { userCreatedPinsQuery, userQuery, userSavedPinsQuery } from '../utils/data';
 import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
 

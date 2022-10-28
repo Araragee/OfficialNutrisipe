@@ -23,7 +23,6 @@ const PinDetail = ({ user }) => {
     if (query) {
       client.fetch(`${query}`).then((data) => {
         setPinDetail(data[0]);
-        console.log(data);
         if (data[0]) {
           const query1 = pinDetailMorePinQuery(data[0]);
           client.fetch(query1).then((res) => {
@@ -34,8 +33,7 @@ const PinDetail = ({ user }) => {
     }
   };
 
-  const deleteComment = async (key) => {
-    try {
+ const deleteComment = async (key) => {
       client.patch(pinId)
       .unset([`comments[_key=="${key}"]`])
       .commit()
@@ -45,9 +43,6 @@ const PinDetail = ({ user }) => {
         setAddingComment(false);
       });
       window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   useEffect(() => {
@@ -60,7 +55,7 @@ const PinDetail = ({ user }) => {
 
       client
         .patch(pinId)
-        .setIfMissing({ comment: [] })
+        .setIfMissing({ comments: [] })
         .insert('after', 'comments[-1]', [{ comment, _key: uuidv4(), postedBy: { _type: 'postedBy', _ref: user._id } }])
         .commit()
         .then(() => {
@@ -104,16 +99,21 @@ const PinDetail = ({ user }) => {
                 {pinDetail.about}
               </p>
 
-              <p className="mt-3 py-4" >
-                {pinDetail.procedure}
-              </p>
-
-                <p style={{marginBottom:'15px'}}> Ingredients: </p>
+              <p style={{marginBottom:'15px'}}> Ingredients: </p>
               {pinDetail.ingredient.map((item) => (
-                <div style={{width:'auto', height:'auto', marginLeft: '10px', position:'relative' }}>
+                <div>
                   <li>{item}</li>
                   </div>
               ))}  
+
+              <p style={{marginBottom:'15px'}}> Procedure: </p>
+              {pinDetail.procedure.map((item) => (
+                <div style={{width:'auto', height:'auto', marginLeft: '10px', position:'relative' }}>
+                  <li>{item}</li>
+                  </div>
+              ))} 
+
+                
 
             </div>
 
