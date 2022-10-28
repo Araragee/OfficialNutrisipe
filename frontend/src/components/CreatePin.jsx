@@ -1,11 +1,15 @@
+/* eslint-disable no-alert, no-console */
 import React, { useState } from 'react';
 import { AiOutlineCloudUpload, AiOutlinePlus } from 'react-icons/ai';
-import { MdDelete } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
-
-import { client } from '../client';
+import { MdDelete } from 'react-icons/md';
 import { categories } from '../utils/data';
+import { client } from '../client';
 import Spinner from './Spinner';
+import { MDBInput } from 'mdb-react-ui-kit';
+import { v4 as uuidv4 } from 'uuid';
+
+
 
 const CreatePin = ({ user }) => {
   const [title, setTitle] = useState('');
@@ -71,11 +75,6 @@ const handleIngredientValDelete=(i)=>{
       setProcedure(deleteProcedure)  
   }
 
-
-
-
-
-  
   const navigate = useNavigate();
 
   const uploadImage = (e) => {
@@ -100,12 +99,14 @@ const handleIngredientValDelete=(i)=>{
   };
 
   const savePin = () => {
-    if (title && about && procedure && imageAsset?._id && ingredient && category) {
+    if (title && about && procedure && imageAsset?._id && ingredient && ingredientVal && category) {
       const doc = {
         _type: 'pin',
+        _key: uuidv4(),
         title,
         about,
         ingredient,
+        ingredientVal,
         procedure,
         image: {
           _type: 'image',
@@ -123,6 +124,7 @@ const handleIngredientValDelete=(i)=>{
       };
       client.create(doc).then(() => {
         navigate('/');
+        console.log(doc)
       });
     } else {
       setFields(true);
@@ -140,13 +142,11 @@ const handleIngredientValDelete=(i)=>{
   return (
     <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
       {fields && (
-        <p className="mb-5 text-xl transition-all duration-150 ease-in " style={{ color:"#008083"}}>
-          Please add all fields.
-          </p>
+        <p className="text-red-500 mb-5 text-xl transition-all duration-150 ease-in ">Please add all fields.</p>
       )}
       <div className=" flex lg:flex-row flex-col justify-center items-center bg-white lg:p-5 p-3 lg:w-4/5  w-full">
         <div className="bg-secondaryColor p-3 flex flex-0.7 w-full">
-          <div className=" flex justify-center items-center flex-col border-2 border-dotted border-blue-400 p-3 w-full h-420">
+          <div className=" flex justify-center items-center flex-col border-2 border-dotted border-gray-300 p-3 w-full h-420">
             {loading && (
               <Spinner />
             )}
@@ -163,10 +163,10 @@ const handleIngredientValDelete=(i)=>{
                     <p className="font-bold text-2xl">
                       <AiOutlineCloudUpload />
                     </p>
-                    <p className="text-lg font-semibold">Click to upload</p>
+                    <p className="text-lg">Click to upload</p>
                   </div>
 
-                  <p className="mt-3 text-gray-400 text-xs">
+                  <p className="mt-32 text-gray-400">
                     Recommendation: Use high-quality JPG, JPEG, SVG, PNG, GIF or TIFF less than 20MB
                   </p>
                 </div>
@@ -225,73 +225,49 @@ const handleIngredientValDelete=(i)=>{
             placeholder="Recipe Description"
             className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2"/>
             </div>
-            
-        <div className="h-56 grid grid-cols-3 gap-4 content-evenly lg:pl-5 mt-5 w-1/2" class="float-root  flex items-stretch" >
-        <div class='float-left py-4'>
-            <label className='mt-2, ml-4 font-semibold'>Ingredients</label>
-            {ingredient.map((data,i)=>{
-                return(
-              <div class="flex flex-nowrap">
-                 
-                 <input type="text" id="small-input" class="mx-2 mt-2 block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder='Ingredient'
-                  value={data} 
-                  onChange={e=>handleIngredientChange(e,i)} />
-                    
-            </div> )})}
-            </div> 
-            
-            <div class='float-middle py-4'>
-                <label className='mt-2, ml-4 font-semibold' >Grams</label>
-            {ingredient.map((data,i)=>{
-                return(
-              <div class="flex flex-nowrap">
+
+
+                              <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-1/2" class="float-root">
+                  <div class='float-left'>
+                  <label className='mt-4, ml-6'>Ingredients</label>
+                  {ingredient.map((data,i)=>{
+                      return(
+                    <div >
+                        <input className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2" 
+                        placeholder='Ingredient'
+                        value={data} 
+                        onChange={e=>handleIngredientChange(e,i)} />
+
+                  </div> )})}
+                  </div> 
                   
-                  <input type="text" id="small-input" class="mx-2 mt-2 block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder='Grams'
-                  value={data} 
-                  onChange={e=>handleIngredientChange(e,i)} />
-                  <button onClick={() => handleIngredientDelete(i)} class="py-1 px-1 mx-1 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-lg border border-blue-300"
-                  style={{width: "50px", color:"#008083", height:"35px"}}>
-                    x
-                    </button>
-            </div> )})}
-            </div>
-            
-            
-              </div>
-              <button class="py-1 px-3 mx-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-              style={{width: "100px", color:"#008083", height:"30px"}}
-              onClick = {() => handleIngredientAdd()}
-              >
-                 ADD
-              </button>
-            
-          <div className="flex flex-1 flex-col gap-2 lg:pl-5 mt-2 w-full py-4">
-             <label>Procedure</label>
-               
-                {procedure.map((data,u)=>{
-                  return(
-                 <div class="flow-root">
-                    <textarea id="message" rows="4" class="float-left block p-1 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 " 
-                    placeholder="Procedure"         
-                    value={data} 
-                    onChange={e=>handleProcedureChange(e,u)}></textarea>
-                    
-                    <button onClick={()=>handleProcedureDelete(u)}class="float-right py-1 px-1 mx-1 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-lg border border-blue-300"
-                  style={{width: "40px", color:"#008083", height:"35px"}}>
-                    x
-                    </button>
-               </div>
-                )})}
-                
-            </div>
-            <button  class="py-1 px-3 mx-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-              style={{width: "100px", color:"#008083", height:"30px"}}
-              onClick = {() => handleProcedureAdd() }
-              >
-                 ADD
-              </button>
+                  <div class='float-middle'>
+                      <label className='mt-4, ml-6' >Grams</label>
+                  {ingredientVal.map((data,i)=>{
+                      return(
+                    <div >
+                        <input className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2" 
+                        placeholder='Grams'
+                        value={data} 
+                        onChange={e=>handleIngredientValChange(e,i)} />
+                        <button onClick={() => {handleIngredientValDelete(i); handleIngredientDelete(i)}}>x</button>
+                  </div> )})}
+                  </div>
+                     <button onClick = {() => {handleIngredientAdd(); handleIngredientValAdd()}}> <AiOutlinePlus /></button>
+                   </div>
+
+                   <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
+                   <label className='mt-4, ml-6'>Procedure</label>
+                      {procedure.map((data,u)=>{
+                    return(
+                            <div>
+                      <input className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2" placeholder='Procedure' value={data} onChange={e=>handleProcedureChange(e,u)} />
+                      <button onClick={()=>handleProcedureDelete(u)}>x</button>
+                           </div>
+                            )})}
+                      <button 
+                      onClick = {() => handleProcedureAdd() }> <AiOutlinePlus /> </button>
+                      </div>
 
           <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
             <div>
@@ -304,7 +280,7 @@ const handleIngredientValDelete=(i)=>{
               >
                 <option value="others" className="sm:text-bg bg-white">Select Category</option>
                 {categories.map((item) => (
-                  <option className="text-base border-0 outline-none capitalize bg-gray-100 text-black " value={item.name}>
+                  <option className="text-base border-0 outline-none capitalize bg-white text-black " value={item.name}>
                     {item.name}
                   </option>
                 ))}

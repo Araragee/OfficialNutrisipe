@@ -1,7 +1,7 @@
 import React from 'react';
-import { IconContext } from "react-icons";
-import { IoMdAdd, IoMdSearch } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
+import { IoMdAdd, IoMdSearch } from 'react-icons/io';
+import { IconContext } from "react-icons";
 
 const Navbar = ({ searchTerm, setSearchTerm, user }) => {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ const Navbar = ({ searchTerm, setSearchTerm, user }) => {
     return (
       <div className="flex gap-2 md:gap-5 w-full mt-5 pb-7">
         <div className="flex justify-start items-center w-full px-2 rounded-md bg-white border-none outline-none focus-within:shadow-sm">
-          <IconContext.Provider value={{ color: "#42C9BD", className: "global-class-name" }}>
+          <IconContext.Provider value={{ color: "#008083", className: "global-class-name" }}>
             <div>
               <IoMdSearch />
             </div>

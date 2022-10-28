@@ -1,43 +1,51 @@
 //how to fet queries 
 //categories
 
-import dairy from '../assets/categories/dairy.jpg';
-import fats from '../assets/categories/Fats.jpg';
-import fish from '../assets/categories/fish.jpg';
-import fruits from '../assets/categories/Fruits.jpg';
-import meat from '../assets/categories/meat.jpg';
-import protein from '../assets/categories/Protein.jpg';
-import veg from '../assets/categories/veg.jpg';
-
 export const categories = [
   {
-    name: 'Vegetables',
-    image: veg,
-     
+    name: 'hotdogs',
+    image: 'https://i.pinimg.com/750x/eb/47/44/eb4744eaa3b3ccd89749fa3470e2b0de.jpg',
   },
   {
-    name: 'Dairy Foods',
-    image: dairy,
+    name: 'fitness',
+    image: 'https://i.pinimg.com/236x/25/14/29/251429345940a47490cc3d47dfe0a8eb.jpg',
   },
   {
-    name: 'Fats',
-    image: fats,
+    name: 'wallpaper',
+    image: 'https://i.pinimg.com/236x/03/48/b6/0348b65919fcbe1e4f559dc4feb0ee13.jpg',
   },
   {
-    name: 'Protein',
-    image: protein,
+    name: 'websites',
+    image: 'https://i.pinimg.com/750x/66/b1/29/66b1296d36598122e6a4c5452b5a7149.jpg',
   },
   {
-    name: 'Fruits',
-    image: fruits,
+    name: 'photo',
+    image: 'https://i.pinimg.com/236x/72/8c/b4/728cb43f48ca762a75da645c121e5c57.jpg',
   },
   {
-    name: 'Fish and Seafoods',
-    image: fish,
+    name: 'food',
+    image: 'https://i.pinimg.com/236x/7d/ef/15/7def15ac734837346dac01fad598fc87.jpg',
   },
   {
-    name: 'Meat and Poultry',
-    image: meat,
+    name: 'nature',
+    image: 'https://i.pinimg.com/236x/b9/82/d4/b982d49a1edd984c4faef745fd1f8479.jpg',
+  },
+  {
+    name: 'art',
+    image: 'https://i.pinimg.com/736x/f4/e5/ba/f4e5ba22311039662dd253be33bf5f0e.jpg',
+  }, {
+    name: 'travel',
+    image: 'https://i.pinimg.com/236x/fa/95/98/fa95986f2c408098531ca7cc78aee3a4.jpg',
+  },
+  {
+    name: 'quotes',
+    image: 'https://i.pinimg.com/236x/46/7c/17/467c17277badb00b638f8ec4da89a358.jpg',
+  }, {
+    name: 'cats',
+    image: 'https://i.pinimg.com/236x/6c/3c/52/6c3c529e8dadc7cffc4fddedd4caabe1.jpg',
+  }, {
+    name: 'dogs',
+    image: 'https://i.pinimg.com/236x/1b/c8/30/1bc83077e363db1a394bf6a64b071e9f.jpg',
   },
   {
     name: 'others',
@@ -52,8 +60,9 @@ export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
     }
   },
       _id,
-      procedure,
+      procedure[],
       ingredient[],
+      ingredientVal[],
       postedBy->{
         _id,
         userName,
@@ -80,8 +89,9 @@ export const pinDetailQuery = (pinId) => {
     title, 
     about,
     ingredient[],
+    ingredientVal[],
+    procedure[],
     category,
-    procedure,
     postedBy->{
       _id,
       userName,
@@ -115,8 +125,9 @@ export const pinDetailMorePinQuery = (pin) => {
       }
     },
     _id,
-    procedure,
+    procedure[],
     ingredient[],
+    ingredientVal[],
     postedBy->{
       _id,
       userName,
@@ -142,8 +153,9 @@ export const searchQuery = (searchTerm) => {
           }
         },
             _id,
-            procedure,
+            procedure[],
             ingredient[],
+            ingredientVal[],
             postedBy->{
               _id,
               userName,
@@ -174,11 +186,13 @@ export const userCreatedPinsQuery = (userId) => {
       }
     },
     _id,
-    procedure,
+    procedure[],
     ingredient[],
+    ingredientVal[],
     postedBy->{
       _id,
       userName,
+      
       image
     },
     save[]{
@@ -200,12 +214,12 @@ export const userSavedPinsQuery = (userId) => {
       }
     },
     _id,
-    procedure,
-    ingredient[]
+    procedure[],
+    ingredient[],
+    ingredientVal[],
     postedBy->{
       _id,
       userName,
-      ingredient[],
       image
     },
     save[]{
@@ -220,36 +234,4 @@ export const userSavedPinsQuery = (userId) => {
 };
 
 
-
-/*
-export const userfollowers = (userId) => {
-  const query = `*[_type == 'user' && _id == '${userId}'] | order(_createdAt desc) {
-    save[]{
-      postedBy->{
-        _id,
-        userName,
-        image
-      },
-    },
-  }`;
-  return query;
-};
-
-
-export const userfollowing = `*[_type == "user"] | order(_createdAt desc) {
-  image,
-  _id,
-  _type,
-  userName,
-      save[]{
-        _key,
-        postedBy->{
-          _id,
-          userName,
-          image
-        },
-      },
-} `;
-
-
-export const image = `*[_type == "user"] | or` */
+export const image = `*[_type == "user"] | or` 
