@@ -18,6 +18,7 @@ const PinDetail = ({ user }) => {
   const [addingComment, setAddingComment] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
   const [ingredient, setIngredient] = useState();
+  const navigate = useNavigate();
 
 
   const User = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
@@ -98,7 +99,7 @@ const PinDetail = ({ user }) => {
         setComment("");
         setAddingComment(false);
       });
-      window.location.reload();
+      // window.location.reload();
   }
 
 
@@ -176,8 +177,7 @@ const PinDetail = ({ user }) => {
                     deletePin(pinDetail._id);
                     navigate('/home');
                   }}
-                  className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
-                >
+                  className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none">
                   <AiTwotoneDelete />
                 </button>
                   )}
