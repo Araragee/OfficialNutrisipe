@@ -52,8 +52,9 @@ export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
     }
   },
       _id,
-      procedure,
+      procedure[],
       ingredient[],
+      ingredientVal[],
       postedBy->{
         _id,
         userName,
@@ -80,8 +81,9 @@ export const pinDetailQuery = (pinId) => {
     title, 
     about,
     ingredient[],
+    ingredientVal[],
+    procedure[],
     category,
-    procedure,
     postedBy->{
       _id,
       userName,
@@ -115,8 +117,14 @@ export const pinDetailMorePinQuery = (pin) => {
       }
     },
     _id,
+<<<<<<< HEAD
     procedure,
     ingredient[],
+=======
+    procedure[],
+    ingredient[],
+    ingredientVal[],
+>>>>>>> 22823b8fbae27a094ba57fc39adb3a345a533c4b
     postedBy->{
       _id,
       userName,
@@ -142,8 +150,14 @@ export const searchQuery = (searchTerm) => {
           }
         },
             _id,
+<<<<<<< HEAD
             procedure,
             ingredient[],
+=======
+            procedure[],
+            ingredient[],
+            ingredientVal[],
+>>>>>>> 22823b8fbae27a094ba57fc39adb3a345a533c4b
             postedBy->{
               _id,
               userName,
@@ -174,11 +188,13 @@ export const userCreatedPinsQuery = (userId) => {
       }
     },
     _id,
-    procedure,
+    procedure[],
     ingredient[],
+    ingredientVal[],
     postedBy->{
       _id,
       userName,
+      
       image
     },
     save[]{
@@ -200,12 +216,17 @@ export const userSavedPinsQuery = (userId) => {
       }
     },
     _id,
+<<<<<<< HEAD
     procedure,
     ingredient[]
+=======
+    procedure[],
+    ingredient[],
+    ingredientVal[],
+>>>>>>> 22823b8fbae27a094ba57fc39adb3a345a533c4b
     postedBy->{
       _id,
       userName,
-      ingredient[],
       image
     },
     save[]{
@@ -219,6 +240,7 @@ export const userSavedPinsQuery = (userId) => {
   return query;
 };
 
+<<<<<<< HEAD
 
 
 /*
@@ -253,3 +275,7 @@ export const userfollowing = `*[_type == "user"] | order(_createdAt desc) {
 
 
 export const image = `*[_type == "user"] | or` */
+=======
+
+export const image = `*[_type == "user"] | or` 
+>>>>>>> 22823b8fbae27a094ba57fc39adb3a345a533c4b
