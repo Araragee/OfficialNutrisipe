@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { googleLogout } from '@react-oauth/google';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineLogout } from 'react-icons/ai';
@@ -10,8 +11,6 @@ import Spinner from './Spinner';
 
 const activeBtnStyles = 'bg-green-300 text-white font-bold p-2 rounded-full w-20 outline-none';
 const notActiveBtnStyles = 'bg-primary mr-4 text-black font-bold p-2 rounded-full w-20 outline-none';
-
-
 
 const UserProfile = () => {
   const [user, setUser] = useState();
@@ -46,12 +45,6 @@ const UserProfile = () => {
     }
   }, [text, userId]);
 
-  const logout = () => {
-    localStorage.clear();
-
-    navigate('/login');
-  };
-
   if (!user) return <Spinner message="Loading profile" />;
 
   return (
@@ -74,20 +67,22 @@ const UserProfile = () => {
             {user.userName}
           </h1>
           <div className="absolute top-0 z-1 right-0 p-2">
-          {userId === User.sub && (
-                 <button  type="button"
-                 className="bg-white p-2 rounded-full cursor-pointer outline-none shadow-md"
-                 onClick={() => {
-                   googleLogout();
-                   localStorage.clear();
-                   navigate('/login')
-                 }}>
-           <AiOutlineLogout color='green' fontSize={21} />
-         </button>
-              )}
+            {userId === User.sub && (
+            <button
+              type="button"
+              className="bg-white p-2 rounded-full cursor-pointer outline-none shadow-md"
+              onClick={() => {
+                googleLogout();
+                localStorage.clear();
+                navigate('/login');
+              }}
+            >
+              <AiOutlineLogout color="green" fontSize={21} />
+            </button>
+            )}
           </div>
         </div>
-        <div className="text-center mb-7" >
+        <div className="text-center mb-7">
           <button
             type="button"
             onClick={(e) => {
@@ -115,7 +110,7 @@ const UserProfile = () => {
         </div>
 
         {pins?.length === 0 && (
-        <div className="flex justify-center font-bold items-center w-full text-1xl mt-2" style={{color: "#008083"}}>
+        <div className="flex justify-center font-bold items-center w-full text-1xl mt-2" style={{ color: '#008083' }}>
           No Pins Found!
         </div>
         )}

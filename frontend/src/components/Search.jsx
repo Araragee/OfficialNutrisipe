@@ -16,8 +16,7 @@ const Search = ({ searchTerm }) => {
         setPins(data);
         setLoading(false);
       });
-    } 
-    else {
+    } else {
       client.fetch(feedQuery).then((data) => {
         setPins(data);
         setLoading(false);
@@ -27,7 +26,6 @@ const Search = ({ searchTerm }) => {
 
   return (
     <div>
-
       {loading && <Spinner message="Searching pins" />}
       {pins?.length !== 0 && <MasonryLayout pins={pins} />}
       {pins?.length === 0 && searchTerm !== '' && !loading && (

@@ -44,6 +44,12 @@ export default {
       of: [{type: 'string'}]
     },
     {
+      name: 'ingredientVal',
+      title: 'Ingredient Value',
+      type: 'array',
+      of: [{type: 'string'}]
+    },
+    {
       name: 'postedBy',
       title: 'PostedBy',
       type: 'postedBy',

@@ -1,14 +1,15 @@
+/* eslint-disable no-shadow */
+/* eslint-disable react/button-has-type */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { AiTwotoneDelete, AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import ReactTooltip from 'react-tooltip';
 import { client, urlFor } from '../client';
 import MasonryLayout from './MasonryLayout';
 import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/data';
-import ReactTooltip from 'react-tooltip';
 import Spinner from './Spinner';
-
-
 
 const PinDetail = ({ user }) => {
   const { pinId } = useParams();
@@ -20,9 +21,8 @@ const PinDetail = ({ user }) => {
   const [ingredient, setIngredient] = useState();
   const navigate = useNavigate();
 
-
   const User = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
- 
+
   let alreadySaved = pinDetail?.save?.filter((item) => item?.postedBy?._id === User?.sub);
 
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
@@ -74,9 +74,9 @@ const PinDetail = ({ user }) => {
     }
   };
 
-  //unsave a post
+  // unsave a post
   const Unsave = (id) => {
-    const ToRemove = [`save[userId=="${User.sub}"]`]
+    const ToRemove = [`save[userId=="${User.sub}"]`];
     client
       .patch(id)
       .unset(ToRemove)
@@ -85,23 +85,21 @@ const PinDetail = ({ user }) => {
         setSavingPost(false);
         window.location.reload();
       });
-      
   };
-  
+
   const deleteComment = (id) => {
-    const ToRemove = [`comments[comment=="${id}"]`]
+    const ToRemove = [`comments[comment=="${id}"]`];
     client
       .patch(pinId)
       .unset(ToRemove)
       .commit()
       .then(() => {
         fetchPinDetails();
-        setComment("");
+        setComment('');
         setAddingComment(false);
       });
-      // window.location.reload();
-  }
-
+    // window.location.reload();
+  };
 
   useEffect(() => {
     fetchPinDetails();
@@ -124,131 +122,131 @@ const PinDetail = ({ user }) => {
     }
   };
 
-
   if (!pinDetail) {
     return (
       <Spinner message="Loading Recipe" />
     );
   }
-  
 
   return (
     <>
       {pinDetail && (
-        <div className="flex xl:flex-row flex-col m-auto bg-white" style={{ maxWidth: '1500px', borderRadius: '32px'}}>
+        <div className="flex xl:flex-row flex-col m-auto bg-white" style={{ maxWidth: '1500px', borderRadius: '32px' }}>
           <div className="flex justify-center items-center md:items-start flex-initial">
             <img
               className="rounded-t-3xl rounded-b-lg px-10 py-10"
               src={(pinDetail?.image && urlFor(pinDetail?.image).url())}
               alt="user-post"
             />
-            
+
           </div>
 
           <div className="w-full p-5 flex-1 xl:min-w-620">
-          {alreadySaved?.length !== 0 ? (
-                <button 
-                  type="button" 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    Unsave(pinDetail._id);
-                    
-                  }}
-                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none">
-                    <AiFillHeart/>
-                </button>
-              ) : (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    savePin(pinDetail._id);
-                  }}
-                  type="button"
-                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none">
-                 <AiOutlineHeart/>
-                </button>
-              )}
+            {alreadySaved?.length !== 0 ? (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  Unsave(pinDetail._id);
+                }}
+                className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+              >
+                <AiFillHeart />
+              </button>
+            ) : (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  savePin(pinDetail._id);
+                }}
+                type="button"
+                className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+              >
+                <AiOutlineHeart />
+              </button>
+            )}
 
-                {pinDetail.postedBy?._id === User.sub && (
-                 <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deletePin(pinDetail._id);
-                    navigate('/home');
-                  }}
-                  className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none">
-                  <AiTwotoneDelete />
-                </button>
-                  )}
+            {pinDetail.postedBy?._id === User.sub && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                deletePin(pinDetail._id);
+                navigate('/home');
+              }}
+              className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
+            >
+              <AiTwotoneDelete />
+            </button>
+            )}
             <div>
               <div>
-              <h1 className="text-4xl font-bold break-words mt-3">
-                {pinDetail.title}
-              </h1>
-                </div>
-              <p className="mt-3 py-4" >
+                <h1 className="text-4xl font-bold break-words mt-3">
+                  {pinDetail.title}
+                </h1>
+              </div>
+              <p className="mt-3 py-4">
                 {pinDetail.about}
               </p>
 
-              <p style={{marginBottom:'15px'}}> Ingredients: </p>
+              <p style={{ marginBottom: '15px' }}> Ingredients: </p>
               {pinDetail.ingredient.map((item) => (
                 <div>
                   <li key="{item}">{item}</li>
-                  </div>
-              ))}  
+                </div>
+              ))}
 
-            <p style={{marginBottom:'15px', marginTop: '10px'}}> Ingredients Value: </p>
+              <p style={{ marginBottom: '15px', marginTop: '10px' }}> Ingredients Value: </p>
               {pinDetail.ingredientVal.map((item) => (
                 <div>
-                  <li  key="{item}">{item}</li>
-                  </div>
-              ))}     
-
-              <p style={{marginBottom:'15px'}}> Procedure: </p>
-              {pinDetail.procedure.map((item) => (
-                <div style={{width:'auto', height:'auto', marginLeft: '10px', position:'relative' }}>
                   <li key="{item}">{item}</li>
-                  </div>
-              ))} 
+                </div>
+              ))}
+
+              <p style={{ marginBottom: '15px' }}> Procedure: </p>
+              {pinDetail.procedure.map((item) => (
+                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }}>
+                  <li key="{item}">{item}</li>
+                </div>
+              ))}
 
             </div>
             <Link to={`/user-profile/${pinDetail?.postedBy._id}`} className="flex gap-2 mt-5 items-center bg-white rounded-lg ">
               <img src={pinDetail?.postedBy.image} className="w-10 h-10 rounded-full" alt="user-profile" />
               <p className="font-semibold capitalize">{pinDetail.postedBy?.userName}</p>
-        </Link>
-      <h2 className='mt-5 text-2xl'> Comments </h2>
-      <div className='max-h-370 overflow-y-auto'>
-        {pinDetail?.comments?.map((comment) => (
-          <div className="flex gap-2 mt-5 items-center bg-white rounded-lg" key={comment.comment}>
-            
-            <img
-              src={comment.postedBy?.image}
-              alt="user-profile"
-              className='pointer-events-none w-10 h-10 rounded-full cursor-pointer' 
-            />
-          
-            <div className='flex flex-col'>
-              <p className='font-bold'>{comment.postedBy?.userName}</p>
-              <p>{comment.comment}</p>
+            </Link>
+            <h2 className="mt-5 text-2xl"> Comments </h2>
+            <div className="max-h-370 overflow-y-auto">
+              {pinDetail?.comments?.map((comment) => (
+                <div className="flex gap-2 mt-5 items-center bg-white rounded-lg" key={comment.comment}>
+
+                  <img
+                    src={comment.postedBy?.image}
+                    alt="user-profile"
+                    className="pointer-events-none w-10 h-10 rounded-full cursor-pointer"
+                  />
+
+                  <div className="flex flex-col">
+                    <p className="font-bold">{comment.postedBy?.userName}</p>
+                    <p>{comment.comment}</p>
+                  </div>
+                  <div className="flex flex-col mt-4">
+                    {comment?.postedBy?._id === user._id ? (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteComment(comment?.comment);
+                        }}
+                        className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
+                      >
+                        <ReactTooltip />
+                        <p data-tip="Delete Comment"><AiTwotoneDelete /></p>
+                      </button>
+                    ) : null}
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className='flex flex-col mt-4'>
-              {comment?.postedBy?._id === user._id ?(
-                <button 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deleteComment(comment?.comment);
-                  }}
-                  className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
-                >
-                  <ReactTooltip />
-                  <p data-tip="Delete Comment"><AiTwotoneDelete /></p>
-                </button>
-              ):null}
-            </div>
-          </div>
-        ))}
-      </div>
             <div className="flex flex-wrap mt-6 gap-3">
               <Link to={`/user-profile/${user._id}`}>
                 <img src={user.image} className="w-10 h-10 rounded-full cursor-pointer" alt="user-profile" />
@@ -271,7 +269,6 @@ const PinDetail = ({ user }) => {
           </div>
         </div>
 
-  
       )}
       {pins?.length > 0 && (
         <h2 className="text-center font-bold text-2xl mt-8 mb-4">

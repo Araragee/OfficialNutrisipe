@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { AiTwotoneDelete} from 'react-icons/ai';
+import { AiTwotoneDelete } from 'react-icons/ai';
 import { client, urlFor } from '../client';
-
-
-
 
 const Pin = ({ pin }) => {
   const [postHovered, setPostHovered] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
   const navigate = useNavigate();
   const { postedBy, image, _id } = pin;
-
 
   // delete a post
   const deletePin = (id) => {
@@ -51,16 +48,16 @@ const Pin = ({ pin }) => {
     }
   };
 
-  //unsave a post
+  // unsave a post
   const Unsave = (id) => {
-    const ToRemove = [`save[userId=="${user.sub}"]`]
+    const ToRemove = [`save[userId=="${user.sub}"]`];
     client
       .patch(id)
       .unset(ToRemove)
       .commit()
-        .then(() => {
-          window.location.reload();
-    });
+      .then(() => {
+        window.location.reload();
+      });
   };
 
   return (
@@ -69,8 +66,9 @@ const Pin = ({ pin }) => {
         onMouseEnter={() => setPostHovered(true)}
         onMouseLeave={() => setPostHovered(false)}
         onClick={() => navigate(`/pin-detail/${_id}`)}
-        className=" relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out">
-          
+        className=" relative cursor-zoom-in w-auto hover:shadow-lg rounded-lg overflow-hidden transition-all duration-500 ease-in-out"
+      >
+
         {image && (
         <img className="rounded-lg w-full " src={(urlFor(image).width(250).url())} alt="user-post" />)}
         {postHovered && (
@@ -79,16 +77,17 @@ const Pin = ({ pin }) => {
             style={{ height: '100%' }}
           >
             <div className="flex items-center justify-between">
-           
-               {alreadySaved?.length !== 0 ? (
-                <button 
-                  type="button" 
+
+              {alreadySaved?.length !== 0 ? (
+                <button
+                  type="button"
                   onClick={(e) => {
                     e.stopPropagation();
                     Unsave(_id);
                   }}
-                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none">
-                    Unsave
+                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                >
+                  Unsave
                 </button>
               ) : (
                 <button
@@ -103,8 +102,8 @@ const Pin = ({ pin }) => {
                 </button>
               )}
 
-                {postedBy?._id === user.sub && (
-                 <button
+              {postedBy?._id === user.sub && (
+                <button
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -125,7 +124,7 @@ const Pin = ({ pin }) => {
           src={postedBy?.image}
           alt="user-profile"
         />
-        <p className="font-semibold capitalize" >{postedBy?.userName}</p>
+        <p className="font-semibold capitalize">{postedBy?.userName}</p>
       </Link>
     </div>
   );

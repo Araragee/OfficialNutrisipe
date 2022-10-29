@@ -1,5 +1,5 @@
-//how to fet queries 
-//categories
+// how to fet queries
+// categories
 import dairy from '../assets/categories/dairy.jpg';
 import fats from '../assets/categories/Fats.jpg';
 import fish from '../assets/categories/fish.jpg';
@@ -12,7 +12,7 @@ export const categories = [
   {
     name: 'Vegetables',
     image: veg,
-     
+
   },
   {
     name: 'Dairy Foods',
@@ -224,5 +224,4 @@ export const userSavedPinsQuery = (userId) => {
   return query;
 };
 
-
-export const image = `*[_type == "user"] | or` 
+export const image = '*[_type == "user"] | or';

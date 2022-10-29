@@ -1,5 +1,6 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 import React from 'react';
-import { IconContext } from "react-icons";
+import { IconContext } from 'react-icons';
 import { IoMdAdd, IoMdSearch } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -10,7 +11,7 @@ const Navbar = ({ searchTerm, setSearchTerm, user }) => {
     return (
       <div className="flex gap-2 md:gap-5 w-full mt-5 pb-7">
         <div className="flex justify-start items-center w-full px-2 rounded-md bg-white border-none outline-none focus-within:shadow-sm">
-          <IconContext.Provider value={{ color: "#008083", className: "global-class-name" }}>
+          <IconContext.Provider value={{ color: '#008083', className: 'global-class-name' }}>
             <div>
               <IoMdSearch />
             </div>
@@ -28,7 +29,7 @@ const Navbar = ({ searchTerm, setSearchTerm, user }) => {
           <Link to={`user-profile/${user?._id}`} className="hidden md:block">
             <img src={user.image} alt="user-pic" className="w-14 h-12 rounded-lg " />
           </Link>
-          <Link to="/create-pin" className="text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" style={{backgroundColor: "#008083"}}>
+          <Link to="/create-pin" className="text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" style={{ backgroundColor: '#008083' }}>
             <IoMdAdd />
           </Link>
         </div>

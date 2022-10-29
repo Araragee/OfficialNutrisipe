@@ -30,7 +30,7 @@ const Sidebar = ({ closeToggle, user }) => {
             to="/"
             className={({ isActive }) => (isActive ? isActiveStyle : isNotActiveStyle)}
             onClick={handleCloseSidebar}
-            style={{color: "#008083", fontWeight:"600"}}
+            style={{ color: '#008083', fontWeight: '600' }}
           >
             <RiHomeFill />
             Home
@@ -44,7 +44,7 @@ const Sidebar = ({ closeToggle, user }) => {
               key={category.name}
             >
               <img src={category.image} className="w-8 h-8 rounded-full shadow-sm text-green-300" />
-              {category.name} 
+              {category.name}
             </NavLink>
           ))}
         </div>
