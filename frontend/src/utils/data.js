@@ -1,5 +1,6 @@
 // how to fet queries
 // categories
+
 import dairy from '../assets/categories/dairy.jpg';
 import fats from '../assets/categories/Fats.jpg';
 import fish from '../assets/categories/fish.jpg';
@@ -223,5 +224,33 @@ export const userSavedPinsQuery = (userId) => {
   }`;
   return query;
 };
+
+export const userfollowers = (userId) => {
+  const query = `*[_type == 'user' && _id == '${userId}'] | order(_createdAt desc) {
+    save[]{
+      postedBy->{
+        _id,
+        userName,
+        image
+      },
+    },
+  }`;
+  return query;
+};
+
+export const userfollowing = `*[_type == "user"] | order(_createdAt desc) {
+  image,
+  _id,
+  _type,
+  userName,
+      save[]{
+        _key,
+        postedBy->{
+          _id,
+          userName,
+          image
+        },
+      },
+} `;
 
 export const image = '*[_type == "user"] | or';
