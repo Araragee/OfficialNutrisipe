@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { AiTwotoneDelete, AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import { client, urlFor } from '../client';
-import MasonryLayout from './MasonryLayout';
-import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/data';
+import { AiFillHeart, AiOutlineHeart, AiTwotoneDelete } from 'react-icons/ai';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import ReactTooltip from 'react-tooltip';
+import { v4 as uuidv4 } from 'uuid';
+
+import { client, urlFor } from '../client';
+import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/data';
+import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
-
-
 
 const PinDetail = ({ user }) => {
   const { pinId } = useParams();
@@ -143,7 +142,8 @@ const PinDetail = ({ user }) => {
             />
             
           </div>
-
+          <div>
+            {/* heart button */}
           <div className="w-full p-5 flex-1 xl:min-w-620">
           {alreadySaved?.length !== 0 ? (
                 <button 
@@ -153,7 +153,7 @@ const PinDetail = ({ user }) => {
                     Unsave(pinDetail._id);
                     
                   }}
-                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none">
+                  className=" py-1 px-4 mt-6 bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none">
                     <AiFillHeart/>
                 </button>
               ) : (
@@ -163,11 +163,11 @@ const PinDetail = ({ user }) => {
                     savePin(pinDetail._id);
                   }}
                   type="button"
-                  className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none">
+                  className=" py-1 px-4 mt-6 bg-gray-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none">
                  <AiOutlineHeart/>
                 </button>
               )}
-
+                {/* delete button */}
                 {pinDetail.postedBy?._id === User.sub && (
                  <button
                   type="button"
@@ -183,41 +183,47 @@ const PinDetail = ({ user }) => {
                   )}
             <div>
               <div>
-              <h1 className="text-4xl font-bold break-words mt-3">
+                {/* recie title */}
+              <h1 className="text-4xl font-bold break-words mt-3 uppercase">
                 {pinDetail.title}
               </h1>
                 </div>
-              <p className="mt-3 py-4" >
+                {/* recipe description */}
+              <p className="mt-3 py-4 font-semibold normal-case" >
                 {pinDetail.about}
               </p>
-
-              <p style={{marginBottom:'15px'}}> Ingredients: </p>
+              <div class=" flex items-stretch justify-center items-center flex-col border-4 border-double border-gray-400 p-3" >
+                  {/* all ingrediets */}
+              <p style={{marginBottom:'15px'}} class='font-bold text-xl'> Ingredients: </p>
               {pinDetail.ingredient.map((item) => (
-                <div>
+                <div class='font-medium capitalize'>
                   <li key="{item}">{item}</li>
                   </div>
               ))}  
-
-            <p style={{marginBottom:'15px', marginTop: '10px'}}> Ingredients Value: </p>
+                  {/* ingre / grams value */}
+            <p style={{marginBottom:'15px', marginTop: '10px'}} class='font-bold text-xl'> Ingredients Value: </p>
               {pinDetail.ingredientVal.map((item) => (
-                <div>
+                <div class='font-medium capitalize'>
                   <li  key="{item}">{item}</li>
                   </div>
               ))}     
-
-              <p style={{marginBottom:'15px'}}> Procedure: </p>
+                  {/* all procedures */}
+              <p style={{marginBottom:'15px', marginTop: '10px'}} class='font-bold text-xl'> Procedure: </p>
               {pinDetail.procedure.map((item) => (
-                <div style={{width:'auto', height:'auto', marginLeft: '10px', position:'relative' }}>
+                <div style={{width:'auto', height:'auto', position:'relative' }} class='font-medium normal-case'>
                   <li key="{item}">{item}</li>
                   </div>
               ))} 
 
             </div>
+            </div>
+            </div>
             <Link to={`/user-profile/${pinDetail?.postedBy._id}`} className="flex gap-2 mt-5 items-center bg-white rounded-lg ">
               <img src={pinDetail?.postedBy.image} className="w-10 h-10 rounded-full" alt="user-profile" />
               <p className="font-semibold capitalize">{pinDetail.postedBy?.userName}</p>
         </Link>
-      <h2 className='mt-5 text-2xl'> Comments </h2>
+        {/* comments section */}
+      <h2 className='mt-5 text-2xl font-semibold'> Comments </h2>
       <div className='max-h-370 overflow-y-auto'>
         {pinDetail?.comments?.map((comment) => (
           <div className="flex gap-2 mt-5 items-center bg-white rounded-lg" key={comment.comment}>
@@ -227,7 +233,7 @@ const PinDetail = ({ user }) => {
               alt="user-profile"
               className='pointer-events-none w-10 h-10 rounded-full cursor-pointer' 
             />
-          
+            {/* post comment */}
             <div className='flex flex-col'>
               <p className='font-bold'>{comment.postedBy?.userName}</p>
               <p>{comment.comment}</p>
@@ -239,10 +245,11 @@ const PinDetail = ({ user }) => {
                     e.stopPropagation();
                     deleteComment(comment?.comment);
                   }}
-                  className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
+                  className="w-full bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
                 >
                   <ReactTooltip />
-                  <p data-tip="Delete Comment"><AiTwotoneDelete /></p>
+                  {/* for delete comment */}
+                  <p data-tip="Delete Comment" ><AiTwotoneDelete /></p>
                 </button>
               ):null}
             </div>
@@ -253,6 +260,7 @@ const PinDetail = ({ user }) => {
               <Link to={`/user-profile/${user._id}`}>
                 <img src={user.image} className="w-10 h-10 rounded-full cursor-pointer" alt="user-profile" />
               </Link>
+              {/* for comment */}
               <input
                 className=" flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300"
                 type="text"
@@ -260,9 +268,10 @@ const PinDetail = ({ user }) => {
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
               />
+              {/* post button */}
               <button
                 type="button"
-                className="bg-red-500 text-white rounded-full px-6 py-2 font-semibold text-base outline-none"
+                className="bg-red-400 text-white rounded-full px-6 py-2 font-semibold text-base outline-none"
                 onClick={addComment}
               >
                 {addingComment ? 'Posting...' : 'Post'}
