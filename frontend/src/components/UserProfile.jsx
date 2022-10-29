@@ -1,13 +1,14 @@
+import { googleLogout } from '@react-oauth/google';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineLogout } from 'react-icons/ai';
-import { useParams, useNavigate } from 'react-router-dom';
-import { googleLogout } from '@react-oauth/google';
-import { userCreatedPinsQuery, userQuery, userSavedPinsQuery } from '../utils/data';
+import { useNavigate, useParams } from 'react-router-dom';
+
 import { client } from '../client';
+import { userCreatedPinsQuery, userQuery, userSavedPinsQuery } from '../utils/data';
 import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
 
-const activeBtnStyles = 'bg-red-500 text-white font-bold p-2 rounded-full w-20 outline-none';
+const activeBtnStyles = 'bg-green-300 text-white font-bold p-2 rounded-full w-20 outline-none';
 const notActiveBtnStyles = 'bg-primary mr-4 text-black font-bold p-2 rounded-full w-20 outline-none';
 
 
@@ -81,12 +82,12 @@ const UserProfile = () => {
                    localStorage.clear();
                    navigate('/login')
                  }}>
-           <AiOutlineLogout color='red' fontSize={21} />
+           <AiOutlineLogout color='green' fontSize={21} />
          </button>
               )}
           </div>
         </div>
-        <div className="text-center mb-7">
+        <div className="text-center mb-7" >
           <button
             type="button"
             onClick={(e) => {
@@ -114,7 +115,7 @@ const UserProfile = () => {
         </div>
 
         {pins?.length === 0 && (
-        <div className="flex justify-center font-bold items-center w-full text-1xl mt-2">
+        <div className="flex justify-center font-bold items-center w-full text-1xl mt-2" style={{color: "#008083"}}>
           No Pins Found!
         </div>
         )}
