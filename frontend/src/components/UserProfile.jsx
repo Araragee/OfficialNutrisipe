@@ -11,7 +11,7 @@ import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
 import { fetchUser } from '../utils/fetchUser';
 
-const activeBtnStyles = 'bg-red-500 text-white font-bold p-2 rounded-full w-20 outline-none';
+const activeBtnStyles = 'bg-nGreen text-white font-bold p-2 rounded-full w-20 outline-none';
 const notActiveBtnStyles = 'bg-primary mr-4 text-black font-bold p-2 rounded-full w-20 outline-none';
 
 const UserProfile = () => {
@@ -152,29 +152,34 @@ const UserProfile = () => {
                   navigate('/login');
                 }}
               >
-                <AiOutlineLogout color="green" fontSize={21} />
+                <AiOutlineLogout color="red" fontSize={21} />
               </button>
               )}
             </div>
           </div>
           <div className="text-center mb-7">
+            {/* followers user button */}
             <button
               type="button"
-              className="bg-red-500 mr-4 text-white font-bold p-2 rounded-full w-24 outline-none "
+              className=" mr-4 text-nGreen font-bold p-1 rounded-full w-24 outline-none "
               onClick={() => navigate(`/user-profile/${userId}/followers`)}
+              
             >
               {lengths?.length || 0} Followers
             </button>
+            {/* following user button */}
             <button
               type="button"
-              className="bg-red-500 mr-4 text-white font-bold p-2 rounded-full w-24 outline-none"
+              className="mr-4 text-nGreen font-bold p-1 rounded-full w-24 outline-none"
               onClick={alerts}
+             
             >
               {following?.length || 0} Following
             </button>
           </div>
 
           {alreadyfollowed ? (
+            // follow/following button other user
             <div className="text-center mb-7">
               <button
                 type="button"
@@ -182,7 +187,8 @@ const UserProfile = () => {
                   e.stopPropagation();
                   unfollow(userId);
                 }}
-                className="bg-red-500 text-white font-bold p-2 rounded-full w-30 outline-none "
+                className=" text-white font-bold p-2 rounded-full w-30 outline-none "
+                style={{backgroundColor:"#008083"}}
               >
                 Following
               </button>
@@ -197,7 +203,7 @@ const UserProfile = () => {
                     e.stopPropagation();
                     create(userId);
                   }}
-                  className="bg-red-500 text-white font-bold p-2 rounded-full w-30 outline-none "
+                  className="bg-gray-400 text-white font-bold p-2 rounded-full w-30 outline-none "
                 >
                   Follow
                 </button>
@@ -214,6 +220,7 @@ const UserProfile = () => {
                 setActiveBtn('created');
               }}
               className={`${activeBtn === 'created' ? activeBtnStyles : notActiveBtnStyles}`}
+              
             >
               Created
             </button>
