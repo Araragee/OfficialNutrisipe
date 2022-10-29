@@ -5,10 +5,10 @@ function Spinner({ message }) {
   return (
     <div className="flex flex-col justify-center items-center w-full h-full">
       <Loader
-        type="Circles"
+        type="Squares"
         color="#00BFFF"
-        height={50}
-        width={200}
+        height={40}
+        width={100}
         className="m-5"
       />
 

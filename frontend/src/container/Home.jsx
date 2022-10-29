@@ -1,12 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { HiMenu } from 'react-icons/hi';
+import React, { useEffect, useRef, useState } from 'react';
 import { AiFillCloseCircle } from 'react-icons/ai';
-import { Routes, Route, Link } from 'react-router-dom';
-import { Sidebar, UserProfile } from '../components';
+import { HiMenu } from 'react-icons/hi';
+import { Link, Route, Routes } from 'react-router-dom';
+
+import logo from '../assets/logosss.png';
 import { client } from '../client';
-import logo from '../assets/logo.png';
-import Pins from './Pins';
+import { Sidebar, UserProfile } from '../components';
 import { userQuery } from '../utils/data';
+import Pins from './Pins';
 
 const Home = () => {
   const [user, setUser] = useState(null);
@@ -44,7 +45,7 @@ const Home = () => {
           </Link>
         </div>
         {toggleSidebar && (
-          <div className="fixed w-4/5 bg-white h-screen overflow-y-auto shadow-md z-10 animate-slide-in">
+          <div className="fixed w-4/5 bg-white h-screen overflow-y-auto shadow-md z-10 animate-slide-in" >
             <div className="absolute w-full flex justify-end items-center p-2">
               <AiFillCloseCircle fontSize={30} className="cursor-pointer" onClick={() => setToggleSidebar(false)} />
             </div>
