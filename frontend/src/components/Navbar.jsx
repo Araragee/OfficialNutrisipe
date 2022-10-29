@@ -32,18 +32,19 @@ const Navbar = ({ searchTerm, setSearchTerm, user }) => {
           <Link to="/create-pin" className="text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" style={{ backgroundColor: '#008083' }}>
             <IoMdAdd />
           </Link>
-          {user.isAdmin &&
+          {user.isAdmin
+            && (
             <Link to="/create-pin" className="bg-black text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center">
-            <IconContext.Provider value={{ color: "yellow", className: "global-class-name", background: "#008083" }}>
-              <IoMdAdd />
+              <IconContext.Provider value={{ color: 'yellow', className: 'global-class-name', background: '#008083' }}>
+                <IoMdAdd />
               </IconContext.Provider>
             </Link>
-          }
+            )}
         </div>
       </div>
     );
   }
-  
+
   return null;
 };
 

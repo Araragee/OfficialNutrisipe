@@ -3,7 +3,6 @@ import Spinner from './Spinner';
 import { useParams, Link } from 'react-router-dom';
 import { client } from '../client';
 import { fetchUser } from '../utils/fetchUser';
-
 import { userfollowers } from '../utils/data';
 
 const Followers = () => {
