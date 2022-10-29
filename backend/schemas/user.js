@@ -35,5 +35,10 @@ export default {
       name: "created_at",
       type: "datetime",
     },
+    {
+      name: "isAdmin",
+      title: "IsAdmin",
+      type: "boolean",
+    },
   ],
 };
