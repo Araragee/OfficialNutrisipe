@@ -1,4 +1,3 @@
-//nyoks badingers
 /* eslint-disable max-len */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/button-has-type */
