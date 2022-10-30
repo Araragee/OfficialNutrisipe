@@ -187,8 +187,8 @@ const UserProfile = () => {
                   e.stopPropagation();
                   unfollow(userId);
                 }}
-                className=" text-white font-bold p-2 rounded-full w-30 outline-none "
-                style={{backgroundColor:"#008083"}}
+                className="bg-nGreen text-white font-bold p-2 rounded-full w-30 outline-none "
+               
               >
                 Following
               </button>

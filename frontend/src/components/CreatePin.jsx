@@ -142,7 +142,7 @@ const CreatePin = ({ user }) => {
   return (
     <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
       {fields && (
-        <p className="text-red-500 mb-5 text-xl transition-all duration-150 ease-in " style={{ color: '#008083' }}>
+        <p className="text-nGreen mb-5 text-xl transition-all duration-150 ease-in ">
           Please add all fields.
         </p>
       )}
@@ -254,16 +254,15 @@ const CreatePin = ({ user }) => {
                   onChange={e=>handleIngredientValChange(e,i)} />
                         {/* button for x ingre,grams */}
                         <button onClick={() => {handleIngredientValDelete(i); handleIngredientDelete(i)}} 
-                        class=" px-1 mx-1 mt-4 text-xs font-bold text-center text-white bg-gray-50 rounded-lg border border-red-200"
-                  style={{width: "25px", color:"#dc2626", height:"20px"}}>
+                        class="text-nRed w-5 h-5 px-1 mx-1 mt-4 text-xs font-bold text-center text-white bg-gray-50 rounded-lg border border-red-200"
+                >
                     x
                     </button>
                   </div> )})}
                   </div>
                    </div>
                    {/* button for add ingre,grams */}
-                   <button class="ml-5 py-1 px-3 mx-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-              style={{width: "100px", color:"#22c55e", height:"30px"}} 
+                   <button class=" text-nGreen w-24 h-7.5 ml-5 py-1 px-3 mx-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
                    onClick = {() => {handleIngredientAdd(); handleIngredientValAdd()}}> ADD
                    </button>
           {/* div for procedures */}
@@ -283,8 +282,8 @@ const CreatePin = ({ user }) => {
                 {/* button for x procedures */}
                 <button
                   onClick={() => handleProcedureDelete(u)}
-                  className="float-right px-1 mx-1 mt-1 text-xs font-bold text-center text-white bg-gray-50 rounded-lg border border-red-200"
-                  style={{ width: '20px', color: '#dc2626', height: '20px' }}
+                  className="text-nRed w-5 h-5 float-right px-1 mx-1 mt-1 text-xs font-bold text-center text-white bg-gray-50 rounded-lg border border-red-200"
+                  
                 >
                   x
                 </button>
@@ -292,8 +291,8 @@ const CreatePin = ({ user }) => {
             ))}
             {/* button for add procedures */}
             <button
-              className="float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-              style={{ width: '100px', color: '#22c55e', height: '30px' }}
+              className="text-nGreen w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+             
               onClick={() => handleProcedureAdd()}
             >
               ADD
@@ -319,7 +318,7 @@ const CreatePin = ({ user }) => {
             </div>
             <div className="flex justify-end items-end mt-5">
               <button
-                type="button"
+                type="button"  
                 onClick={savePin}
                 className="text-base text-white p-2 rounded-full outline-none"
                 style={{ width: '140px', backgroundColor: '#008083' }}
