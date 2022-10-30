@@ -60,7 +60,7 @@ const Sidebar = ({ closeToggle, user }) => {
           <IoIosArrowForward />
         </Link>
       )}
-    </div>
+    </div> 
   );
 };
 
