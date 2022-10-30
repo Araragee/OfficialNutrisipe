@@ -149,7 +149,7 @@ const PinDetail = ({ user }) => {
                   e.stopPropagation();
                   Unsave(pinDetail._id);
                 }}
-                className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                className=" mt-5 bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
               >
                 <AiFillHeart />
               </button>
@@ -160,7 +160,7 @@ const PinDetail = ({ user }) => {
                   savePin(pinDetail._id);
                 }}
                 type="button"
-                className="bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                className="mt-5 bg-gray-400 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
               >
                 <AiOutlineHeart />
               </button>
@@ -181,35 +181,44 @@ const PinDetail = ({ user }) => {
             )}
             <div>
               <div>
-                <h1 className="text-4xl font-bold break-words mt-3">
+                <h1 className="text-4xl font-bold break-words mt-3 uppercase">
                   {pinDetail.title}
                 </h1>
               </div>
-              <p className="mt-3 py-4">
+              <p className="mt-3 py-4 capitalize font-semibold">
                 {pinDetail.about}
               </p>
-
-              <p style={{ marginBottom: '15px' }}> Ingredients: </p>
+             
+              <div className="flex justify-left items-left flex-col border bg-gray-100">
+              <div class="float-root  flex">
+              <div class='float-left py-4'>
+              <p style={{ marginBottom: '15px' }} class="font-semibold "> Ingredients: </p>
               {pinDetail.ingredient.map((item) => (
-                <div>
-                  <li key="{item}">{item}</li>
+                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }}>
+
+                <li class="capitalize flex flex-nowrap" key="{item}">{item}</li>
                 </div>
               ))}
-
-              <p style={{ marginBottom: '15px', marginTop: '10px' }}> Ingredients Value: </p>
+                </div>
+                <div class='float-middle py-4 ml-8'>
+              <p style={{ marginBottom: '15px' }} class="font-semibold"> Ingredients Value: </p>
               {pinDetail.ingredientVal.map((item) => (
-                <div>
-                  <li key="{item}">{item}</li>
+                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }}>
+
+                  <li class=" flex flex-nowrap" key="{item}">{item}</li>
                 </div>
               ))}
-
-              <p style={{ marginBottom: '15px' }}> Procedure: </p>
+                 </div>
+                 </div>
+              <p style={{ marginBottom: '15px' }} class="font-semibold"> Procedure: </p>
               {pinDetail.procedure.map((item) => (
                 <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }}>
-                  <li key="{item}">{item}</li>
+                  <li class="capitalize" key="{item}">{item}</li>
                 </div>
               ))}
 
+            </div>
+            
             </div>
             <Link to={`/user-profile/${pinDetail?.postedBy._id}`} className="flex gap-2 mt-5 items-center bg-white rounded-lg ">
               <img src={pinDetail?.postedBy.image} className="w-10 h-10 rounded-full" alt="user-profile" />
