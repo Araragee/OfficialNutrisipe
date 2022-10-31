@@ -159,11 +159,7 @@ const CreatePin = ({ user }) => {
 
   return (
     <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
-      {fields && (
-        <p className="text-nGreen mb-5 text-xl transition-all duration-150 ease-in ">
-          Please add all fields.
-        </p>
-      )}
+      
       <div className=" flex lg:flex-row flex-col justify-center items-center bg-white lg:p-5 p-3 lg:w-4/5  w-full">
         <div className="bg-secondaryColor p-3 flex flex-0.7 w-full">
           <div className=" flex justify-center items-center flex-col border-2 border-dotted border-blue-400 p-3 w-full h-420">
@@ -286,8 +282,11 @@ const CreatePin = ({ user }) => {
                       value={data}
                       onChange={e => handleIngredientValChange(e, i)} />
                     {/* button for x ingre,grams */}
-                    <button onClick={() => { handleIngredientValDelete(i); handleIngredientDelete(i); handleMetricDelete(i) }}
-                      class="text-nRed w-5 h-5 px-1 mx-1 mt-4 text-xs font-bold text-center text-white bg-gray-50 rounded-lg border border-red-200"
+
+                    <button onClick={() => { handleIngredientValDelete(i); handleIngredientDelete(i); handleMetricAdd() }}
+                      class="text-nRed w-5 h-5 px-1 mx-1 mt-4 text-xs font-bold text-center bg-gray-50 rounded-lg border border-red-200"
+
+                    
                     >
                       x
                     </button>
@@ -351,12 +350,16 @@ const CreatePin = ({ user }) => {
               </select>
             </div>
             <div className="flex justify-end items-end mt-5">
+                    {fields && (
+                <p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
+                  Please add all fields.
+                </p>
+              )}
               <button
                 type="button"
                 onClick={savePin}
-                className="text-base text-white p-2 rounded-full outline-none"
-                style={{ width: '140px', backgroundColor: '#008083' }}
-              >
+                class="transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nGreen duration-300">
+              
                 Upload Recipe
               </button>
 
@@ -364,6 +367,9 @@ const CreatePin = ({ user }) => {
           </div>
         </div>
       </div>
+      
+     
+      
     </div>
   );
 };

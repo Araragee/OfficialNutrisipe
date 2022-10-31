@@ -86,8 +86,7 @@ const CreateIngredient = () => {
                 <button
                     type="button"
                     onClick={UploadIngredient}
-                    className="text-base text-white p-2 rounded-full outline-none"
-                    style={{ width: '140px', backgroundColor: '#008083' }}
+                    class="mb-3 transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 duration-300 hover:bg-nGreen"
                 >
                     Upload ingredient
                 </button>
@@ -102,156 +101,175 @@ const CreateIngredient = () => {
                 />
             </div>
 
-            {ModalOpen && <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
-            <button
-                className="text-nRed w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-                onClick={ModalHandlerClose}
+            
+            {ModalOpen && <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex flex-col 
+            justify-center items-center  ">
+                
+                <div className="fixed bg-gray-100 p-2 rounded-md h-96 w-96 overflow-scroll ">
+                <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600 w-full">
+                <h3 class="ml-2 text-xl font-semibold  items-center text-nGreen">
+                    Add Ingredientsss
+                </h3>
+                
+                <button
+               class="ml-2 mt-2 mx-1 px-1 text-xs font-bold text-center transition ease-in-out delay-150 w-4 h-4 border border-gray-400 rounded bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
+               onClick={ModalHandlerClose}
             >
                 X
             </button>
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                </div>
+                    
+                <div className="flex flex-1 flex-col pl-5 pr-5 mt-2 ">
                     <input
                         type="text"
                         value={baseSizeMetric}
                         onChange={(e) => setBaseSizeMetric(e.target.value)}
                         placeholder="Base Size Metric"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2 w-full"
                     />
                 </div>
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 ">
                     <input
                         type="text"
                         value={calories}
                         onChange={(e) => setCalories(e.target.value)}
                         placeholder="calories"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2 w-full "
                     />
                 </div>
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                <div className="flex flex-1 flex-col  pl-5 pr-5   mt-2 ">
                     <input
                         type="text"
                         value={totalFat}
                         onChange={(e) => setTotalFat(e.target.value)}
                         placeholder="totalFat"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2 w-full "
                     />
                 </div>
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 ">
                     <input
                         type="text"
                         value={saturatedFat}
                         onChange={(e) => setSaturatedFat(e.target.value)}
                         placeholder="saturatedFat"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2 w-full "
                     />
                 </div>
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                <div className="flex flex-1 flex-col pl-5 pr-5  mt-2 ">
                     <input
                         type="text"
                         value={cholesterol}
                         onChange={(e) => setCholesterol(e.target.value)}
                         placeholder="cholesterol"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2 w-full"
                     />
                 </div>
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                <div className="flex flex-1 flex-col  pl-5 pr-5  mt-2 ">
                     <input
                         type="text"
                         value={sodium}
                         onChange={(e) => setSodium(e.target.value)}
                         placeholder="sodium"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2 w-full"
                     />
                 </div>
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 ">
                     <input
                         type="text"
                         value={totalCarbohydrates}
                         onChange={(e) => setTotalCarbohydrates(e.target.value)}
                         placeholder="total Carbohydrates"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2 w-full"
                     />
                 </div>
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 " >
                     <input
                         type="text"
                         value={dietaryFiber}
                         onChange={(e) => setDietaryFiber(e.target.value)}
                         placeholder="dietaryFiber"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2 w-full"
                     />
                 </div>
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 ">
                     <input
                         type="text"
                         value={sugar}
                         onChange={(e) => setSugar(e.target.value)}
                         placeholder="sugar"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2 w-full"
                     />
                 </div>
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                <div className="flex flex-1 flex-col  pl-5 pr-5  mt-2 ">
                     <input
                         type="text"
                         value={protein}
                         onChange={(e) => setProtein(e.target.value)}
                         placeholder="protein"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2  w-full"
                     />
                 </div>
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 ">
                     <input
                         type="text"
                         value={vitaminA}
                         onChange={(e) => setVitaminA(e.target.value)}
                         placeholder="vitaminA"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2 w-full"
                     />
                 </div>
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 ">
                     <input
                         type="text"
                         value={vitaminC}
                         onChange={(e) => setVitaminC(e.target.value)}
                         placeholder="vitaminC"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2  w-full"
                     />
                 </div>
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                <div className="flex flex-1 flex-col pl-5 pr-5  mt-2 ">
                     <input
                         type="text"
                         value={calcium}
                         onChange={(e) => setCalcium(e.target.value)}
                         placeholder="calcium"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2 w-full"
                     />
                 </div>
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 ">
                     <input
                         type="text"
                         value={iron}
                         onChange={(e) => setIron(e.target.value)}
                         placeholder="iron"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2 w-full"
                     />
                 </div>
+               
+                <div class='mt-3'>
                 <button
-                className="text-nGreen w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-                onClick={handleAddBaseSize}
+                class="ml-5 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nGreen duration-300"
+                     onClick={handleAddBaseSize}
             >
                 CONFIRM
             </button>
+        
+            <button
+               class="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
+               onClick={ModalHandlerClose}
+            >
+                CANCEL
+            </button>
+            
+            </div>
+            </div>
             </div>
 
-            
-
-            
-            
             }
 
 
             {!ModalOpen && <button
-                className="text-nGreen w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+                className="mt-5 text-nGreen w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
                 onClick={ModalHandlerOpen}
             >
                 ADD

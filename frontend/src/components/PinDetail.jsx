@@ -204,7 +204,6 @@ const PinDetail = ({ user }) => {
               <p style={{ marginBottom: '15px' }} class="font-semibold"> Ingredients Value: </p>
               {pinDetail.ingredientVal.map((item) => (
                 <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }}>
-
                   <li class=" flex flex-nowrap" key="{item}">{item}</li>
                 </div>
               ))}
