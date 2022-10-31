@@ -8,7 +8,7 @@ import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-
+import {ingval} from "../utils/data"
 import { client } from '../client';
 import { categories } from '../utils/data';
 import Spinner from './Spinner';
@@ -24,6 +24,7 @@ const CreatePin = ({ user }) => {
   const [ingredient, setIngredient] = useState(['']);
   const [ingredientVal, setIngredientVal] = useState(['']);
   const [procedure, setProcedure] = useState(['']);
+  const [metric, setMetric] = useState([""]);
 
   // handle ingredient
   const handleIngredientAdd = () => {
@@ -39,6 +40,22 @@ const CreatePin = ({ user }) => {
     const deleteIngredient = [...ingredient];
     deleteIngredient.splice(i, 1);
     setIngredient(deleteIngredient);
+  };
+   // handle metrics
+   const handleMetricChange = (onChangeValue, u) => {
+    const inputdata = [...metric];
+    inputdata[u] = onChangeValue.target.value;
+    setMetric(inputdata);
+  };
+
+  const handleMetricAdd = () => {
+    const qwe = [...metric, []];
+    setMetric(qwe);
+  };
+  const handleMetricDelete = (i) => {
+    const deleteMetric = [...metric];
+    deleteMetric.splice(i, 1);
+    setMetric(deleteMetric);
   };
 
   // handle ingredientval
@@ -107,6 +124,7 @@ const CreatePin = ({ user }) => {
         about,
         ingredient,
         ingredientVal,
+        metric,
         procedure,
         image: {
           _type: 'image',
@@ -123,6 +141,7 @@ const CreatePin = ({ user }) => {
         category,
       };
       client.create(doc).then(() => {
+        fetch(ingval);
         navigate('/');
         console.log(doc);
       });
@@ -238,19 +257,36 @@ const CreatePin = ({ user }) => {
                   </div>)
               })}
             </div>
+             {/* div for metric */}
+             <div class='float-left py-4'>
+              <label className='mt-4, ml-5 font-semibold'>Metric</label>
+              {metric.map((data, i) => {
+                return (
+                  <div class="flex flex-nowrap">
+                    <input type="text" id="small-input" class="mx-2 mt-2 ml-5 block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder='Metric'
+                      value={data}
+                      onChange={e => handleMetricChange(e, i)} />
+
+                  </div>)
+              })}
+            </div>
             {/* div for grams */}
             <div class='float-middle py-4'>
-              <label className='mt-4, ml-6 font-semibold' >Grams</label>
+              <label className='mt-4, ml-6 font-semibold' >Value</label>
               {ingredientVal.map((data, i) => {
                 return (
                   <div class="flex flex-nowrap">
                     <input type="number" id="small-input" class="mx-2 mt-2 block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder='Grams'
+                      placeholder='Value'
                       value={data}
                       onChange={e => handleIngredientValChange(e, i)} />
                     {/* button for x ingre,grams */}
+
                     <button onClick={() => { handleIngredientValDelete(i); handleIngredientDelete(i) }}
                       class="text-nRed w-5 h-5 px-1 mx-1 mt-4 text-xs font-bold text-center bg-gray-50 rounded-lg border border-red-200"
+
+                    
                     >
                       x
                     </button>
@@ -260,7 +296,7 @@ const CreatePin = ({ user }) => {
           </div>
           {/* button for add ingre,grams */}
           <button class=" text-nGreen w-24 h-7.5 ml-5 py-1 px-3 mx-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-            onClick={() => { handleIngredientAdd(); handleIngredientValAdd() }}> ADD
+            onClick={() => { handleIngredientAdd(); handleIngredientValAdd(); handleMetricAdd() }}> ADD
           </button>
           {/* div for procedures */}
           <div className="flex flex-1 flex-col gap-2 lg:pl-5 mt-2 w-full py-4">

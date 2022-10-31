@@ -50,6 +50,12 @@ export default {
       of: [{type: 'string'}]
     },
     {
+      name: 'metric',
+      title: 'Metric ',
+      type: 'array',
+      of: [{type: 'string'}]
+    },
+    {
       name: 'postedBy',
       title: 'PostedBy',
       type: 'postedBy',
