@@ -16,7 +16,7 @@
     },
     {
       "src": "sc2.png",
-      "sizes": "329x579",
+      "sizes": "328x579",
       "type": "image/png"
     }
   ],
@@ -24,7 +24,14 @@
     {
       "name": "Create Recipe",
       "url": "/create-pin",
-      "description": "Upload your recipe!"
+      "description": "Upload your recipe!",
+      "icons": [
+        {
+          "src": "sc96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
     }
   ],
   "icons": [
@@ -93,6 +100,12 @@
     },
     {
       "src": "maskable_icon_x128.png",
+      "type": "image/png",
+      "sizes": "128x128",
+      "purpose": "maskable"
+    },
+    {
+      "src": "maskable_icon_x144.png",
       "type": "image/png",
       "sizes": "144x144",
       "purpose": "maskable"
