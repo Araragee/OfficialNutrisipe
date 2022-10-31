@@ -55,6 +55,7 @@ export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
       procedure[],
       ingredient[],
       ingredientVal[],
+      metric[],
       postedBy->{
         _id,
         userName,
@@ -82,6 +83,7 @@ export const pinDetailQuery = (pinId) => {
     about,
     ingredient[],
     ingredientVal[],
+    metric[],
     procedure[],
     category,
     postedBy->{
@@ -120,6 +122,7 @@ export const pinDetailMorePinQuery = (pin) => {
     procedure[],
     ingredient[],
     ingredientVal[],
+    metric[],
     postedBy->{
       _id,
       userName,
@@ -148,6 +151,7 @@ export const searchQuery = (searchTerm) => {
             procedure[],
             ingredient[],
             ingredientVal[],
+            metric[],
             postedBy->{
               _id,
               userName,
@@ -253,4 +257,6 @@ export const userfollowing = `*[_type == "user"] | order(_createdAt desc) {
       },
 } `;
 
-export const image = '*[_type == "user"] | or';
+export const ingval = `*[IngredientAdmin == "ChokoNyoks"]`;
+
+export const image = '*[_type == "user"]';
