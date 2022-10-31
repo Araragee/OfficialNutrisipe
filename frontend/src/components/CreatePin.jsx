@@ -283,7 +283,7 @@ const CreatePin = ({ user }) => {
                       onChange={e => handleIngredientValChange(e, i)} />
                     {/* button for x ingre,grams */}
 
-                    <button onClick={() => { handleIngredientValDelete(i); handleIngredientDelete(i) }}
+                    <button onClick={() => { handleIngredientValDelete(i); handleIngredientDelete(i); handleMetricAdd() }}
                       class="text-nRed w-5 h-5 px-1 mx-1 mt-4 text-xs font-bold text-center bg-gray-50 rounded-lg border border-red-200"
 
                     
