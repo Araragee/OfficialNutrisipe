@@ -14,6 +14,7 @@ ReactDOM.render(
 );
 
 // eto na si jok
+//ETO NA SI JERIS GALING AKO SA MAIN
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
