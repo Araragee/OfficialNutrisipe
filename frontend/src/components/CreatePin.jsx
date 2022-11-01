@@ -24,7 +24,8 @@ const CreatePin = ({ user }) => {
   const [ingredient, setIngredient] = useState(['']);
   const [ingredientVal, setIngredientVal] = useState(['']);
   const [procedure, setProcedure] = useState(['']);
-  const [metric, setMetric] = useState([""]);
+  const [metric, setMetric] = useState(['']);
+  
 
   // handle ingredient
   const handleIngredientAdd = () => {
@@ -116,7 +117,7 @@ const CreatePin = ({ user }) => {
   };
 
   const savePin = () => {
-    if (title && about && procedure && imageAsset?._id && ingredient && ingredientVal && category) {
+    if (title && about && procedure && imageAsset?._id && ingredient && ingredientVal && metric && category) {
       const doc = {
         _type: 'pin',
         _key: uuidv4(),
@@ -141,13 +142,10 @@ const CreatePin = ({ user }) => {
         category,
       };
       client.create(doc).then(() => {
-        fetch(ingval);
         navigate('/');
-        console.log(doc);
       });
     } else {
       setFields(true);
-
       setTimeout(
         () => {
           setFields(false);
@@ -268,7 +266,7 @@ const CreatePin = ({ user }) => {
                 return (
                   <div class="flex flex-nowrap">
                     <input type="text" id="small-input" class="mx-2 mt-2 ml-5 block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder='Metric'
+                      placeholder='Kilo/G/ML/PC/Tblsp'
                       value={data}
                       onChange={e => handleMetricChange(e, i)} />
 
