@@ -8,6 +8,7 @@ import fruits from '../assets/categories/Fruits.jpg';
 import meat from '../assets/categories/meat.jpg';
 import protein from '../assets/categories/Protein.jpg';
 import veg from '../assets/categories/veg.jpg';
+import PinDetail from '../components/PinDetail';
 
 export const categories = [
   {
@@ -141,7 +142,7 @@ export const pinDetailMorePinQuery = (pin) => {
 };
 
 export const searchQuery = (searchTerm) => {
-  const query = `*[_type == "pin" && title match '${searchTerm}*' || category match '${searchTerm}*' || about match '${searchTerm}*']{
+  const query = `*[_type == "pin" && title match '${searchTerm}*' || category match '${searchTerm}*' || about match '${searchTerm}*'] || ingredient match '${searchTerm}*'{
         image{
           asset->{
             url
@@ -201,7 +202,26 @@ export const userCreatedPinsQuery = (userId) => {
   }`;
   return query;
 };
-
+export const ingredientBaseValue = (pinDetail) => {
+  const query = `*[ingAdminName == '${pinDetail.ingredient}].baseSize[baseSizeNum == '${pinDetail.metric}']
+  {
+    calcium,
+    calories,
+    cholesterol,
+    dietaryFiber,
+    iron,
+    protein,
+    saturatedfat,
+    sodium,
+    sugar,
+    totalcarb,
+    totalfat,
+    transfat,
+    vitaminA,
+    vitaminC,
+  }`
+  return query;
+};
 export const userSavedPinsQuery = (userId) => {
   const query = `*[_type == 'pin' && '${userId}' in save[].userId ] | order(_createdAt desc) {
     image{
@@ -257,6 +277,5 @@ export const userfollowing = `*[_type == "user"] | order(_createdAt desc) {
       },
 } `;
 
-export const ingval = `*[IngredientAdmin == "ChokoNyoks"]`;
 
 export const image = '*[_type == "user"]';
