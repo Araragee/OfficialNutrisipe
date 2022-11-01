@@ -34,7 +34,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "craco build && type src/custom-service-worker.js >> build/service-worker.js",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
