@@ -203,11 +203,21 @@ const PinDetail = ({ user }) => {
                 </div>
               ))}
                 </div>
-                <div class='float-middle py-4 ml-8'>
-              <p style={{ marginBottom: '15px' }} class="font-semibold"> Ingredients Value: </p>
-              {pinDetail.ingredientVal.map((item) => (
-                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }}>
-                  <li class=" flex flex-nowrap" key="{item}">{item}</li>
+
+                <div className='float-middle py-4 ml-8'>
+              <p style={{ marginBottom: '15px' }} className="font-semibold"> Metric: </p>
+              {pinDetail.metric.map((item, i) => (
+                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} key={i}>
+                  <li className=" flex flex-nowrap" key={i}>{item}</li>
+                </div>
+              ))}
+                 </div>
+
+                <div className='float-middle py-4 ml-8'>
+              <p style={{ marginBottom: '15px' }} className="font-semibold"> Ingredient Value: </p>
+              {pinDetail.ingredientVal.map((item, i) => (
+                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} key={i}>
+                  <li className=" flex flex-nowrap" key={i}>{item}</li>
                 </div>
               ))}
                  </div>
