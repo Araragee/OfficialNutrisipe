@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { client } from '../client';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import ReadIngredient from './ReadIngredient';
 
-const CreateIngredient = () => {
+const CreateIngredient = ({ user }) => {
 
     const navigate = useNavigate();
 
@@ -25,20 +26,16 @@ const CreateIngredient = () => {
     const [iron, setIron] = useState('');
     const [ModalOpen, setModalOpen] = useState(false);
     const [uploadSuccessAlert, setuploadSuccessAlert] = useState(false)
-    
-    // useEffect(() => {
-    //     alert(`successfully uploaded ingredient`)
-    
-    // }, [uploadIngredient])
-    
+
+
+
+
+
 
 
 
     const [baseSizeList, setBaseSizeList] = useState([]);
 
-    // useEffect(() => {
-    //     console.log(baseSizeList);
-    // }, [baseSizeList]);
 
     const ModalHandlerOpen = () => {
         setModalOpen(true);
@@ -48,11 +45,15 @@ const CreateIngredient = () => {
     }
 
 
+
+
     const deleteBaseSizeHandler = (i) => {
-        let newDataArr=[...baseSizeList]
-        newDataArr.splice(i,1)
+        let newDataArr = [...baseSizeList]
+        newDataArr.splice(i, 1)
         setBaseSizeList(newDataArr)
     }
+
+
 
 
 
@@ -97,6 +98,8 @@ const CreateIngredient = () => {
         setIron('');
 
         console.log(baseSizeList)
+
+
     }
 
     //Handler for Uploading Ingredients to Database
@@ -118,17 +121,17 @@ const CreateIngredient = () => {
 
             setTimeout(
                 () => {
-                setuploadSuccessAlert(false);
+                    setuploadSuccessAlert(false);
                 },
                 8000,
-              );
+            );
 
         }
     }
-
-
+    if (user?.isAdmin){
     return (
         //UPLOAD INGREDIENT BUTTON
+        
         <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
 
             
@@ -399,9 +402,11 @@ const CreateIngredient = () => {
 
             {uploadSuccessAlert && (
                 <p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
-                  Ingredient Successfully addedd to the database.
+                    Ingredient Successfully addedd to the database.
                 </p>
-              )}
+            )}
+            
+              
               <div className="flex justify-end items-end mt-5">
                 <button
                     type="button"
@@ -412,12 +417,19 @@ const CreateIngredient = () => {
                 </button>
             </div>
 
-
+            <ReadIngredient />
+            
         </div>
 
 
-        // <div>create ingredient</div>
-    );
-}
 
+
+
+    );
+} else {
+return <p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
+Unauthorized Access
+</p>;
+}
+}
 export default CreateIngredient
