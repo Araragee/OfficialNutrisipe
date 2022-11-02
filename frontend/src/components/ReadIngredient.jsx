@@ -36,25 +36,24 @@ const ReadIngredient = () => {
 
             {ingredientList?.map((item, index) => (
                 <div key={index}>
-                    <h1>{item?.IngAdminName}</h1>
-                    <h1>{item?.baseSize}</h1>
-                    {item?.baseSize.map((c, i) => (
+                    <h1>IngAdminName: {item?.ingAdminName}</h1>
+                    {item?.baseSize?.map((c, i) => (
                         <div key={i}>
-                            <img src={c.baseSizeNum} />
-                            <h3>{c.calcium}</h3>
-                            <h3>{c.calories}</h3>
-                            <h3>{c.cholesterol}</h3>
-                            <h3>{c.dietaryFiber}</h3>
-                            <h3>{c.iron}</h3>
-                            <h3>{c.protein}</h3>
-                            <h3>{c.saturatedfat}</h3>
-                            <h3>{c.sodium}</h3>
-                            <h3>{c.sugar}</h3>
-                            <h3>{c.totalfat}</h3>
-                            <h3>{c.transfat}</h3>
-                            <h3>{c.vitaminA}</h3>
-                            <h3>{c._key}</h3>
-                            <h3>{c._type}</h3>
+                            <h3>baseSizeNum: {c.baseSizeNum}</h3>
+                            <h3>calcium: {c.calcium}</h3>
+                            <h3>calories: {c.calories}</h3>
+                            <h3>cholesterol: {c.cholesterol}</h3>
+                            <h3>dietaryFiber: {c.dietaryFiber}</h3>
+                            <h3>iron: {c.iron}</h3>
+                            <h3>protein: {c.protein}</h3>
+                            <h3>saturatedfat: {c.saturatedfat}</h3>
+                            <h3>sodium: {c.sodium}</h3>
+                            <h3>sugar: {c.sugar}</h3>
+                            <h3>totalfat: {c.totalfat}</h3>
+                            <h3>transfat: {c.transfat}</h3>
+                            <h3>vitaminA: {c.vitaminA}</h3>
+                            <h3>_key {c._key}</h3>
+                            <h3>_type {c._type}</h3>
 
                             <hr />
                         </div>
