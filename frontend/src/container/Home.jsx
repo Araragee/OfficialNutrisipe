@@ -41,7 +41,7 @@ const Home = () => {
             <img src={logo} alt="logo" className="w-28" />
           </Link>
           <Link to={`user-profile/${user?._id}`}>
-            <img src={user?.image} alt={user?.name} className="w-9 h-9 rounded-full " />
+            <img src={user?.image} className="w-9 h-9 rounded-full" alt="Go to user profile" />
           </Link>
         </div>
         {toggleSidebar && (
