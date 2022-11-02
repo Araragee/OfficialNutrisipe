@@ -134,15 +134,7 @@ const CreateIngredient = ({ user }) => {
         
         <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
 
-            <div className="flex justify-end items-end mt-5">
-                <button
-                    type="button"
-                    onClick={uploadIngredient}
-                    class="mb-3 transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 duration-300 hover:bg-nGreen"
-                >
-                    Add Ingredient To Database
-                </button>
-            </div>
+            
             <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
                 <input
                     type="text"
@@ -154,30 +146,40 @@ const CreateIngredient = ({ user }) => {
             </div>
 
             {/* TABLE FOR BaseArrayList */}
-            <table border={1} width="30%" cellPadding={10}>
-                <tbody>
-                    <tr>
-                        <th>Base Size </th>
-                        <th>Calories</th>
-                        <th>Total Fat</th>
-                        <th>Saturated Fat </th>
-                        <th>Cholesterol</th>
-                        <th>Total Carb</th>
-                        <th>Dietary Fiber </th>
-                        <th>Sugar</th>
-                        <th>Protein</th>
-                        <th>Vitamin A</th>
-                        <th>Vitamin C</th>
-                        <th>Calcium</th>
-                        <th>Iron</th>
+            {/* <table border={1} width="30%" cellPadding={10}> */}
+            <div className="flex flex-col">
+             <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="py-2 inline-block  sm:px-6 lg:px-8">
+                <div className="overflow-hidden">
+            <table className='min-w-full text-center'>
+                <thead className="border-b">
+                {/* <tbody> */}
+                    <tr className="bg-white border-b">
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Base Size </th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Calories</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Total Fat</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Saturated Fat </th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Cholesterol</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Total Carb</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Dietary Fiber </th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Sugar</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Protein</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Vitamin A</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Vitamin C</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Calcium</th>
+                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Iron</th>
                     </tr>
+                    </thead>
+
+                    <tbody>
                     {baseSizeList.length < 1 ?
                         <tr>
-                            <td colSpan={4}>No Base Size Data entered Yet</td>
+                            <td colSpan={2.5}>No Base Size Data entered Yet</td>
                         </tr> :
+                            
                         baseSizeList.map((info, i) => {
                             return (
-                                <tr key={i}>
+                                <tr key={i} className="bg-white border-b">
                                     <td>{info.baseSizeNum}</td>
                                     <td>{info.calories}</td>
                                     <td>{info.totalfat}</td>
@@ -191,28 +193,42 @@ const CreateIngredient = ({ user }) => {
                                     <td>{info.vitaminC}</td>
                                     <td>{info.calcium}</td>
                                     <td>{info.iron}</td>
-                                    <td><button onClick={() => deleteBaseSizeHandler(i)}>Delete</button></td>
-
-                                </tr>
+                                    
+                                    <tr><td className='text-red-300 pl-2 '><button  onClick={()=>deleteBaseSizeHandler(i)}>Delete</button></td></tr>
+                                </tr> 
+                                
+                                
+                                
                             )
-                        })
-                    }
-
+                           
+                        }
+                        
+                        )
+                      
+                    } 
+                         
                 </tbody>
+               
             </table>
-
             
+                    
+                        </div>
+                </div>
+            </div>
+            </div>
+           
+
             {ModalOpen && <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex flex-col 
             justify-center items-center  ">
 
                 <div className="fixed bg-gray-100 p-2 rounded-md h-96 w-96 overflow-scroll ">
-                    <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600 w-full">
-                        <h3 class="ml-2 text-xl font-semibold  items-center text-nGreen">
-                            Add Ingredientsss
+                    <div className="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600 w-full">
+                        <h3 className="ml-2 text-xl font-semibold  items-center text-nGreen">
+                            Add Ingredients
                         </h3>
 
                         <button
-                            class="ml-2 mt-2 mx-1 px-1 text-xs font-bold text-center transition ease-in-out delay-150 w-4 h-4 border border-gray-400 rounded bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
+                            className="ml-2 mt-2 mx-1 px-1 text-xs font-bold text-center transition ease-in-out delay-150 w-4 h-4 border border-gray-400 rounded bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
                             onClick={ModalHandlerClose}
                         >
                             X
@@ -355,16 +371,16 @@ const CreateIngredient = ({ user }) => {
                         />
                     </div>
 
-                    <div class='mt-3'>
+                    <div className='mt-3'>
                         <button
-                            class="ml-5 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nGreen duration-300"
+                            className="ml-5 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nGreen duration-300"
                             onClick={handleAddBaseSize}
                         >
                             CONFIRM
                         </button>
 
                         <button
-                            class="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
+                            className="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
                             onClick={ModalHandlerClose}
                         >
                             CANCEL
@@ -381,7 +397,7 @@ const CreateIngredient = ({ user }) => {
                 className="mt-5 text-nGreen w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
                 onClick={ModalHandlerOpen}
             >
-                ADD BASE SIZE DATA
+                Add Base Size
             </button>}
 
             {uploadSuccessAlert && (
@@ -389,8 +405,20 @@ const CreateIngredient = ({ user }) => {
                     Ingredient Successfully addedd to the database.
                 </p>
             )}
-            <ReadIngredient />
+            
+              
+              <div className="flex justify-end items-end mt-5">
+                <button
+                    type="button"
+                    onClick={uploadIngredient}
+                    className="mb-3 transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-nTeal  text-gray-700 hover:text-white font-bold hover:-translate-y-1 hover:scale-110 duration-300 hover:bg-nGreen"
+                >
+                    Add To Database
+                </button>
+            </div>
 
+            <ReadIngredient />
+            
         </div>
 
 
