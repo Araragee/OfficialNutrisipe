@@ -9,6 +9,34 @@ import meat from '../assets/categories/meat.jpg';
 import protein from '../assets/categories/Protein.jpg';
 import veg from '../assets/categories/veg.jpg';
 
+export const metrics = [
+  {
+    name: 'Tbsp',
+    
+  },
+  {
+    name: 'Kg',
+   
+  },
+  {
+    name: 'Grams',
+    
+  },
+  {
+    name: 'Protein',
+    
+  },
+  {
+    name: 'Fruits',
+  
+  },
+  {
+    name: 'Fish and Seafoods',
+    
+  },
+  
+];
+
 export const categories = [
   {
     name: 'Vegetables',

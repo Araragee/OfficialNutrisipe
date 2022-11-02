@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import {ingval} from "../utils/data"
 import { client } from '../client';
-import { categories } from '../utils/data';
+import { categories, metrics} from '../utils/data';
 import Spinner from './Spinner';
 
 const CreatePin = ({ user }) => {
@@ -259,31 +259,43 @@ const CreatePin = ({ user }) => {
             </div>
              {/* div for metric */}
              <div class='float-left py-4'>
-              <label className='mt-4, ml-5 font-semibold'>Metric</label>
-              {metric.map((data, i) => {
+             <label className='mt-4, ml-4 font-semibold'>Metric</label>
+              {metric.map((data,i) => {
                 return (
                   <div class="flex flex-nowrap">
-                    <input type="text" id="small-input" class="mx-2 mt-2 ml-5 block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    {/* <input type="text" id="small-input" class="mx-2 mt-2 ml-5 block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder='Metric'
                       value={data}
-                      onChange={e => handleMetricChange(e, i)} />
-
+                      onChange={e => handleMetricChange(e, i)} /> */}
+                     <select value={data}
+                onChange={(e) => {
+                  setMetric(e.target.value),handleMetricChange(e, i);
+                }}
+                className="mx-2 mt-2 ml-3 block p-2 w-24 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option value="others" className="sm:text-bg bg-white">Metric</option>
+                {metrics.map((item) => (
+                  <option className="text-base border-0 outline-none capitalize bg-gray-100 text-gray " value={item.name} >
+                    {item.name}
+                  </option>
+                ))}
+              </select>
                   </div>)
               })}
             </div>
             {/* div for grams */}
             <div class='float-middle py-4'>
-              <label className='mt-4, ml-6 font-semibold' >Value</label>
+              <label className='mt-4, ml-3 font-semibold' >Value</label>
               {ingredientVal.map((data, i) => {
                 return (
                   <div class="flex flex-nowrap">
-                    <input type="number" id="small-input" class="mx-2 mt-2 block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    <input type="number" id="small-input" class="mx-2 mt-2 block p-2 w-16 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder='Value'
                       value={data}
                       onChange={e => handleIngredientValChange(e, i)} />
                     {/* button for x ingre,grams */}
 
-                    <button onClick={() => { handleIngredientValDelete(i); handleIngredientDelete(i); handleMetricAdd() }}
+                    <button onClick={() => { handleIngredientValDelete(i); handleIngredientDelete(i); handleMetricDelete(i) }}
                       class="text-nRed w-5 h-5 px-1 mx-1 mt-4 text-xs font-bold text-center bg-gray-50 rounded-lg border border-red-200"
 
                     
