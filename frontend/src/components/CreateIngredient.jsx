@@ -99,6 +99,7 @@ const CreateIngredient = ({ user }) => {
 
         console.log(baseSizeList)
 
+
     }
 
     //Handler for Uploading Ingredients to Database
@@ -397,9 +398,10 @@ const CreateIngredient = ({ user }) => {
 
 
     );
-} 
+} else {
 return <p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
 Unauthorized Access
 </p>;
+}
 }
 export default CreateIngredient

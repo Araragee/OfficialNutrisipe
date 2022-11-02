@@ -261,7 +261,7 @@ export const ingval = `*[IngredientAdmin == "ChokoNyoks"]`;
 
 export const image = '*[_type == "user"]';
 
-export const allIngredients = () => {
-  const query = `*[_type == 'ingredientAdmin'] `;
-  return query;
-};
+export const allIngredientsQuery = `*[_type == 'ingredientAdmin']{
+  ingAdminName,
+  baseSize
+}`;
