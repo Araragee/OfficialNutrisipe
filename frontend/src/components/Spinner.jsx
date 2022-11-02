@@ -5,8 +5,8 @@ function Spinner({ message }) {
   return (
     <div className="flex flex-col justify-center items-center w-full h-full">
       <Loader
-        type="Squares"
-        color="#00BFFF"
+        type="Watch"
+        color="#FF9F1C"
         height={40}
         width={100}
         className="m-5"

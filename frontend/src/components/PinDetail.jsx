@@ -149,7 +149,7 @@ const PinDetail = ({ user }) => {
                   e.stopPropagation();
                   Unsave(pinDetail._id);
                 }}
-                className=" mt-5 bg-red-500 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                className=" mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
               >
                 <AiFillHeart />
               </button>
@@ -175,7 +175,7 @@ const PinDetail = ({ user }) => {
                 navigate('/home');
               }}
               className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
-            >
+            > 
               <AiTwotoneDelete />
             </button>
             )}
@@ -188,24 +188,24 @@ const PinDetail = ({ user }) => {
               <p className="mt-3 py-4 capitalize font-semibold">
                 {pinDetail.about}
               </p>
-             
+                {/* border for ingre */}
               <div className="flex justify-left items-left flex-col border bg-gray-100">
-              <div class="float-root  flex">
-              <div class='float-left py-4'>
-              <p style={{ marginBottom: '15px' }} class="font-semibold "> Ingredients: </p>
+              <div className="float-root  flex">
+              <div className='float-left py-4'>
+              <p style={{ marginBottom: '15px' }} className="font-semibold "> Ingredients: </p>
               {pinDetail.ingredient.map((item) => (
                 <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }}>
 
-                <li class="capitalize flex flex-nowrap" key="{item}">{item}</li>
+                <li className="capitalize flex flex-nowrap" key="{item}">{item}</li>
                 </div>
               ))}
                 </div>
                 
-                <div class='float-middle pt-14 pl-2'>
+                <div className='float-middle pt-14 pl-2'>
              
               {pinDetail.ingredientVal.map((item) => (
                 <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }}>
-                  <li class=" flex flex-nowrap" key="{item}">{item}</li>
+                  <li className=" flex flex-nowrap" key="{item}">{item}</li>
                 </div>
               ))}
                  </div>
@@ -218,10 +218,10 @@ const PinDetail = ({ user }) => {
               ))}
                  </div>
                  </div>
-              <p style={{ marginBottom: '15px' }} class="font-semibold"> Procedure: </p>
+              <p style={{ marginBottom: '15px' }} className="font-semibold"> Procedure: </p>
               {pinDetail.procedure.map((item) => (
                 <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }}>
-                  <li class="capitalize" key="{item}">{item}</li>
+                  <li className="capitalize" key="{item}">{item}</li>
                 </div>
               ))}
 
@@ -277,7 +277,7 @@ const PinDetail = ({ user }) => {
               />
               <button
                 type="button"
-                className="bg-red-500 text-white rounded-full px-6 py-2 font-semibold text-base outline-none"
+                className="bg-nOrange text-white rounded-full px-6 py-2 font-semibold text-base outline-none"
                 onClick={addComment}
               >
                 {addingComment ? 'Posting...' : 'Post'}
