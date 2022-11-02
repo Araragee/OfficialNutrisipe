@@ -22,6 +22,7 @@ const Login = () => {
       userName: name,
       image: picture,
       id: sub,
+      isAdmin: false
     };
 
     client.createIfNotExists(doc).then(() => {

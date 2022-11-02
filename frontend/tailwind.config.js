@@ -44,14 +44,17 @@ module.exports = {
         secColor: '#efefef',
         navColor: '#BEBEBE',
         nGreen:'#008083',
-        nRed: '#dc2626'
+        nRed: '#dc2626',
+        nOrange: '#FF9F1C'
       },
       backgroundColor: {
         mainColor: '#FBF8F9',
         secondaryColor: '#F0F0F0',
         blackOverlay: 'rgba(0, 0 ,0 ,0.7)',
         nGreen:'#008083',
-        nRed:'#dc2626'
+        nRed:'#dc2626',
+        nOrange: '#FF9F1C',
+        nTeal:'#0d9488'
       },
       keyframes: {
         'slide-in': {

@@ -330,3 +330,48 @@ export const userfollowing = `*[_type == "user"] | order(_createdAt desc) {
 export const ingval = `*[IngredientAdmin == "ChokoNyoks"]`;
 
 export const image = '*[_type == "user"]';
+
+export const allIngredientsQuery = `*[_type == 'ingredientAdmin']{
+  ingAdminName,
+  baseSize[]{
+    baseSizeNum,
+  calcium,
+  calories,
+  cholesterol,
+  dietaryFiber,
+  iron,
+  protein,
+  saturatedfat,
+  sodium,
+  sugar,
+  totalfat,
+  transfat,
+  vitaminA,
+  _key
+  }
+}`;
+
+
+
+export const searchIngredientQuery = (searchIngredientTerm) => {
+  const query = `*[_type == 'ingredientAdmin'  && ingAdminName match '${searchIngredientTerm}*' ]{
+    ingAdminName,
+    baseSize[]{
+      baseSizeNum,
+    calcium,
+    calories,
+    cholesterol,
+    dietaryFiber,
+    iron,
+    protein,
+    saturatedfat,
+    sodium,
+    sugar,
+    totalfat,
+    transfat,
+    vitaminA,
+    _key
+    }
+  }`;
+  return query;
+};
