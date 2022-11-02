@@ -269,7 +269,7 @@ const CreatePin = ({ user }) => {
                       onChange={e => handleMetricChange(e, i)} /> */}
                      <select value={data}
                 onChange={(e) => {
-                  setMetric(e.target.value),handleMetricChange(e, i);
+                  setMetric(e.target.value);handleMetricChange(e, i);
                 }}
                 className="mx-2 mt-2 ml-3 block p-2 w-24 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >

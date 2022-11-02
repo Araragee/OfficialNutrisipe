@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import ReactTooltip from 'react-tooltip';
 import { client, urlFor } from '../client';
 import MasonryLayout from './MasonryLayout';
-import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/data';
+import { pinDetailMorePinQuery, pinDetailQuery, ingredientBaseValue, fetchIngredientValue } from '../utils/data';
 import Spinner from './Spinner';
 
 const PinDetail = ({ user }) => {
@@ -19,6 +19,9 @@ const PinDetail = ({ user }) => {
   const [addingComment, setAddingComment] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
   const [ingredient, setIngredient] = useState();
+  const [baseval, setBaseval] = useState([]);
+
+  
   const navigate = useNavigate();
 
   const User = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
@@ -27,6 +30,12 @@ const PinDetail = ({ user }) => {
 
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
 
+  const getfetchIngredientValue = () => {
+    const query = ingredientBaseValue(pinDetail);
+      client.fetch(`${query}`).then((data) => {
+        setBaseval(data[0]);
+       
+      })}
   const fetchPinDetails = () => {
     const query = pinDetailQuery(pinId);
 
@@ -54,7 +63,6 @@ const PinDetail = ({ user }) => {
   const savePin = (id) => {
     if (alreadySaved?.length === 0) {
       setSavingPost(true);
-
       client
         .patch(id)
         .setIfMissing({ save: [] })
@@ -192,17 +200,21 @@ const PinDetail = ({ user }) => {
               <div className="flex justify-left items-left flex-col border bg-gray-100">
               <div class="float-root  flex">
               <div class='float-left py-4'>
+              <button onClick={() => {getfetchIngredientValue();
+                                      console.log(baseval);}}> 
+              fetch ingredient  
+              </button> 
               <p style={{ marginBottom: '15px' }} class="font-semibold "> Ingredients: </p>
               {pinDetail.ingredient.map((item) => (
                 <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }}>
 
                 <li class="capitalize flex flex-nowrap" key="{item}">{item}</li>
+                
                 </div>
               ))}
                 </div>
                 
                 <div class='float-middle pt-14 pl-2'>
-             
               {pinDetail.ingredientVal.map((item) => (
                 <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }}>
                   <li class=" flex flex-nowrap" key="{item}">{item}</li>
