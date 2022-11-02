@@ -242,6 +242,26 @@ export const userfollowers = (userId) => {
   return query;
 };
 
+export const ingredientBaseValue = (pinDetail) => {
+  const query = `*[ingAdminName == '${pinDetail.ingredient}].baseSize[baseSizeNum == '${pinDetail.metric}']
+  {
+    calcium,
+    calories,
+    cholesterol,
+    dietaryFiber,
+    iron,
+    protein,
+    saturatedfat,
+    sodium,
+    sugar,
+    totalcarb,
+    totalfat,
+    transfat,
+    vitaminA,
+    vitaminC,
+  }`
+  return query;
+};
 export const userfollowing = `*[_type == "user"] | order(_createdAt desc) {
   image,
   _id,
