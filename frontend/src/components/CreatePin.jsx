@@ -8,9 +8,9 @@ import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import {ingval} from "../utils/data"
+import { ingval } from "../utils/data"
 import { client } from '../client';
-import { categories, metrics} from '../utils/data';
+import { categories, fakeDataIng } from '../utils/data';
 import Spinner from './Spinner';
 
 const CreatePin = ({ user }) => {
@@ -21,10 +21,16 @@ const CreatePin = ({ user }) => {
   const [category, setCategory] = useState();
   const [imageAsset, setImageAsset] = useState();
   const [wrongImageType, setWrongImageType] = useState(false);
-  const [ingredient, setIngredient] = useState(['']);
-  const [ingredientVal, setIngredientVal] = useState(['']);
-  const [procedure, setProcedure] = useState(['']);
-  const [metric, setMetric] = useState([""]);
+  const [chosenIngredient, setChosenIngredient] = useState();
+  const [chosenMetric, setChosenMetric] = useState();
+  const [amount, setAmount] = useState();
+  const [nutrientValueList, setNutrientValueList] = useState([]);
+  const [finalRecipeObject, setFinalRecipeObject] = useState([]);
+  const [finalNutrientObject, setFinalNutrientObject] = useState([]);
+
+
+
+
 
   // handle ingredient
   const handleIngredientAdd = () => {
@@ -41,8 +47,8 @@ const CreatePin = ({ user }) => {
     deleteIngredient.splice(i, 1);
     setIngredient(deleteIngredient);
   };
-   // handle metrics
-   const handleMetricChange = (onChangeValue, u) => {
+  // handle metrics
+  const handleMetricChange = (onChangeValue, u) => {
     const inputdata = [...metric];
     inputdata[u] = onChangeValue.target.value;
     setMetric(inputdata);
@@ -159,7 +165,7 @@ const CreatePin = ({ user }) => {
 
   return (
     <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
-      
+
       <div className=" flex lg:flex-row flex-col justify-center items-center bg-white lg:p-5 p-3 lg:w-4/5  w-full">
         <div className="bg-secondaryColor p-3 flex flex-0.7 w-full">
           <div className=" flex justify-center items-center flex-col border-2 border-dotted border-blue-400 p-3 w-full h-420">
@@ -257,26 +263,26 @@ const CreatePin = ({ user }) => {
                   </div>)
               })}
             </div>
-             {/* div for metric */}
-             <div className='float-left py-4'>
-             <label className='mt-4, ml-4 font-semibold'>Metric</label>
-              {metric.map((data,i) => {
+            {/* div for metric */}
+            <div className='float-left py-4'>
+              <label className='mt-4, ml-4 font-semibold'>Metric</label>
+              {metric.map((data, i) => {
                 return (
                   <div className="flex flex-nowrap">
-                   
-                     <select value={data}
-                onChange={(e) => {
-                  setMetric(e.target.value);handleMetricChange(e, i);
-                }}
-                className="mx-2 mt-2 ml-3 block p-2 w-24 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              >
-                <option value="others" className="sm:text-bg bg-white">Metric</option>
-                {metrics.map((item) => (
-                  <option className="text-base border-0 outline-none capitalize bg-gray-100 text-gray " value={item.name} >
-                    {item.name}
-                  </option>
-                ))}
-              </select>
+
+                    <select value={data}
+                      onChange={(e) => {
+                        setMetric(e.target.value); handleMetricChange(e, i);
+                      }}
+                      className="mx-2 mt-2 ml-3 block p-2 w-24 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    >
+                      <option value="others" className="sm:text-bg bg-white">Metric</option>
+                      {metrics.map((item) => (
+                        <option className="text-base border-0 outline-none capitalize bg-gray-100 text-gray " value={item.name} >
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
                   </div>)
               })}
             </div>
@@ -295,7 +301,7 @@ const CreatePin = ({ user }) => {
                     <button onClick={() => { handleIngredientValDelete(i); handleIngredientDelete(i); handleMetricDelete(i) }}
                       className="text-nRed w-5 h-5 px-1 mx-1 mt-4 text-xs font-bold text-center bg-gray-50 rounded-lg border border-red-200"
 
-                    
+
                     >
                       x
                     </button>
@@ -359,7 +365,7 @@ const CreatePin = ({ user }) => {
               </select>
             </div>
             <div className="flex justify-end items-end mt-5">
-                    {fields && (
+              {fields && (
                 <p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
                   Please add all fields.
                 </p>
@@ -368,7 +374,7 @@ const CreatePin = ({ user }) => {
                 type="button"
                 onClick={savePin}
                 className="transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nGreen duration-300">
-              
+
                 Upload Recipe
               </button>
 
@@ -376,9 +382,9 @@ const CreatePin = ({ user }) => {
           </div>
         </div>
       </div>
-      
-     
-      
+
+
+
     </div>
   );
 };

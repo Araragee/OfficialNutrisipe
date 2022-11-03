@@ -73,6 +73,49 @@ export const categories = [
   },
 ];
 
+
+const fakeDataIng = [
+  {
+    ingAdminName: "Chicken",
+    baseSize: [
+      {
+        baseSizeNum: "kg",
+        calories: "100",
+        calcium: "105"
+      },
+      {
+        baseSizeNum: "g",
+        calories: "20",
+        calcium: "25"
+      }
+    ]
+  },
+  {
+    ingAdminName: "Butter",
+    baseSize: [
+      {
+        baseSizeNum: "kg",
+        calories: "500",
+        calcium: "505"
+      },
+      {
+        baseSizeNum: "g",
+        calories: "300",
+        calcium: "305"
+      }
+    ]
+  }
+]
+
+
+
+
+
+
+
+
+
+
 export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
   image{
     asset->{
