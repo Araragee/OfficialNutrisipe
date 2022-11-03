@@ -116,7 +116,7 @@ const CreatePin = ({ user }) => {
   };
 
   const savePin = () => {
-    if (title && about && procedure && imageAsset?._id && ingredient && ingredientVal && category) {
+    if (title && about && procedure && imageAsset?._id && ingredient && ingredientVal && metric && category) {
       const doc = {
         _type: 'pin',
         _key: uuidv4(),
