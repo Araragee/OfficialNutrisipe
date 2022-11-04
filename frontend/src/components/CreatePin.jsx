@@ -8,7 +8,7 @@ import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { ingval, searchChosenIngredientQuery } from "../utils/data"
+import { ingval, metrics, searchChosenIngredientQuery } from "../utils/data"
 import { client } from '../client';
 import { categories, fakeDataIng } from '../utils/data';
 import Spinner from './Spinner';
@@ -17,38 +17,48 @@ const CreatePin = ({ user }) => {
   const [title, setTitle] = useState('');
   const [about, setAbout] = useState('');
   const [loading, setLoading] = useState(false);
+  const [loadingIngredient, setLoadingIngredient] = useState(false);
   const [fields, setFields] = useState();
   const [category, setCategory] = useState();
   const [imageAsset, setImageAsset] = useState();
   const [wrongImageType, setWrongImageType] = useState(false);
   const [procedure, setProcedure] = useState([]);
+  
 
   const [dropdownClick, setDropdownClick] = useState(true)
 
   //Ingredient Label For Users
   const [chosenIngredient, setChosenIngredient] = useState('');
   //Full Ingredient Object storage after search -- TEMPORARY STORAGE
-  const [chosenIngredientObject, setchosenIngredientObject] = useState('');
+  const [chosenIngredientObject, setchosenIngredientObject] = useState();
   const [ingredientDropDown, setIngredientDropDown] = useState([])
   const [chosenMetric, setChosenMetric] = useState();
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState('');
   const [ingredientList, setIngredientList] = useState([]);
   const [finalRecipeObject, setFinalRecipeObject] = useState([]);
   const [nutrientTable, setNutrientTable] = useState([]);
 
+  
+
   //INGREDIENT SEARCH == SHOW DROPDOWN
   useEffect(() => {
-
     if (chosenIngredient !== "") {
+      setLoadingIngredient(true)
       const query = searchChosenIngredientQuery(chosenIngredient.toLowerCase());
       client.fetch(query).then((data) => {
         if (dropdownClick) {
           setIngredientDropDown(data);
+          setChosenMetric('');
+          setLoadingIngredient(false);
+          
         }
       });
     } else {
       setIngredientDropDown([]);
+      setChosenMetric('');
+      setLoadingIngredient(false);
     }
+
   }, [chosenIngredient,]);
 
   // CHANGE INGREDIENT WHEN DROPDOWN IS CLICKED && RESET DROPDOWNSTATE
@@ -58,16 +68,57 @@ const CreatePin = ({ user }) => {
     setIngredientDropDown([])
   }
 
-// Handlers when to Open And Close Dropdown when selected -- AVOIDS DOUBLE SEARCHING DROPDOWN
+  // Handlers when to Open And Close Dropdown when selected -- AVOIDS DOUBLE SEARCHING DROPDOWN
   const dropdownClickHandlerOpen = () => {
     setDropdownClick(true)
+    console.log()
   }
   const dropdownClickHandlerClose = () => {
     setDropdownClick(false)
   }
 
+  //Handler For Ingredient List Button -- MAIN STORAGE OF FULL INGREDIENT OBJECT -- USES PUSH AND MAKES ARRAY OF OBJECTS TO BE MANIPULATED FOR FINAL RESULT
+
+const handleIngredientList = () => {
 
 
+
+  var item = chosenIngredientObject?.baseSize.find(item => item?.baseSizeNum == chosenMetric);
+
+  console.log(item);
+  
+  const doc = {
+    ingredientName: chosenIngredientObject.ingAdminName,
+    metric: chosenMetric,
+    amount,
+    calories: item.calories * amount,
+    totalfat: item.totalfat * amount,
+    saturatedfat: item.saturatedfat * amount,
+    transfat: item.transfat * amount,
+    cholesterol: item.cholesterol * amount,
+    sodium: item.sodium * amount,
+    totalcarb: item.totalcarb * amount,
+    dietaryFiber: item.dietaryFiber * amount,
+    sugar: item.sugar * amount,
+    protein: item.protein * amount,
+    vitaminA: item.vitaminA * amount,
+    vitaminC: item.vitaminC * amount,
+    calcium: item.calcium * amount,
+    iron: item.iron * amount,
+
+  }
+
+  const newArray = [...finalRecipeObject, doc];
+  setFinalRecipeObject(newArray);
+
+  setChosenIngredient('');
+  setchosenIngredientObject();
+  setChosenMetric('')
+  setIngredientDropDown([]);
+  setAmount('');
+
+  
+}
 
 
 
@@ -79,8 +130,12 @@ const CreatePin = ({ user }) => {
   const handleProcedureAdd = () => {
     const qwe = [...procedure, []];
     setProcedure(qwe);
-    console.log(chosenIngredient);
-    console.log(chosenIngredientObject);
+    // console.log(chosenIngredient);
+    // console.log(chosenIngredientObject);
+    console.log(finalRecipeObject);
+    
+    
+
 
   };
   const handleProcedureChange = (onChangeValue, u) => {
@@ -254,23 +309,57 @@ const CreatePin = ({ user }) => {
             className="p-2 w-full bg-white outline-none"
           />
 
-
+            {/* DISPLAY ALERT IF NO INGREDIENTS FOUND */}
           <div>
+          {ingredientDropDown.length == 0 && chosenIngredient !== "" && !loadingIngredient && <div>NO INGREDIENTS FOUND</div>}
             {ingredientDropDown?.map((item) => (
               <div
                 onClick={() => { ChooseIngredientHandler(item); dropdownClickHandlerClose(); }}
                 key={item?._key}
               >
                 {item?.ingAdminName}
+                
               </div>
             ))
             }
+          </div>
+          
+          {/* METRIC DROPDOWN */}
+          <div className="flex flex-nowrap">
 
+            <select value={chosenMetric}
+              onChange={(e) => {
+                setChosenMetric(e.target.value);
+              }}
+              className="mx-2 mt-2 ml-3 block p-2 w-24 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            > 
+              <option className="text-base border-0 outline-none capitalize bg-gray-100 text-gray " value={null} >
+                Metric
+                </option>
+              {
+              chosenIngredientObject?.baseSize.map((item) => (
+                <option className="text-base border-0 outline-none capitalize bg-gray-100 text-gray " value={item?.baseSizeNum} >
+                  {item?.baseSizeNum}
+                </option>
+              ))}
+            </select>
           </div>
 
+          {/* AMOUNT */}
+          <input
+            type="text"
+            onChange={(e) => setAmount(parseInt(e.target.value))}
+            placeholder="Amount"
+            value={amount}
+            className="p-2 w-full bg-white outline-none"
+          />
+          <button
+              className="text-nGreen w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
 
-
-
+              onClick={() => handleIngredientList()}
+            >
+              ADD
+            </button>
 
 
 
