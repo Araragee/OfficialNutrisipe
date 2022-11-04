@@ -3,12 +3,12 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-alert, no-console */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlineCloudUpload } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { ingval } from "../utils/data"
+import { ingval, searchChosenIngredientQuery } from "../utils/data"
 import { client } from '../client';
 import { categories, fakeDataIng } from '../utils/data';
 import Spinner from './Spinner';
@@ -21,71 +21,67 @@ const CreatePin = ({ user }) => {
   const [category, setCategory] = useState();
   const [imageAsset, setImageAsset] = useState();
   const [wrongImageType, setWrongImageType] = useState(false);
-  const [chosenIngredient, setChosenIngredient] = useState();
+  const [procedure, setProcedure] = useState([]);
+
+  const [dropdownClick, setDropdownClick] = useState(true)
+
+  //Ingredient Label For Users
+  const [chosenIngredient, setChosenIngredient] = useState('');
+  //Full Ingredient Object storage after search -- TEMPORARY STORAGE
+  const [chosenIngredientObject, setchosenIngredientObject] = useState('');
+  const [ingredientDropDown, setIngredientDropDown] = useState([])
   const [chosenMetric, setChosenMetric] = useState();
   const [amount, setAmount] = useState();
-  const [nutrientValueList, setNutrientValueList] = useState([]);
+  const [ingredientList, setIngredientList] = useState([]);
   const [finalRecipeObject, setFinalRecipeObject] = useState([]);
-  const [finalNutrientObject, setFinalNutrientObject] = useState([]);
+  const [nutrientTable, setNutrientTable] = useState([]);
+
+  //INGREDIENT SEARCH == SHOW DROPDOWN
+  useEffect(() => {
+
+    if (chosenIngredient !== "") {
+      const query = searchChosenIngredientQuery(chosenIngredient.toLowerCase());
+      client.fetch(query).then((data) => {
+        if (dropdownClick) {
+          setIngredientDropDown(data);
+        }
+      });
+    } else {
+      setIngredientDropDown([]);
+    }
+  }, [chosenIngredient,]);
+
+  // CHANGE INGREDIENT WHEN DROPDOWN IS CLICKED && RESET DROPDOWNSTATE
+  const ChooseIngredientHandler = (a) => {
+    setChosenIngredient(a.ingAdminName);
+    setchosenIngredientObject(a);
+    setIngredientDropDown([])
+  }
+
+// Handlers when to Open And Close Dropdown when selected -- AVOIDS DOUBLE SEARCHING DROPDOWN
+  const dropdownClickHandlerOpen = () => {
+    setDropdownClick(true)
+  }
+  const dropdownClickHandlerClose = () => {
+    setDropdownClick(false)
+  }
 
 
 
 
 
-  // handle ingredient
-  const handleIngredientAdd = () => {
-    const abc = [...ingredient, []];
-    setIngredient(abc);
-  };
-  const handleIngredientChange = (onChangeValue, i) => {
-    const inputdata = [...ingredient];
-    inputdata[i] = onChangeValue.target.value;
-    setIngredient(inputdata);
-  };
-  const handleIngredientDelete = (i) => {
-    const deleteIngredient = [...ingredient];
-    deleteIngredient.splice(i, 1);
-    setIngredient(deleteIngredient);
-  };
-  // handle metrics
-  const handleMetricChange = (onChangeValue, u) => {
-    const inputdata = [...metric];
-    inputdata[u] = onChangeValue.target.value;
-    setMetric(inputdata);
-  };
 
-  const handleMetricAdd = () => {
-    const qwe = [...metric, []];
-    setMetric(qwe);
-  };
-  const handleMetricDelete = (i) => {
-    const deleteMetric = [...metric];
-    deleteMetric.splice(i, 1);
-    setMetric(deleteMetric);
-  };
 
-  // handle ingredientval
-  const handleIngredientValChange = (onChangeValue, u) => {
-    const inputdata = [...ingredientVal];
-    inputdata[u] = onChangeValue.target.value;
-    setIngredientVal(inputdata);
-  };
 
-  const handleIngredientValAdd = () => {
-    const qwe = [...ingredientVal, []];
-    setIngredientVal(qwe);
-  };
-  const handleIngredientValDelete = (i) => {
-    const deleteIngredientVal = [...ingredientVal];
-    deleteIngredientVal.splice(i, 1);
-    setIngredientVal(deleteIngredientVal);
-  };
 
   // handle procedure
 
   const handleProcedureAdd = () => {
     const qwe = [...procedure, []];
     setProcedure(qwe);
+    console.log(chosenIngredient);
+    console.log(chosenIngredientObject);
+
   };
   const handleProcedureChange = (onChangeValue, u) => {
     const inputdata = [...procedure];
@@ -122,15 +118,13 @@ const CreatePin = ({ user }) => {
   };
 
   const savePin = () => {
-    if (title && about && procedure && imageAsset?._id && ingredient && ingredientVal && category) {
+    if (title && about && procedure && imageAsset?._id && category) {
       const doc = {
         _type: 'pin',
         _key: uuidv4(),
         title,
         about,
-        ingredient,
-        ingredientVal,
-        metric,
+
         procedure,
         image: {
           _type: 'image',
@@ -248,71 +242,49 @@ const CreatePin = ({ user }) => {
               className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2"
             />
           </div>
-          <div className="h-56 grid grid-cols-3 gap-4 content-evenly lg:pl-5 mt-5 w-1/2 float-root  flex items-stretch">
-            {/* div for ingredients */}
-            <div className='float-left py-4'>
-              <label className='mt-4, ml-5 font-semibold'>Ingredients</label>
-              {ingredient.map((data, i) => {
-                return (
-                  <div className="flex flex-nowrap">
-                    <input type="text" id="small-input" className="mx-2 mt-2 ml-5 block p-2 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder='Ingredient'
-                      value={data}
-                      onChange={e => handleIngredientChange(e, i)} />
 
-                  </div>)
-              })}
-            </div>
-            {/* div for metric */}
-            <div className='float-left py-4'>
-              <label className='mt-4, ml-4 font-semibold'>Metric</label>
-              {metric.map((data, i) => {
-                return (
-                  <div className="flex flex-nowrap">
+          {/* NUTRIENT MODULE */}
 
-                    <select value={data}
-                      onChange={(e) => {
-                        setMetric(e.target.value); handleMetricChange(e, i);
-                      }}
-                      className="mx-2 mt-2 ml-3 block p-2 w-24 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    >
-                      <option value="others" className="sm:text-bg bg-white">Metric</option>
-                      {metrics.map((item) => (
-                        <option className="text-base border-0 outline-none capitalize bg-gray-100 text-gray " value={item.name} >
-                          {item.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>)
-              })}
-            </div>
-            {/* div for grams */}
-            <div className='float-middle py-4'>
-              <label className='mt-4, ml-3 font-semibold' >Value</label>
-              {ingredientVal.map((data, i) => {
-                return (
-                  <div className="flex flex-nowrap">
-                    <input type="number" id="small-input" className="mx-2 mt-2 block p-2 w-16 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder='Value'
-                      value={data}
-                      onChange={e => handleIngredientValChange(e, i)} />
-                    {/* button for x ingre,grams */}
-
-                    <button onClick={() => { handleIngredientValDelete(i); handleIngredientDelete(i); handleMetricDelete(i) }}
-                      className="text-nRed w-5 h-5 px-1 mx-1 mt-4 text-xs font-bold text-center bg-gray-50 rounded-lg border border-red-200"
+          <input
+            type="text"
+            onChange={(e) => setChosenIngredient(e.target.value)}
+            onClick={() => dropdownClickHandlerOpen()}
+            placeholder="Search INGREDIENT"
+            value={chosenIngredient}
+            className="p-2 w-full bg-white outline-none"
+          />
 
 
-                    >
-                      x
-                    </button>
-                  </div>)
-              })}
-            </div>
+          <div>
+            {ingredientDropDown?.map((item) => (
+              <div
+                onClick={() => { ChooseIngredientHandler(item); dropdownClickHandlerClose(); }}
+                key={item?._key}
+              >
+                {item?.ingAdminName}
+              </div>
+            ))
+            }
+
           </div>
-          {/* button for add ingre,grams */}
-          <button className=" text-nGreen w-24 h-7.5 ml-5 py-1 px-3 mx-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-            onClick={() => { handleIngredientAdd(); handleIngredientValAdd(); handleMetricAdd() }}> ADD
-          </button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           {/* div for procedures */}
           <div className="flex flex-1 flex-col gap-2 lg:pl-5 mt-2 w-full py-4">
             <label className=" font-semibold">Procedure</label>
@@ -320,6 +292,7 @@ const CreatePin = ({ user }) => {
               <div className="flow-root">
                 {/* textarea for procedures */}
                 <textarea
+                  key="u"
                   id="message"
                   rows="4"
                   className="float-left block p-1 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 "

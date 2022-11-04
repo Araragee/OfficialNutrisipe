@@ -376,3 +376,28 @@ export const searchIngredientQuery = (searchIngredientTerm) => {
   }`;
   return query;
 };
+
+
+export const searchChosenIngredientQuery = (chosenIngredient) => {
+  const query = `*[_type == 'ingredientAdmin'  && ingAdminName match '${chosenIngredient}*' ]{
+    ingAdminName,
+    baseSize[]{
+      baseSizeNum,
+    calcium,
+    calories,
+    cholesterol,
+    dietaryFiber,
+    iron,
+    protein,
+    saturatedfat,
+    sodium,
+    sugar,
+    totalfat,
+    transfat,
+    vitaminA,
+    _key
+    },
+    _key
+  }`;
+  return query;
+};
