@@ -400,6 +400,8 @@ export const allIngredientsQuery = `*[_type == 'ingredientAdmin']{
   totalfat,
   transfat,
   vitaminA,
+  totalcarb,
+  vitaminC,
   _key
   }
 }`;
@@ -423,6 +425,8 @@ export const searchIngredientQuery = (searchIngredientTerm) => {
     totalfat,
     transfat,
     vitaminA,
+    vitaminC,
+    totalcarb,
     _key
     }
   }`;
@@ -447,6 +451,8 @@ export const searchChosenIngredientQuery = (chosenIngredient) => {
     totalfat,
     transfat,
     vitaminA,
+    vitaminC,
+    totalcarb,
     _key
     },
     _key

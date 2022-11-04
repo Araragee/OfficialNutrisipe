@@ -43,23 +43,30 @@ const CreatePin = ({ user }) => {
   //INGREDIENT SEARCH == SHOW DROPDOWN
   useEffect(() => {
     if (chosenIngredient !== "") {
-      setLoadingIngredient(true)
+      setLoadingIngredient(true);
       const query = searchChosenIngredientQuery(chosenIngredient.toLowerCase());
       client.fetch(query).then((data) => {
+        //CHECK FOR DROPDOWN CLICK REMOVES DOUBLE DROPDOWN SHOWING
         if (dropdownClick) {
           setIngredientDropDown(data);
           setChosenMetric('');
           setLoadingIngredient(false);
           
+        } else {
+          setIngredientDropDown([]);
+          setChosenMetric('');
+          setLoadingIngredient(false);
+
         }
       });
+      //RESET EVERYTHING IF TEXTBOX IS EMPTY
     } else {
       setIngredientDropDown([]);
       setChosenMetric('');
       setLoadingIngredient(false);
     }
 
-  }, [chosenIngredient,]);
+  }, [chosenIngredient]);
 
   // CHANGE INGREDIENT WHEN DROPDOWN IS CLICKED && RESET DROPDOWNSTATE
   const ChooseIngredientHandler = (a) => {
@@ -71,10 +78,12 @@ const CreatePin = ({ user }) => {
   // Handlers when to Open And Close Dropdown when selected -- AVOIDS DOUBLE SEARCHING DROPDOWN
   const dropdownClickHandlerOpen = () => {
     setDropdownClick(true)
-    console.log()
+    
+
   }
   const dropdownClickHandlerClose = () => {
     setDropdownClick(false)
+
   }
 
   //Handler For Ingredient List Button -- MAIN STORAGE OF FULL INGREDIENT OBJECT -- USES PUSH AND MAKES ARRAY OF OBJECTS TO BE MANIPULATED FOR FINAL RESULT
@@ -90,7 +99,7 @@ const handleIngredientList = () => {
   const doc = {
     ingredientName: chosenIngredientObject.ingAdminName,
     metric: chosenMetric,
-    amount,
+    amount: parseInt(amount),
     calories: item.calories * amount,
     totalfat: item.totalfat * amount,
     saturatedfat: item.saturatedfat * amount,
@@ -122,6 +131,43 @@ const handleIngredientList = () => {
 
 
 
+// USE EFFECT FOR CONSTANT RECALCULATION FOR SUM OF ALL NUTRIENTS IN THE FinalRecipeObject
+// NUTRIENT TABLE = SUM OF ALL NUTRIENTS IN FINAL RECIPE OBJECT
+useEffect(() => {
+  if (finalRecipeObject.length !== 0) {
+    var add = finalRecipeObject.reduce(function(previousValue, currentValue) {
+      return {
+        calories: previousValue.calories + currentValue.calories,
+        totalfat: previousValue.totalfat + currentValue.totalfat,
+        saturatedfat: previousValue.saturatedfat + currentValue.saturatedfat,
+        transfat: previousValue.transfat + currentValue.transfat,
+        cholesterol: previousValue.cholesterol + currentValue.cholesterol,
+        sodium: previousValue.sodium + currentValue.sodium,
+        totalcarb: previousValue.totalcarb + currentValue.totalcarb,
+        dietaryFiber: previousValue.dietaryFiber + currentValue.dietaryFiber,
+        sugar: previousValue.sugar + currentValue.sugar,
+        protein: previousValue.protein + currentValue.protein,
+        vitaminA: previousValue.vitaminA + currentValue.vitaminA,
+        vitaminC: previousValue.vitaminC + currentValue.vitaminC,
+        calcium: previousValue.calcium + currentValue.calcium,
+        iron: previousValue.iron + currentValue.iron,
+      
+          }
+        });
+  
+        setNutrientTable(add);
+  }
+  
+      
+
+  
+}, [finalRecipeObject])
+
+
+
+
+
+
 
 
 
@@ -133,6 +179,10 @@ const handleIngredientList = () => {
     // console.log(chosenIngredient);
     // console.log(chosenIngredientObject);
     console.log(finalRecipeObject);
+    console.log(nutrientTable)
+    console.log(loadingIngredient)
+    console.log(dropdownClick)
+    
     
     
 
@@ -302,8 +352,10 @@ const handleIngredientList = () => {
 
           <input
             type="text"
-            onChange={(e) => setChosenIngredient(e.target.value)}
-            onClick={() => dropdownClickHandlerOpen()}
+            onChange={(e) => {setChosenIngredient(e.target.value); dropdownClickHandlerOpen()}}
+            // onClick={() => dropdownClickHandlerOpen()}
+            // onFocus={() => dropdownClickHandlerOpen()}
+            onfocusout={() => dropdownClickHandlerClose()}
             placeholder="Search INGREDIENT"
             value={chosenIngredient}
             className="p-2 w-full bg-white outline-none"
@@ -311,7 +363,9 @@ const handleIngredientList = () => {
 
             {/* DISPLAY ALERT IF NO INGREDIENTS FOUND */}
           <div>
-          {ingredientDropDown.length == 0 && chosenIngredient !== "" && !loadingIngredient && <div>NO INGREDIENTS FOUND</div>}
+          {ingredientDropDown.length == 0 && chosenIngredient !== "" && !loadingIngredient && dropdownClick && <div>NO INGREDIENTS FOUND</div>}
+          
+          {/* DROPDOWN BAR FOR INGREDIENT SEARCH */}
             {ingredientDropDown?.map((item) => (
               <div
                 onClick={() => { ChooseIngredientHandler(item); dropdownClickHandlerClose(); }}
@@ -323,6 +377,16 @@ const handleIngredientList = () => {
             ))
             }
           </div>
+
+          {/* DISPLAY WHEN LOADING SEARCH INGREDIENTS */}
+            {loadingIngredient && <div>LOADING</div>}
+
+
+
+
+
+
+
           
           {/* METRIC DROPDOWN */}
           <div className="flex flex-nowrap">
@@ -348,7 +412,7 @@ const handleIngredientList = () => {
           {/* AMOUNT */}
           <input
             type="text"
-            onChange={(e) => setAmount(parseInt(e.target.value))}
+            onChange={(e) => setAmount((e.target.value))}
             placeholder="Amount"
             value={amount}
             className="p-2 w-full bg-white outline-none"
