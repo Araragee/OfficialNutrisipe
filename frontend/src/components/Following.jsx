@@ -48,7 +48,9 @@ const Following = () => {
 
     if(loading) return <Spinner message="Loading..." />
   
-    if(!length) return <Spinner message="You are currently not following anyone..." />
+    if(!length) return <p className='mt-96 flex flex-col justify-center items-center text-nGreen text-2xl  transition-all duration-150 ease-in'>
+        No Current Following
+    </p>
   
     return (
         <>

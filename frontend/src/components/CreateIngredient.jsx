@@ -135,13 +135,13 @@ const CreateIngredient = ({ user }) => {
             <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
 
 
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2">
                     <input
                         type="text"
                         value={ingAdminName}
                         onChange={(e) => setIngAdminName(e.target.value)}
                         placeholder="Ingredient Name"
-                        className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+                        className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
                     />
                 </div>
 
@@ -151,15 +151,17 @@ const CreateIngredient = ({ user }) => {
                     <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="py-2 inline-block  sm:px-6 lg:px-8">
                             <div className="overflow-hidden">
-                                <table className='min-w-full text-center'>
+                                <table className=' text-center'>
                                     <thead className="border-b">
                                         {/* <tbody> */}
                                         <tr className="bg-white border-b">
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Base Size </th>
+                                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Base Size </th>
                                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Calories</th>
                                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Total Fat</th>
                                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Saturated Fat </th>
+                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Trans Fat</th>
                                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Cholesterol</th>
+                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Sodium</th>
                                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Total Carb</th>
                                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Dietary Fiber </th>
                                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Sugar</th>
@@ -184,7 +186,9 @@ const CreateIngredient = ({ user }) => {
                                                         <td>{info.calories}</td>
                                                         <td>{info.totalfat}</td>
                                                         <td>{info.saturatedfat}</td>
+                                                        <td>{info.transfat}</td>
                                                         <td>{info.cholesterol}</td>
+                                                        <td>{info.sodium}</td>
                                                         <td>{info.totalcarb}</td>
                                                         <td>{info.dietaryFiber}</td>
                                                         <td>{info.sugar}</td>

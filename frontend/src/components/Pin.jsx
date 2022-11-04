@@ -16,7 +16,7 @@ const Pin = ({ pin }) => {
     client
       .delete(id)
       .then(() => {
-        window.location.reload();
+        window.location.reload(false);
       });
       
   };
@@ -43,7 +43,7 @@ const Pin = ({ pin }) => {
         }])
         .commit()
         .then(() => {
-          window.location.reload();
+          window.location.reload(false);
           setSavingPost(false);
         });
     }
@@ -57,7 +57,7 @@ const Pin = ({ pin }) => {
       .unset(ToRemove)
       .commit()
       .then(() => {
-        window.location.reload();
+        window.location.reload(false);
       });
   };
 

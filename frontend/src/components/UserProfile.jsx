@@ -41,7 +41,8 @@ const UserProfile = () => {
       .commit()
       .then(() => {
         setAlreadyFollowed(true);
-        window.location.reload();
+        fetchFollower();
+        fetchfollowing();
       });
   };
 
@@ -121,7 +122,7 @@ const UserProfile = () => {
     navigate(`/user-profile/${userId}/following`);
   };
 
-  const image = 'https://source.unsplash.com/1600x900/?nature,photography,technology';
+  const image = 'https://source.unsplash.com/1600x900/?philippines-food';
 
   return (
     <div className="relative pb-2 h-full justify-center items-center">
