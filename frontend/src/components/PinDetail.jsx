@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import ReactTooltip from 'react-tooltip';
 import { client, urlFor } from '../client';
 import MasonryLayout from './MasonryLayout';
-import { pinDetailMorePinQuery, pinDetailQuery } from '../utils/data';
+import { pinDetailMorePinQuery, pinDetailQuery, ingredientBaseValue, fetchIngredientValue } from '../utils/data';
 import Spinner from './Spinner';
 
 const PinDetail = ({ user }) => {
@@ -19,13 +19,26 @@ const PinDetail = ({ user }) => {
   const [addingComment, setAddingComment] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
   const [ingredient, setIngredient] = useState();
-  const navigate = useNavigate();
+  const [baseval, setBaseval] = useState([]);
+  
 
-  const User = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
-
+const getfetchIngredientValue = () => {
+    const query = ingredientBaseValue(pinDetail);
+      client.fetch(`${query}`).then((data) => {
+        setBaseval(data);
+       
+      })}
+  
+  
+      const navigate = useNavigate();
+  
+      const User = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
+  
   let alreadySaved = pinDetail?.save?.filter((item) => item?.postedBy?._id === User?.sub);
-
+  
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
+
+  
 
   const fetchPinDetails = () => {
     const query = pinDetailQuery(pinId);
@@ -54,7 +67,6 @@ const PinDetail = ({ user }) => {
   const savePin = (id) => {
     if (alreadySaved?.length === 0) {
       setSavingPost(true);
-
       client
         .patch(id)
         .setIfMissing({ save: [] })
@@ -138,7 +150,7 @@ const PinDetail = ({ user }) => {
               src={(pinDetail?.image && urlFor(pinDetail?.image).url())}
               alt="user-post"
             />
-
+        
           </div>
 
           <div className="w-full p-5 flex-1 xl:min-w-620">
@@ -193,19 +205,19 @@ const PinDetail = ({ user }) => {
               <div className="float-root  flex">
               <div className='float-left py-4'>
               <p style={{ marginBottom: '15px' }} className="font-semibold "> Ingredients: </p>
-              {pinDetail.ingredient.map((item) => (
-                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }}>
-
-                <li className="capitalize flex flex-nowrap" key="{item}">{item}</li>
+               
+              {pinDetail.ingredient.map((item, i) => (
+                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} key={i}>
+                <li className="capitalize flex flex-nowrap" key={i}> {item} </li>
                 </div>
               ))}
                 </div>
-                
+              
                 <div className='float-middle pt-14 pl-2'>
              
-              {pinDetail.ingredientVal.map((item) => (
-                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }}>
-                  <li className=" flex flex-nowrap" key="{item}">{item}</li>
+              {pinDetail.ingredientVal.map((item, i) => (
+                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} key={i}>
+                  <li className=" flex flex-nowrap" key={i}>{item}</li>
                 </div>
               ))}
                  </div>
@@ -219,9 +231,9 @@ const PinDetail = ({ user }) => {
                  </div>
                  </div>
               <p style={{ marginBottom: '15px' }} className="font-semibold"> Procedure: </p>
-              {pinDetail.procedure.map((item) => (
-                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }}>
-                  <li className="capitalize" key="{item}">{item}</li>
+              {pinDetail.procedure.map((item, i) => (
+                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} key={i}>
+                  <li className="capitalize" key={i}>{item}</li>
                 </div>
               ))}
 
@@ -234,8 +246,8 @@ const PinDetail = ({ user }) => {
             </Link>
             <h2 className="mt-5 text-2xl"> Comments </h2>
             <div className="max-h-370 overflow-y-auto">
-              {pinDetail?.comments?.map((comment) => (
-                <div className="flex gap-2 mt-5 items-center bg-white rounded-lg" key={comment.comment}>
+              {pinDetail?.comments?.map((comment, i) => (
+                <div className="flex gap-2 mt-5 items-center bg-white rounded-lg" key={i}>
 
                   <img
                     src={comment.postedBy?.image}

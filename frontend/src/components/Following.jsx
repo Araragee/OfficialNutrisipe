@@ -41,6 +41,9 @@ const Following = () => {
           .patch(id)
           .unset(ToRemove)
           .commit()
+          .then(() => {
+            window.location.reload();
+          });
     }
 
     if(loading) return <Spinner message="Loading..." />
@@ -64,7 +67,7 @@ const Following = () => {
                                <p className='font-bold'>{index?.[1]}</p>
                             </div>
                         </Link>
-                        {userId === user?.googleId && (
+                        {userId === user?.sub && (
                            <button 
                              onClick={(e) => {
                                  e.stopPropagation();
