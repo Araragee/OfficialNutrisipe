@@ -33,8 +33,8 @@ const Followers = () => {
       .patch(userId)
       .unset(ToRemove)
       .commit()
-      .then((data) => {
-        console.log(data);
+      .then(() => {
+        window.location.reload();
       })
   }
 
@@ -60,7 +60,7 @@ const Followers = () => {
                   <p className='font-bold'>{index.postedBy?.userName}</p>
                 </div>
               </Link>
-              {userId === user?.googleId && (
+              {userId === user?.sub && (
                 <button 
                   onClick={(e) => {
                       e.stopPropagation();

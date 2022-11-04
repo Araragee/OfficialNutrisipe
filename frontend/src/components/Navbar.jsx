@@ -19,7 +19,7 @@ const Navbar = ({ searchTerm, setSearchTerm, user }) => {
           </IconContext.Provider>
           <input
             type="text"
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value.replace(/[^\w\s]/gi, ""))}
             placeholder="Search for recipes"
             value={searchTerm}
             onFocus={() => navigate('/search')}
