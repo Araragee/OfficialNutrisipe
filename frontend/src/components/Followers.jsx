@@ -60,7 +60,7 @@ const Followers = () => {
                   <p className='font-bold'>{index.postedBy?.userName}</p>
                 </div>
               </Link>
-              {userId === user?.googleId && (
+              {userId === user?.sub && (
                 <button 
                   onClick={(e) => {
                       e.stopPropagation();
