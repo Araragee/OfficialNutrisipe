@@ -6,7 +6,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import { Sidebar, UserProfile, Followers, Following } from '../components';
 import Pins from './Pins';
 import { client } from '../client';
-import logoss from '../assets/logoss.png';
+import logoss from '../assets/logo2s.png';
 
 import { userQuery } from '../utils/data';
 

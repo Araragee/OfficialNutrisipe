@@ -40,7 +40,8 @@ const Followers = () => {
 
   if(loading) return <Spinner message="Loading followers..." />
 
-  if (!length) return <Spinner message="No followers found.." />
+  if (!length) return <p className='mt-96 flex flex-col justify-center items-center text-nGreen text-2xl  transition-all duration-150 ease-in'>
+    No Current Followers</p>
   
 
   return (

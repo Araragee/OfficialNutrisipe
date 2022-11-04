@@ -4,10 +4,10 @@ import { RiHomeFill, RiUserFollowLine } from 'react-icons/ri';
 
 import { Link, NavLink } from 'react-router-dom';
 
-import logo from '../assets/logosss.png';
+import logo from '../assets/logo2s.png';
 import { categories } from '../utils/data';
 
-const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-green-500 transition-all duration-200 ease-in-out capitalize';
+const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-nOrange transition-all duration-200 ease-in-out capitalize';
 const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black  transition-all duration-200 ease-in-out capitalize';
 
 const Sidebar = ({ closeToggle, user }) => {
@@ -44,11 +44,11 @@ const Sidebar = ({ closeToggle, user }) => {
             style={{ color: '#999093', fontWeight: '600' }}
           >
             <RiUserFollowLine />
-            Following
+            My Following
           </NavLink>
 
 
-          <h3 className="mt-2 px-5 text-base 2xl:text-xl font-semibold">Categories</h3>
+          <h3 className="mt-2 px-5 text-base text-gray-500 2xl:text-xl font-semibold">Categories</h3>
           {categories.slice(0, categories.length - 1).map((category) => (
             <NavLink
               to={`/category/${category.name}`}

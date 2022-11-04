@@ -212,7 +212,7 @@ export const pinDetailMorePinQuery = (pin) => {
 };
 
 export const searchQuery = (searchTerm) => {
-  const query = `*[_type == "pin" && title match '${searchTerm}*' || category match '${searchTerm}*' || about match '${searchTerm}*']{
+  const query = `*[_type == "pin" && title match '${searchTerm}*' || category match '${searchTerm}*' || about match '${searchTerm}*' || ingredient match '${searchTerm}*']{
         image{
           asset->{
             url
@@ -400,8 +400,8 @@ export const allIngredientsQuery = `*[_type == 'ingredientAdmin']{
   totalfat,
   transfat,
   vitaminA,
-  totalcarb,
   vitaminC,
+  totalcarb,
   _key
   }
 }`;
