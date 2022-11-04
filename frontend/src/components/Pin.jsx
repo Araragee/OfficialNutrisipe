@@ -18,6 +18,7 @@ const Pin = ({ pin }) => {
       .then(() => {
         window.location.reload();
       });
+      
   };
   const user = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
 

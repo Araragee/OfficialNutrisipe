@@ -1,6 +1,7 @@
 import React from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
-import { RiHomeFill } from 'react-icons/ri';
+import { RiHomeFill, RiUserFollowLine } from 'react-icons/ri';
+
 import { Link, NavLink } from 'react-router-dom';
 
 import logo from '../assets/logosss.png';
@@ -35,6 +36,18 @@ const Sidebar = ({ closeToggle, user }) => {
             <RiHomeFill />
             Home
           </NavLink>
+
+          <NavLink
+            to="/FollowFeed"
+            className={({ isActive }) => (isActive ? isActiveStyle : isNotActiveStyle)}
+            onClick={handleCloseSidebar}
+            style={{ color: '#999093', fontWeight: '600' }}
+          >
+            <RiUserFollowLine />
+            Following
+          </NavLink>
+
+
           <h3 className="mt-2 px-5 text-base 2xl:text-xl font-semibold">Categories</h3>
           {categories.slice(0, categories.length - 1).map((category) => (
             <NavLink

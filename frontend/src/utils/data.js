@@ -202,6 +202,16 @@ export const userQuery = (userId) => {
   return query;
 };
 
+export const userSearch = (searchTerm) => {
+  const query = `*[_type == "user" && userName match'${searchTerm}']
+  {
+   _id,
+   image,
+   userName,
+  }`;
+  return query;
+};
+
 export const userCreatedPinsQuery = (userId) => {
   const query = `*[ _type == 'pin' && userId == '${userId}'] | order(_createdAt desc){
     image{

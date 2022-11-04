@@ -41,6 +41,9 @@ const Following = () => {
           .patch(id)
           .unset(ToRemove)
           .commit()
+          .then(() => {
+            window.location.reload();
+          });
     }
 
     if(loading) return <Spinner message="Loading..." />

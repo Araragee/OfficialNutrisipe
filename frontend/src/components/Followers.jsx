@@ -33,8 +33,8 @@ const Followers = () => {
       .patch(userId)
       .unset(ToRemove)
       .commit()
-      .then((data) => {
-        console.log(data);
+      .then(() => {
+        window.location.reload();
       })
   }
 
