@@ -150,11 +150,11 @@ const CreateIngredient = ({ user }) => {
                 <div className="flex flex-col">
                     <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="py-2 inline-block  sm:px-6 lg:px-8">
-                            <div className="overflow-hidden">
-                                <table className=' text-center'>
-                                    <thead className="border-b">
+                            <div className="overflow-hidden container">
+                                <table className="w-full border-b sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
+                                    <thead class="text-gray-400">
                                         {/* <tbody> */}
-                                        <tr className="bg-white border-b">
+                                        <tr className="bg-nOrange flex flex-col flex-nowrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
                                         <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Base Size </th>
                                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Calories</th>
                                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Total Fat</th>
@@ -170,18 +170,20 @@ const CreateIngredient = ({ user }) => {
                                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Vitamin C</th>
                                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Calcium</th>
                                             <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Iron</th>
+                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Action</th>
                                         </tr>
+                                        
                                     </thead>
 
-                                    <tbody>
+                                    <tbody class="flex-1 sm:flex-none text-center">
                                         {baseSizeList.length < 1 ?
-                                            <tr>
-                                                <td colSpan={2.5}>No Base Size Data entered Yet</td>
+                                            <tr >
+                                                <td colSpan={3}>No Base Size Data entered Yet</td>
                                             </tr> :
 
                                             baseSizeList.map((info, i) => {
                                                 return (
-                                                    <tr key={i} className="bg-white border-b">
+                                                    <tr key={i} class="flex flex-col sm:table-row mb-2 sm:mb-0">
                                                         <td>{info.baseSizeNum}</td>
                                                         <td>{info.calories}</td>
                                                         <td>{info.totalfat}</td>
@@ -198,7 +200,7 @@ const CreateIngredient = ({ user }) => {
                                                         <td>{info.calcium}</td>
                                                         <td>{info.iron}</td>
 
-                                                        <tr><td className='text-red-300 pl-2 '><button onClick={() => deleteBaseSizeHandler(i)}>Delete</button></td></tr>
+                                                        <td className='text-red-300 pl-2 '><button onClick={() => deleteBaseSizeHandler(i)}>Delete</button></td>
                                                     </tr>
 
 
@@ -252,6 +254,8 @@ const CreateIngredient = ({ user }) => {
                             <input
                                 type="number"
                                 value={calories}
+                                step='1'
+                                min='0'
                                 onChange={(e) => setCalories((e.target.value))}
                                 placeholder="calories"
                                 className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2 w-full "
@@ -260,6 +264,8 @@ const CreateIngredient = ({ user }) => {
                         <div className="flex flex-1 flex-col  pl-5 pr-5   mt-2 ">
                             <input
                                 type="number"
+                                step='1'
+                                min='0'
                                 value={totalFat}
                                 onChange={(e) => setTotalFat(e.target.value)}
                                 placeholder="totalFat"
@@ -269,6 +275,8 @@ const CreateIngredient = ({ user }) => {
                         <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 ">
                             <input
                                 type="number"
+                                step='1'
+                                min='0'
                                 value={saturatedFat}
                                 onChange={(e) => setSaturatedFat(e.target.value)}
                                 placeholder="saturatedFat"
@@ -278,6 +286,8 @@ const CreateIngredient = ({ user }) => {
                         <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 ">
                             <input
                                 type="number"
+                                step='1'
+                                min='0'
                                 value={transFat}
                                 onChange={(e) => settransFat(e.target.value)}
                                 placeholder="transFat"
@@ -287,6 +297,8 @@ const CreateIngredient = ({ user }) => {
                         <div className="flex flex-1 flex-col pl-5 pr-5  mt-2 ">
                             <input
                                 type="number"
+                                step='1'
+                                min='0'
                                 value={cholesterol}
                                 onChange={(e) => setCholesterol(e.target.value)}
                                 placeholder="cholesterol"
@@ -296,6 +308,8 @@ const CreateIngredient = ({ user }) => {
                         <div className="flex flex-1 flex-col  pl-5 pr-5  mt-2 ">
                             <input
                                 type="number"
+                                step='1'
+                                min='0'
                                 value={sodium}
                                 onChange={(e) => setSodium(e.target.value)}
                                 placeholder="sodium"
@@ -305,6 +319,8 @@ const CreateIngredient = ({ user }) => {
                         <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 ">
                             <input
                                 type="number"
+                                step='1'
+                                min='0'
                                 value={totalCarbohydrates}
                                 onChange={(e) => setTotalCarbohydrates(e.target.value)}
                                 placeholder="total Carbohydrates"
@@ -314,6 +330,8 @@ const CreateIngredient = ({ user }) => {
                         <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 " >
                             <input
                                 type="number"
+                                step='1'
+                                min='0'
                                 value={dietaryFiber}
                                 onChange={(e) => setDietaryFiber(e.target.value)}
                                 placeholder="dietaryFiber"
@@ -323,6 +341,8 @@ const CreateIngredient = ({ user }) => {
                         <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 ">
                             <input
                                 type="number"
+                                step='1'
+                                min='0'
                                 value={sugar}
                                 onChange={(e) => setSugar(e.target.value)}
                                 placeholder="sugar"
@@ -332,6 +352,8 @@ const CreateIngredient = ({ user }) => {
                         <div className="flex flex-1 flex-col  pl-5 pr-5  mt-2 ">
                             <input
                                 type="number"
+                                step='1'
+                                min='0'
                                 value={protein}
                                 onChange={(e) => setProtein(e.target.value)}
                                 placeholder="protein"
@@ -341,6 +363,8 @@ const CreateIngredient = ({ user }) => {
                         <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 ">
                             <input
                                 type="number"
+                                step='1'
+                                min='0'
                                 value={vitaminA}
                                 onChange={(e) => setVitaminA(e.target.value)}
                                 placeholder="vitaminA"
@@ -350,6 +374,8 @@ const CreateIngredient = ({ user }) => {
                         <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 ">
                             <input
                                 type="number"
+                                step='1'
+                                min='0'
                                 value={vitaminC}
                                 onChange={(e) => setVitaminC(e.target.value)}
                                 placeholder="vitaminC"
@@ -359,6 +385,8 @@ const CreateIngredient = ({ user }) => {
                         <div className="flex flex-1 flex-col pl-5 pr-5  mt-2 ">
                             <input
                                 type="number"
+                                step='1'
+                                min='0'
                                 value={calcium}
                                 onChange={(e) => setCalcium(e.target.value)}
                                 placeholder="calcium"
@@ -368,6 +396,8 @@ const CreateIngredient = ({ user }) => {
                         <div className="flex flex-1 flex-col  pl-5 pr-5 mt-2 ">
                             <input
                                 type="number"
+                                step='1'
+                                min='0'
                                 value={iron}
                                 onChange={(e) => setIron(e.target.value)}
                                 placeholder="iron"
@@ -415,7 +445,7 @@ const CreateIngredient = ({ user }) => {
                     <button
                         type="button"
                         onClick={uploadIngredient}
-                        className="mb-3 transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-nTeal  text-gray-700 hover:text-white font-bold hover:-translate-y-1 hover:scale-110 duration-300 hover:bg-nGreen"
+                        className="mb-3 transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-orange-500  text-nGreen hover:text-white font-bold hover:-translate-y-1 hover:scale-110 duration-300 hover:bg-nOrange"
                     >
                         Add To Database
                     </button>

@@ -51,7 +51,7 @@ const Pin = ({ pin }) => {
 
   // unsave a post
   const Unsave = (id) => {
-    const ToRemove = [`save[userId=="${user.sub}"]`];
+    const ToRemove = [`save[userId=="${user?.sub}"]`];
     client
       .patch(id)
       .unset(ToRemove)
@@ -103,7 +103,7 @@ const Pin = ({ pin }) => {
                 </button>
               )}
 
-              {postedBy?._id === user.sub && (
+              {postedBy?._id === user?.sub && (
                 <button
                   type="button"
                   onClick={(e) => {

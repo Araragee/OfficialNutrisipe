@@ -245,19 +245,19 @@ const getfetchIngredientValue = () => {
               <p className="font-semibold capitalize">{pinDetail.postedBy?.userName}</p>
             </Link>
             <h2 className="mt-5 text-2xl"> Comments </h2>
-            <div className="max-h-370 overflow-y-auto h-40 whitespace-normal ">
+            <div className="max-h-370 overflow-y-auto h-40 whitespace-normal">
               {pinDetail?.comments?.map((comment, i) => (
-                <div className="flex gap-2 mt-5 items-center bg-white rounded-lg break-all " key={i}>
-                  <Link to={`/user-profile/${pinDetail?._id._id}`}>
+                <div className="flex gap-2 mt-5 items-center bg-white rounded-lg  " key={i}>
+                  <Link to={`/user-profile/${comment?.postedBy._id}`}>
                   <img
                     src={comment.postedBy?.image}
                     alt="user-profile"
-                    className="pointer-events-none w-10 h-10 rounded-full cursor-pointer"
+                    className="pointer-events-none w-10 h-10 rounded-full cursor-pointer "
                   />
                   </Link>
                   <div className="flex flex-col ">
                     <p className="font-bold">{comment.postedBy?.userName}</p>
-                    <p>{comment.comment}</p>
+                    <p className='flex '>{comment.comment}</p>
                   </div>
                   <div className="flex flex-col mt-4">
                     {comment?.postedBy?._id === user._id ? (
