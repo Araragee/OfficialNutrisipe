@@ -163,7 +163,11 @@ const CreatePin = ({ user }) => {
 
   }, [finalRecipeObject])
 
-
+  const deleteFinalRecipeObjectHandler = (i) => {
+    let newDataArr = [...finalRecipeObject]
+    newDataArr.splice(i, 1)
+    setFinalRecipeObject(newDataArr)
+}
 
 
 
@@ -389,6 +393,7 @@ const CreatePin = ({ user }) => {
                 <div>{info.ingredientName}</div>
                 <div>{info.metric}</div>
                 <div>{info.amount}</div>
+                <button onClick={() => deleteFinalRecipeObjectHandler(i)}>Delete</button>
               </div>
             )
           })}
@@ -455,6 +460,7 @@ const CreatePin = ({ user }) => {
                 <div>vitaminA {nutrientTable.vitaminA}</div>
                 <div>vitaminC {nutrientTable.vitaminC}</div>
                 <div>calcium {nutrientTable.calcium}</div>
+                
               
             
 
