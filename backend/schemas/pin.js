@@ -14,6 +14,17 @@ export default {
       type: 'string',
     },
     {
+      name: 'ingredientListPost',
+      title: 'IngredientListPost',
+      type: 'array',
+      of: [{type: 'ingredientList'}]
+    },
+    {
+      name: 'nutritionPost',
+      title: 'NutritionPost',
+      type: 'baseSize',
+    },
+    {
       name: 'procedure',
       title: 'Procedure',
       type: 'array',
@@ -38,28 +49,11 @@ export default {
       type: 'string',
     },
     {
-      name: 'ingredient',
-      title: 'Ingredient',
-      type: 'array',
-      of: [{type: 'string'}]
-    },
-    {
-      name: 'ingredientVal',
-      title: 'Ingredient Value',
-      type: 'array',
-      of: [{type: 'string'}]
-    },
-    {
-      name: 'metric',
-      title: 'Metric ',
-      type: 'array',
-      of: [{type: 'string'}]
-    },
-    {
       name: 'postedBy',
       title: 'PostedBy',
       type: 'postedBy',
     },
+    
     {
       name: 'save',
       title: 'Save',

@@ -23,7 +23,7 @@ const CreatePin = ({ user }) => {
   const [imageAsset, setImageAsset] = useState();
   const [wrongImageType, setWrongImageType] = useState(false);
   const [procedure, setProcedure] = useState([]);
-  
+
 
   const [dropdownClick, setDropdownClick] = useState(true)
 
@@ -34,11 +34,10 @@ const CreatePin = ({ user }) => {
   const [ingredientDropDown, setIngredientDropDown] = useState([])
   const [chosenMetric, setChosenMetric] = useState();
   const [amount, setAmount] = useState('');
-  const [ingredientList, setIngredientList] = useState([]);
   const [finalRecipeObject, setFinalRecipeObject] = useState([]);
   const [nutrientTable, setNutrientTable] = useState([]);
 
-  
+
 
   //INGREDIENT SEARCH == SHOW DROPDOWN
   useEffect(() => {
@@ -51,7 +50,7 @@ const CreatePin = ({ user }) => {
           setIngredientDropDown(data);
           setChosenMetric('');
           setLoadingIngredient(false);
-          
+
         } else {
           setIngredientDropDown([]);
           setChosenMetric('');
@@ -78,7 +77,7 @@ const CreatePin = ({ user }) => {
   // Handlers when to Open And Close Dropdown when selected -- AVOIDS DOUBLE SEARCHING DROPDOWN
   const dropdownClickHandlerOpen = () => {
     setDropdownClick(true)
-    
+
 
   }
   const dropdownClickHandlerClose = () => {
@@ -88,80 +87,81 @@ const CreatePin = ({ user }) => {
 
   //Handler For Ingredient List Button -- MAIN STORAGE OF FULL INGREDIENT OBJECT -- USES PUSH AND MAKES ARRAY OF OBJECTS TO BE MANIPULATED FOR FINAL RESULT
 
-const handleIngredientList = () => {
+  const handleIngredientList = () => {
 
 
 
-  var item = chosenIngredientObject?.baseSize.find(item => item?.baseSizeNum == chosenMetric);
+    var item = chosenIngredientObject?.baseSize.find(item => item?.baseSizeNum == chosenMetric);
 
-  console.log(item);
-  
-  const doc = {
-    ingredientName: chosenIngredientObject.ingAdminName,
-    metric: chosenMetric,
-    amount: parseInt(amount),
-    calories: item.calories * amount,
-    totalfat: item.totalfat * amount,
-    saturatedfat: item.saturatedfat * amount,
-    transfat: item.transfat * amount,
-    cholesterol: item.cholesterol * amount,
-    sodium: item.sodium * amount,
-    totalcarb: item.totalcarb * amount,
-    dietaryFiber: item.dietaryFiber * amount,
-    sugar: item.sugar * amount,
-    protein: item.protein * amount,
-    vitaminA: item.vitaminA * amount,
-    vitaminC: item.vitaminC * amount,
-    calcium: item.calcium * amount,
-    iron: item.iron * amount,
+    console.log(item);
+
+    const doc = {
+      ingredientName: chosenIngredientObject.ingAdminName,
+      metric: chosenMetric,
+      amount: parseInt(amount),
+      calories: item.calories * amount,
+      totalfat: item.totalfat * amount,
+      saturatedfat: item.saturatedfat * amount,
+      transfat: item.transfat * amount,
+      cholesterol: item.cholesterol * amount,
+      sodium: item.sodium * amount,
+      totalcarb: item.totalcarb * amount,
+      dietaryFiber: item.dietaryFiber * amount,
+      sugar: item.sugar * amount,
+      protein: item.protein * amount,
+      vitaminA: item.vitaminA * amount,
+      vitaminC: item.vitaminC * amount,
+      calcium: item.calcium * amount,
+      iron: item.iron * amount,
+      _key: item._key
+
+    }
+
+    const newArray = [...finalRecipeObject, doc];
+    setFinalRecipeObject(newArray);
+
+    setChosenIngredient('');
+    setchosenIngredientObject();
+    setChosenMetric('')
+    setIngredientDropDown([]);
+    setAmount('');
+
 
   }
 
-  const newArray = [...finalRecipeObject, doc];
-  setFinalRecipeObject(newArray);
-
-  setChosenIngredient('');
-  setchosenIngredientObject();
-  setChosenMetric('')
-  setIngredientDropDown([]);
-  setAmount('');
-
-  
-}
 
 
+  // USE EFFECT FOR CONSTANT RECALCULATION FOR SUM OF ALL NUTRIENTS IN THE FinalRecipeObject
+  // NUTRIENT TABLE = SUM OF ALL NUTRIENTS IN FINAL RECIPE OBJECT
+  useEffect(() => {
+    if (finalRecipeObject.length !== 0) {
+      var add = finalRecipeObject.reduce(function (previousValue, currentValue) {
+        return {
+          calories: previousValue.calories + currentValue.calories,
+          totalfat: previousValue.totalfat + currentValue.totalfat,
+          saturatedfat: previousValue.saturatedfat + currentValue.saturatedfat,
+          transfat: previousValue.transfat + currentValue.transfat,
+          cholesterol: previousValue.cholesterol + currentValue.cholesterol,
+          sodium: previousValue.sodium + currentValue.sodium,
+          totalcarb: previousValue.totalcarb + currentValue.totalcarb,
+          dietaryFiber: previousValue.dietaryFiber + currentValue.dietaryFiber,
+          sugar: previousValue.sugar + currentValue.sugar,
+          protein: previousValue.protein + currentValue.protein,
+          vitaminA: previousValue.vitaminA + currentValue.vitaminA,
+          vitaminC: previousValue.vitaminC + currentValue.vitaminC,
+          calcium: previousValue.calcium + currentValue.calcium,
+          iron: previousValue.iron + currentValue.iron,
 
-// USE EFFECT FOR CONSTANT RECALCULATION FOR SUM OF ALL NUTRIENTS IN THE FinalRecipeObject
-// NUTRIENT TABLE = SUM OF ALL NUTRIENTS IN FINAL RECIPE OBJECT
-useEffect(() => {
-  if (finalRecipeObject.length !== 0) {
-    var add = finalRecipeObject.reduce(function(previousValue, currentValue) {
-      return {
-        calories: previousValue.calories + currentValue.calories,
-        totalfat: previousValue.totalfat + currentValue.totalfat,
-        saturatedfat: previousValue.saturatedfat + currentValue.saturatedfat,
-        transfat: previousValue.transfat + currentValue.transfat,
-        cholesterol: previousValue.cholesterol + currentValue.cholesterol,
-        sodium: previousValue.sodium + currentValue.sodium,
-        totalcarb: previousValue.totalcarb + currentValue.totalcarb,
-        dietaryFiber: previousValue.dietaryFiber + currentValue.dietaryFiber,
-        sugar: previousValue.sugar + currentValue.sugar,
-        protein: previousValue.protein + currentValue.protein,
-        vitaminA: previousValue.vitaminA + currentValue.vitaminA,
-        vitaminC: previousValue.vitaminC + currentValue.vitaminC,
-        calcium: previousValue.calcium + currentValue.calcium,
-        iron: previousValue.iron + currentValue.iron,
-      
-          }
-        });
-  
-        setNutrientTable(add);
-  }
-  
-      
+        }
+      });
 
-  
-}, [finalRecipeObject])
+      setNutrientTable(add);
+    }
+
+
+
+
+  }, [finalRecipeObject])
 
 
 
@@ -182,9 +182,9 @@ useEffect(() => {
     console.log(nutrientTable)
     console.log(loadingIngredient)
     console.log(dropdownClick)
-    
-    
-    
+
+
+
 
 
   };
@@ -223,13 +223,13 @@ useEffect(() => {
   };
 
   const savePin = () => {
-    if (title && about && procedure && imageAsset?._id && category) {
+
+    if (title && about && procedure && imageAsset?._id && category && finalRecipeObject) {
       const doc = {
         _type: 'pin',
         _key: uuidv4(),
         title,
         about,
-
         procedure,
         image: {
           _type: 'image',
@@ -244,9 +244,10 @@ useEffect(() => {
           _ref: user._id,
         },
         category,
+        ingredientListPost: finalRecipeObject,
+        nutritionPost: nutrientTable
       };
       client.create(doc).then(() => {
-        fetch(ingval);
         navigate('/');
         console.log(doc);
       });
@@ -352,42 +353,55 @@ useEffect(() => {
 
           <input
             type="text"
-            onChange={(e) => {setChosenIngredient(e.target.value); dropdownClickHandlerOpen()}}
-            // onClick={() => dropdownClickHandlerOpen()}
-            // onFocus={() => dropdownClickHandlerOpen()}
-            onfocusout={() => dropdownClickHandlerClose()}
+            onChange={(e) => { setChosenIngredient(e.target.value); dropdownClickHandlerOpen() }}
+            onBlur={() => dropdownClickHandlerClose()}
             placeholder="Search INGREDIENT"
             value={chosenIngredient}
             className="p-2 w-full bg-white outline-none"
           />
 
-            {/* DISPLAY ALERT IF NO INGREDIENTS FOUND */}
+          {/* DISPLAY ALERT IF NO INGREDIENTS FOUND */}
           <div>
-          {ingredientDropDown.length == 0 && chosenIngredient !== "" && !loadingIngredient && dropdownClick && <div>NO INGREDIENTS FOUND</div>}
-          
-          {/* DROPDOWN BAR FOR INGREDIENT SEARCH */}
+            {ingredientDropDown.length == 0 && chosenIngredient !== "" && !loadingIngredient && dropdownClick && <div>NO INGREDIENTS FOUND</div>}
+
+            {/* DROPDOWN BAR FOR INGREDIENT SEARCH */}
             {ingredientDropDown?.map((item) => (
               <div
                 onClick={() => { ChooseIngredientHandler(item); dropdownClickHandlerClose(); }}
                 key={item?._key}
               >
                 {item?.ingAdminName}
-                
+
               </div>
             ))
             }
           </div>
 
           {/* DISPLAY WHEN LOADING SEARCH INGREDIENTS */}
-            {loadingIngredient && <div>LOADING</div>}
-
-
-
-
-
-
-
+          {loadingIngredient && <div>LOADING</div>}
           
+          {/* DISPLAY INGREDIENT LIST/FINAL RECIPE OBJECT WITH DELETE */}
+
+          {finalRecipeObject.map((info, i) => {
+            return (
+              <div key={i} >
+                <br />
+                <div>{info.ingredientName}</div>
+                <div>{info.metric}</div>
+                <div>{info.amount}</div>
+              </div>
+            )
+          })}
+
+
+
+
+
+
+
+
+
+
           {/* METRIC DROPDOWN */}
           <div className="flex flex-nowrap">
 
@@ -396,16 +410,16 @@ useEffect(() => {
                 setChosenMetric(e.target.value);
               }}
               className="mx-2 mt-2 ml-3 block p-2 w-24 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            > 
+            >
               <option className="text-base border-0 outline-none capitalize bg-gray-100 text-gray " value={null} >
                 Metric
-                </option>
+              </option>
               {
-              chosenIngredientObject?.baseSize.map((item) => (
-                <option className="text-base border-0 outline-none capitalize bg-gray-100 text-gray " value={item?.baseSizeNum} >
-                  {item?.baseSizeNum}
-                </option>
-              ))}
+                chosenIngredientObject?.baseSize.map((item) => (
+                  <option className="text-base border-0 outline-none capitalize bg-gray-100 text-gray " value={item?.baseSizeNum} >
+                    {item?.baseSizeNum}
+                  </option>
+                ))}
             </select>
           </div>
 
@@ -418,16 +432,31 @@ useEffect(() => {
             className="p-2 w-full bg-white outline-none"
           />
           <button
-              className="text-nGreen w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+            className="text-nGreen w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
 
-              onClick={() => handleIngredientList()}
-            >
-              ADD
-            </button>
-
-
+            onClick={() => handleIngredientList()}
+          >
+            ADD
+          </button>
 
 
+          
+                <div>calories {nutrientTable.calories}</div>
+                <div>totalfat {nutrientTable.totalfat}</div>
+                <div>saturatedfat {nutrientTable.saturatedfat}</div>
+                <div>transfat {nutrientTable.transfat}</div>
+                <div>cholesterol {nutrientTable.cholesterol}</div>
+                <div>sodium {nutrientTable.sodium}</div>
+                <div>totalcarb {nutrientTable.totalcarb}</div>
+                <div>dietaryFiber {nutrientTable.dietaryFiber}</div>
+                <div>sugar {nutrientTable.sugar}</div>
+                <div>protein {nutrientTable.protein}</div>
+                <div>saturatedfat {nutrientTable.saturatedfat}</div>
+                <div>vitaminA {nutrientTable.vitaminA}</div>
+                <div>vitaminC {nutrientTable.vitaminC}</div>
+                <div>calcium {nutrientTable.calcium}</div>
+              
+            
 
 
 
