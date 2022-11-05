@@ -11,6 +11,7 @@ import postedBy from './postedBy';
 import save from './save'
 import baseSize from './baseSize';
 import ingredient from './ingredient';
+import ingredientList from './ingredientList';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -18,5 +19,5 @@ export default createSchema({
   name: 'default',
   // Then proceed to concatenate our document type
   // to the ones provided by any plugins that are installed
-  types: schemaTypes.concat([pin, user, postedBy, comment, save, baseSize, ingredient]),
+  types: schemaTypes.concat([pin, user, postedBy, comment, save, baseSize, ingredient, ingredientList]),
 });
