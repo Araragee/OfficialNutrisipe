@@ -20,13 +20,13 @@ export default {
     },
     {
       title: "Following",
-      name: "following",
+      name: "save",
       type: "array",
       of: [
-        {
-          type: "reference",
-          to: [{ type: "user" }],
-        },
+          { 
+            type: "reference",
+            to:[{ type: "save"}] 
+          }
       ],
       validation: (Rule) => Rule.unique(),
     },

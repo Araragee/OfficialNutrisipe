@@ -108,8 +108,6 @@ const fakeDataIng = [
 ]
 
 
- 
-
 export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
   image{
     asset->{
@@ -135,6 +133,14 @@ export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
         },
       },
     } `;
+
+
+    export const allUser = `*[_type == 'user']
+    {
+      _id,
+      image,
+      userName
+    }`;
 
 export const pinDetailQuery = (pinId) => {
   const query = `*[_type == "pin" && _id == '${pinId}']{
@@ -204,7 +210,7 @@ export const pinDetailMorePinQuery = (pin) => {
 };
 
 export const searchQuery = (searchTerm) => {
-  const query = `*[_type == "pin" && title match '${searchTerm}*' || category match '${searchTerm}*' || about match '${searchTerm}*' || ingredient match '${searchTerm}*']{
+  const query = `*[_type == "pin" && title match '${searchTerm}*' || category match '${searchTerm}*' || about match '${searchTerm}*' || ingredient match '${searchTerm}*' || postedBy->userName match '${searchTerm}*']{
         image{
           asset->{
             url
@@ -238,14 +244,15 @@ export const userQuery = (userId) => {
 };
 
 export const userSearch = (searchTerm) => {
-  const query = `*[_type == "user" && userName match'${searchTerm}']
-  {
-   _id,
-   image,
-   userName,
+  const query = `*[_type == "user" && userName match "${searchTerm}*"]{
+    _id,
+    image,
+    userName
   }`;
   return query;
 };
+ 
+
 
 export const userCreatedPinsQuery = (userId) => {
   const query = `*[ _type == 'pin' && userId == '${userId}'] | order(_createdAt desc){
@@ -303,19 +310,26 @@ export const userSavedPinsQuery = (userId) => {
 };
 
 export const userFollowingPost = (userId) => {
-  const query = `*[ _type == 'user' && userId == '${userId}'] | order(_createdAt desc){
-   save[]->{
-    "pin" *[_type == "post" && postedby(^._id) ]
-    {
-      ...,
-      "userName": postedBy->userName,
-      image{
-        asset->{
-          url
-        }
+  const query = `*[_type == 'pin' && '${userId}' in save[].userId ] | order(_createdAt desc) {
+    image{
+      asset->{
+        url
       }
-    }
-   }
+    },
+    _id,
+    destination,
+    postedBy->{
+      _id,
+      userName,
+      image
+    },
+    save[]{
+      postedBy->{
+        _id,
+        userName,
+        image
+      },
+    },
   }`;
   return query;
 };
