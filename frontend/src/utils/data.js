@@ -108,13 +108,7 @@ const fakeDataIng = [
 ]
 
 
-
-
-
-
-
-
-
+ 
 
 export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
   image{
@@ -306,6 +300,24 @@ export const userSavedPinsQuery = (userId) => {
         image
       },
     },
+  }`;
+  return query;
+};
+
+export const userFollowingPost = (userId) => {
+  const query = `*[ _type == 'user' && userId == '${userId}'] | order(_createdAt desc){
+   save[]->{
+    "pin" *[_type == "post" && postedby(^._id) ]
+    {
+      ...,
+      "userName": postedBy->userName,
+      image{
+        asset->{
+          url
+        }
+      }
+    }
+   }
   }`;
   return query;
 };
