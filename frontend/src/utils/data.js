@@ -146,9 +146,8 @@ export const pinDetailQuery = (pinId) => {
     _id,
     title, 
     about,
-    ingredient[],
-    ingredientVal[],
-    metric[],
+    ingredientListPost,
+    nutritionPost,
     procedure[],
     category,
     postedBy->{
@@ -185,9 +184,8 @@ export const pinDetailMorePinQuery = (pin) => {
     },
     _id,
     procedure[],
-    ingredient[],
-    ingredientVal[],
-    metric[],
+    ingredientListPost,
+    nutritionPost,
     postedBy->{
       _id,
       userName,
