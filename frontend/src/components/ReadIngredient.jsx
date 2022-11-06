@@ -46,8 +46,11 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
 
   return (
     //SEARCH BAR
+    <div className="border-t-8 border-black pt-1 text-sm w-full">
+    <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
 
-    <div>
+<div className='font-bold text-3xl pb-4'> SEARCH INGREDIENT TO DATABASE</div>
+      <div className="border-t-3 border-black pt-1 text-sm "></div>
       <input
         type="text"
         onChange={(e) => setSearchIngredientTerm(e.target.value)}
@@ -57,19 +60,16 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
       />
 
       {/* DISPLAY INGREDIENTS */}
-      <div className="flex flex-col">
-        <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="py-2 inline-block  sm:px-6 lg:px-8">
-            <div className="overflow-hidden ">
+     
 
               {ingredientList?.map((item) => (
                 <div key={item?.key} className="container">
-                  <table className="w-auto border-b sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5"></table>
-                  <thead className="border-b ">
-                    <tr className="bg-nOrange flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
+                  <table className='w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5'></table>
+                  <thead lassName="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr className="bg-nOrange  ">
                       <th
 
-                        className="text-sm font-semibold text-gray-900 px-6 py-4 w-full "
+                        className="text-sm font-semibold text-gray-900 px-6 py-4  "
                       >
                         {item?.ingAdminName}
                       </th>
@@ -182,8 +182,8 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
                   </thead>
 
                   {item?.baseSize?.map((c) => (
-                    <tbody class="flex-1 sm:flex-none text-center">
-                      <tr key={c?._key} class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+                    <tbody >
+                      <tr key={c?._key} className="bg-white border-b text-center">
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4"></td>
                         <td className="text-sm font-medium text-gray-900 px-6 py-4">
                           {c.baseSizeNum}
@@ -241,9 +241,8 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
 
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+      
+    
   );
 };
 
