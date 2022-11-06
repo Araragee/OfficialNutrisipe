@@ -3,19 +3,19 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable no-alert, no-console */
-import React, { useState, useEffect } from 'react';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
-import { MdDelete } from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import { ingval, metrics, searchChosenIngredientQuery } from "../utils/data"
-import { client } from '../client';
-import { categories, fakeDataIng } from '../utils/data';
-import Spinner from './Spinner';
+import React, { useState, useEffect } from "react";
+import { AiOutlineCloudUpload } from "react-icons/ai";
+import { MdDelete } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import { ingval, metrics, searchChosenIngredientQuery } from "../utils/data";
+import { client } from "../client";
+import { categories, fakeDataIng } from "../utils/data";
+import Spinner from "./Spinner";
 
 const CreatePin = ({ user }) => {
-  const [title, setTitle] = useState('');
-  const [about, setAbout] = useState('');
+  const [title, setTitle] = useState("");
+  const [about, setAbout] = useState("");
   const [loading, setLoading] = useState(false);
   const [loadingIngredient, setLoadingIngredient] = useState(false);
   const [fields, setFields] = useState();
@@ -26,24 +26,24 @@ const CreatePin = ({ user }) => {
   const [procedure, setProcedure] = useState([]);
   const [ModalOpen, setModalOpen] = useState(false);
 
-  const [dropdownClick, setDropdownClick] = useState(true)
+  const [dropdownClick, setDropdownClick] = useState(true);
 
   //Ingredient Label For Users
-  const [chosenIngredient, setChosenIngredient] = useState('');
+  const [chosenIngredient, setChosenIngredient] = useState("");
   //Full Ingredient Object storage after search -- TEMPORARY STORAGE
   const [chosenIngredientObject, setchosenIngredientObject] = useState();
-  const [ingredientDropDown, setIngredientDropDown] = useState([])
+  const [ingredientDropDown, setIngredientDropDown] = useState([]);
   const [chosenMetric, setChosenMetric] = useState();
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState("");
   const [finalRecipeObject, setFinalRecipeObject] = useState([]);
   const [nutrientTable, setNutrientTable] = useState([]);
 
   const ModalHandlerOpen = () => {
     setModalOpen(true);
-  }
+  };
   const ModalHandlerClose = () => {
     setModalOpen(false);
-  }
+  };
 
   //INGREDIENT SEARCH == SHOW DROPDOWN
   useEffect(() => {
@@ -54,50 +54,50 @@ const CreatePin = ({ user }) => {
         //CHECK FOR DROPDOWN CLICK REMOVES DOUBLE DROPDOWN SHOWING
         if (dropdownClick) {
           setIngredientDropDown(data);
-          setChosenMetric('');
+          setChosenMetric("");
           setLoadingIngredient(false);
-
         } else {
           setIngredientDropDown([]);
-          setChosenMetric('');
+          setChosenMetric("");
           setLoadingIngredient(false);
-
         }
       });
       //RESET EVERYTHING IF TEXTBOX IS EMPTY
     } else {
       setIngredientDropDown([]);
-      setChosenMetric('');
+      setChosenMetric("");
       setLoadingIngredient(false);
     }
-
   }, [chosenIngredient]);
 
   // CHANGE INGREDIENT WHEN DROPDOWN IS CLICKED && RESET DROPDOWNSTATE
   const ChooseIngredientHandler = (a) => {
     setChosenIngredient(a.ingAdminName);
     setchosenIngredientObject(a);
-    setIngredientDropDown([])
-  }
+    setIngredientDropDown([]);
+  };
 
   // Handlers when to Open And Close Dropdown when selected -- AVOIDS DOUBLE SEARCHING DROPDOWN
   const dropdownClickHandlerOpen = () => {
-    setDropdownClick(true)
-
-
-  }
+    setDropdownClick(true);
+  };
   const dropdownClickHandlerClose = () => {
-    setDropdownClick(false)
-
-  }
+    setDropdownClick(false);
+  };
 
   //Handler For Ingredient List Button -- MAIN STORAGE OF FULL INGREDIENT OBJECT -- USES PUSH AND MAKES ARRAY OF OBJECTS TO BE MANIPULATED FOR FINAL RESULT
 
   const handleIngredientList = () => {
-
-
-    if (chosenIngredient && chosenMetric && chosenMetric!== null && chosenIngredientObject && amount) {
-      var item = chosenIngredientObject?.baseSize.find(item => item?.baseSizeNum == chosenMetric);
+    if (
+      chosenIngredient &&
+      chosenMetric &&
+      chosenMetric !== null &&
+      chosenIngredientObject &&
+      amount
+    ) {
+      var item = chosenIngredientObject?.baseSize.find(
+        (item) => item?.baseSizeNum == chosenMetric
+      );
 
       console.log(item);
 
@@ -119,40 +119,34 @@ const CreatePin = ({ user }) => {
         vitaminC: item.vitaminC * amount,
         calcium: item.calcium * amount,
         iron: item.iron * amount,
-        _key: item._key
-
-      }
+        _key: item._key,
+      };
 
       const newArray = [...finalRecipeObject, doc];
       setFinalRecipeObject(newArray);
 
-      setChosenIngredient('');
+      setChosenIngredient("");
       setchosenIngredientObject();
-      setChosenMetric('')
+      setChosenMetric("");
       setIngredientDropDown([]);
-      setAmount('');
-
+      setAmount("");
     } else {
       setIngredientFields(true);
 
-      setTimeout(
-        () => {
-          setIngredientFields(false);
-        },
-        4000,
-      );
+      setTimeout(() => {
+        setIngredientFields(false);
+      }, 4000);
     }
   };
-
-
-
-
 
   // USE EFFECT FOR CONSTANT RECALCULATION FOR SUM OF ALL NUTRIENTS IN THE FinalRecipeObject
   // NUTRIENT TABLE = SUM OF ALL NUTRIENTS IN FINAL RECIPE OBJECT
   useEffect(() => {
     if (finalRecipeObject.length !== 0) {
-      var add = finalRecipeObject.reduce(function (previousValue, currentValue) {
+      var add = finalRecipeObject.reduce(function (
+        previousValue,
+        currentValue
+      ) {
         return {
           calories: previousValue.calories + currentValue.calories,
           totalfat: previousValue.totalfat + currentValue.totalfat,
@@ -168,29 +162,18 @@ const CreatePin = ({ user }) => {
           vitaminC: previousValue.vitaminC + currentValue.vitaminC,
           calcium: previousValue.calcium + currentValue.calcium,
           iron: previousValue.iron + currentValue.iron,
-
-        }
+        };
       });
 
       setNutrientTable(add);
     }
-
-
-
-
-  }, [finalRecipeObject])
+  }, [finalRecipeObject]);
 
   const deleteFinalRecipeObjectHandler = (i) => {
-    let newDataArr = [...finalRecipeObject]
-    newDataArr.splice(i, 1)
-    setFinalRecipeObject(newDataArr)
-  }
-
-
-
-
-
-
+    let newDataArr = [...finalRecipeObject];
+    newDataArr.splice(i, 1);
+    setFinalRecipeObject(newDataArr);
+  };
 
   // handle procedure
 
@@ -200,12 +183,6 @@ const CreatePin = ({ user }) => {
     // console.log(chosenIngredient);
     // console.log(chosenIngredientObject);
     console.log(chosenMetric);
-
-
-
-
-
-
   };
   const handleProcedureChange = (onChangeValue, u) => {
     const inputdata = [...procedure];
@@ -223,17 +200,26 @@ const CreatePin = ({ user }) => {
   const uploadImage = (e) => {
     const selectedFile = e.target.files[0];
     // uploading asset to sanity
-    if (selectedFile.type === 'image/png' || selectedFile.type === 'image/svg' || selectedFile.type === 'image/jpeg' || selectedFile.type === 'image/gif' || selectedFile.type === 'image/tiff') {
+    if (
+      selectedFile.type === "image/png" ||
+      selectedFile.type === "image/svg" ||
+      selectedFile.type === "image/jpeg" ||
+      selectedFile.type === "image/gif" ||
+      selectedFile.type === "image/tiff"
+    ) {
       setWrongImageType(false);
       setLoading(true);
       client.assets
-        .upload('image', selectedFile, { contentType: selectedFile.type, filename: selectedFile.name })
+        .upload("image", selectedFile, {
+          contentType: selectedFile.type,
+          filename: selectedFile.name,
+        })
         .then((document) => {
           setImageAsset(document);
           setLoading(false);
         })
         .catch((error) => {
-          console.log('Upload failed:', error.message);
+          console.log("Upload failed:", error.message);
         });
     } else {
       setLoading(false);
@@ -242,43 +228,46 @@ const CreatePin = ({ user }) => {
   };
 
   const savePin = () => {
-
-    if (title && about && procedure && imageAsset?._id && category && finalRecipeObject) {
+    if (
+      title &&
+      about &&
+      procedure &&
+      imageAsset?._id &&
+      category &&
+      finalRecipeObject
+    ) {
       const doc = {
-        _type: 'pin',
+        _type: "pin",
         _key: uuidv4(),
         title,
         about,
         procedure,
         image: {
-          _type: 'image',
+          _type: "image",
           asset: {
-            _type: 'reference',
+            _type: "reference",
             _ref: imageAsset?._id,
           },
         },
         userId: user._id,
         postedBy: {
-          _type: 'postedBy',
+          _type: "postedBy",
           _ref: user._id,
         },
         category,
         ingredientListPost: finalRecipeObject,
-        nutritionPost: nutrientTable
+        nutritionPost: nutrientTable,
       };
       client.create(doc).then(() => {
-        navigate('/');
+        navigate("/");
         console.log(doc);
       });
     } else {
       setFields(true);
 
-      setTimeout(
-        () => {
-          setFields(false);
-        },
-        2000,
-      );
+      setTimeout(() => {
+        setFields(false);
+      }, 2000);
     }
   };
 
@@ -287,14 +276,8 @@ const CreatePin = ({ user }) => {
       <div className=" flex lg:flex-row flex-col justify-center items-center bg-white lg:p-5 p-3 lg:w-4/5  w-full">
         <div className="bg-secondaryColor p-3 flex flex-0.7 w-full">
           <div className=" flex justify-center items-center flex-col border-2 border-dotted border-blue-400 p-3 w-full h-420">
-            {loading && (
-              <Spinner />
-            )}
-            {
-              wrongImageType && (
-                <p>It&apos;s wrong file type.</p>
-              )
-            }
+            {loading && <Spinner />}
+            {wrongImageType && <p>It&apos;s wrong file type.</p>}
             {!imageAsset ? (
               // eslint-disable-next-line jsx-a11y/label-has-associated-control
               <label>
@@ -306,10 +289,9 @@ const CreatePin = ({ user }) => {
                     <p className="text-lg font-semibold">Click to upload</p>
                   </div>
 
-
-
                   <p className="mt-3 text-gray-400 text-xs">
-                    Recommendation: Use high-quality JPG, JPEG, SVG, PNG, GIF or TIFF less than 20MB
+                    Recommendation: Use high-quality JPG, JPEG, SVG, PNG, GIF or
+                    TIFF less than 20MB
                   </p>
                 </div>
                 <input
@@ -338,7 +320,7 @@ const CreatePin = ({ user }) => {
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col gap-1 lg:pl-5 mt-5 w-full ">
+        <div className="flex flex-1 flex-col gap-1 lg:pl-5 mt-5 w-96 ">
           {user && (
             <div className="flex gap-2 mt-2 mb-2 items-center bg-white rounded-lg ">
               <img
@@ -376,83 +358,101 @@ const CreatePin = ({ user }) => {
                 Please add all ingredient fields.
               </p>
             )}
-            <div className='float-left py-4 '>
+            <div className="float-left py-4 ">
               <div className="flex flex-nowrap flex-1 flex-col gap-6 w-auto ">
                 <input
                   type="text"
-                  onChange={(e) => { setChosenIngredient(e.target.value); dropdownClickHandlerOpen() }}
+                  onChange={(e) => {
+                    setChosenIngredient(e.target.value);
+                    dropdownClickHandlerOpen();
+                  }}
                   onBlur={() => dropdownClickHandlerClose()}
                   placeholder="Ingedients"
                   value={chosenIngredient}
                   className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
                 />
-
               </div>
 
+              {/* DISPLAY ALERT IF NO INGREDIENTS FOUND */}
+              <div>
+                {ingredientDropDown.length == 0 &&
+                  chosenIngredient !== "" &&
+                  !loadingIngredient &&
+                  dropdownClick && (
+                    <div className="text-xs">NO INGREDIENTS FOUND</div>
+                  )}
 
+                {/* DISPLAY WHEN LOADING SEARCH INGREDIENTS */}
+                {loadingIngredient && <div className="text-xs">LOADING</div>}
+
+                {/* DROPDOWN BAR FOR INGREDIENT SEARCH */}
+                <div className="border bg-gray-100">
+                  {ingredientDropDown?.map((item) => (
+                    <div
+                      onClick={() => {
+                        ChooseIngredientHandler(item);
+                        dropdownClickHandlerClose();
+                      }}
+                      key={item?._key}
+                    >
+                      {item?.ingAdminName}
+                    </div>
+                  ))}
+                </div>
+              </div>
               {/* amount */}
-              {ingredientDropDown.length == 0 && <div className="float-left py-4 ">
-                <div className=" flex flex-nowrap ">
-                  {/* <div class="flex flex-nowrap"> */}
-                  <input
-                    type="text"
-                    onChange={(e) => setAmount((e.target.value))}
-                    placeholder="Amount"
-                    value={amount}
-                    className="  block p-2 w-24 h-9 bg-white outline-none border rounded-lg "
-                  />
-                  {/* </div> */}
-                  <div >
-                    <div class="flex flex-nowrap pl-8">
-                      {/* metric */}
+              {ingredientDropDown.length == 0 && (
+                <div className="float-left py-4 ">
+                  <div className=" flex flex-nowrap ">
+                    {/* <div class="flex flex-nowrap"> */}
+                    <input
+                      type="number"
+                      onChange={(e) => setAmount(e.target.value)}
+                      placeholder="Amount"
+                      value={amount}
+                      className="  block p-2 w-24 h-9 bg-white outline-none border rounded-lg "
+                    />
+                    {/* </div> */}
+                    <div>
+                      <div className="flex flex-nowrap pl-8">
+                        {/* metric */}
 
-                      <select value={chosenMetric}
-                        onChange={(e) => {
-                          setChosenMetric(e.target.value);
-                        }}
-                        className=" block p-2 w-24 h-9 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs font-semibold focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      >
-                        <option className="text-base border outline-none capitalize bg-gray-100 text-gray " value={undefined} disabled selected >
-                          metric
-                        </option>
-                        {
-                          chosenIngredientObject?.baseSize.map((item) => (
-                            <option className="text-base border-0 outline-none capitalize bg-white text-gray " value={item?.baseSizeNum} >
+                        <select
+                          value={chosenMetric}
+                          onChange={(e) => {
+                            setChosenMetric(e.target.value);
+                          }}
+                          className=" block p-2 w-24 h-9 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs font-semibold focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        >
+                          <option
+                            className="text-base border outline-none capitalize bg-gray-100 text-gray "
+                            value={null}
+                            disable
+                            selected
+                            hidden
+                          >
+                            metric
+                          </option>
+                          {chosenIngredientObject?.baseSize.map((item) => (
+                            <option
+                              className="text-base border-0 outline-none capitalize bg-white text-gray "
+                              value={item?.baseSizeNum}
+                            >
                               {item?.baseSizeNum}
                             </option>
                           ))}
-                      </select>
-                      <button
-                        className="text-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-
-                        onClick={() => handleIngredientList()}
-                      >
-                        ADD
-                      </button>
+                        </select>
+                        <button
+                          className="text-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+                          onClick={() => handleIngredientList()}
+                        >
+                          ADD
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>}
-            </div>
-            {/* DISPLAY ALERT IF NO INGREDIENTS FOUND */}
-            <div >
-              {ingredientDropDown.length == 0 && chosenIngredient !== "" && !loadingIngredient && dropdownClick &&
-                <div className="text-xs">NO INGREDIENTS FOUND</div>}
-
-              {/* DISPLAY WHEN LOADING SEARCH INGREDIENTS */}
-              {loadingIngredient && <div className="text-xs">LOADING</div>}
-
-              {/* DROPDOWN BAR FOR INGREDIENT SEARCH */}
-              {ingredientDropDown?.map((item) => (
-                <div
-                  onClick={() => { ChooseIngredientHandler(item); dropdownClickHandlerClose(); }}
-                  key={item?._key}
-                >
-                  {item?.ingAdminName}
-
-                </div>
-              ))
-              }
+              )}
             </div>
           </div>
 
@@ -460,84 +460,183 @@ const CreatePin = ({ user }) => {
             <p className="font-semibold"> Ingredients: </p>
             {finalRecipeObject.map((info, i) => {
               return (
-
                 <div key={i} className="float-root  flex full">
-                  <div className=' float-left  py-4 ' >
-
-                    <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} className="capitalize flex flex-nowrap">
+                  <div className=" float-left  py-4 ">
+                    <div
+                      style={{
+                        width: "auto",
+                        height: "auto",
+                        marginLeft: "10px",
+                        position: "relative",
+                      }}
+                      className="capitalize flex flex-nowrap"
+                    >
                       {info.ingredientName}
                     </div>
                   </div>
-                  <div className='float-middle py-4 '>
-
-                    <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} className=" flex flex-nowrap">
+                  <div className="float-middle py-4 ">
+                    <div
+                      style={{
+                        width: "auto",
+                        height: "auto",
+                        marginLeft: "10px",
+                        position: "relative",
+                      }}
+                      className=" flex flex-nowrap"
+                    >
                       {info.amount}
                     </div>
                   </div>
-                  <div className='float-middle py-4 '>
-
-                    <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} className=" flex flex-nowrap">
+                  <div className="float-middle py-4 ">
+                    <div
+                      style={{
+                        width: "auto",
+                        height: "auto",
+                        marginLeft: "10px",
+                        position: "relative",
+                      }}
+                      className=" flex flex-nowrap"
+                    >
                       {info.metric}
                     </div>
                   </div>
-                  <button className=" pt-1 text-nRed mx-4 mb-2 text-xs font-bold text-center  p-1 " onClick={() => deleteFinalRecipeObjectHandler(i)}>Delete</button>
+                  <button
+                    className=" pt-1 text-nRed mx-4 mb-2 text-xs font-bold text-center  p-1 "
+                    onClick={() => deleteFinalRecipeObjectHandler(i)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              );
+            })}{" "}
+          </div>
+
+          {ModalOpen && (
+            <div
+              className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex flex-col 
+            justify-center items-center  "
+            >
+              <div className="fixed bg-gray-100 rounded-md h-auto w-96 ">
+                <div className="p-1 border-2 border-black font-sans w-full">
+                  <div className="text-4xl font-extrabold leading-none">
+                    Nutrition Facts
+                  </div>
+
+                  <div className="flex justify-between font-bold border-b-8 border-black"></div>
+                  <div className="flex justify-between items-end font-extrabold">
+                    <div>
+                      
+                      <div className="text-4xl">Calories </div>
+                    </div>
+                    <div className="text-5xl">{nutrientTable.calories}g</div>
+                  </div>
+                  <div className="border-t-4 border-black text-sm pb-1">
+                    <hr className="border-gray-500" />
+                    <div className="flex justify-between">
+                      <div>
+                        <span className="font-bold ">Total Fat </span>
+                        {nutrientTable.totalfat} g
+                      </div>
+                    </div>
+                    <hr className="border-gray-500" />
+                    <div className="flex justify-between">
+                      <div>
+                        {" "}
+                        <span> Saturated Fat </span>
+                        {nutrientTable.saturatedfat} g
+                      </div>
+                    </div>
+                    <hr className="border-gray-500" />
+                    <div>
+                      <span className="italic">Trans Fat </span>
+                      {nutrientTable.transfat} g
+                    </div>
+                    <hr className="border-gray-500" />
+                    <div className="flex justify-between">
+                      <div>
+                        <span className="font-bold">Cholesterol </span>
+                        {nutrientTable.cholesterol} mg
+                      </div>
+                    </div>
+                    <hr className="border-gray-500" />
+                    <div className="flex justify-between">
+                      <div>
+                        <span className="font-bold">Sodium </span>
+                        {nutrientTable.sodium} mg
+                      </div>
+                    </div>
+                    <hr className="border-gray-500" />
+                    <div className="flex justify-between">
+                      <div>
+                        <span className="font-bold">Total Carbohydrate </span>
+                        {nutrientTable.totalcarb} g
+                      </div>
+                    </div>
+                    <hr className="border-gray-500" />
+                    <div className="flex justify-between">
+                      <div className="pl-4">
+                        Dietary Fiber {nutrientTable.dietaryFiber} g
+                      </div>
+                    </div>
+                    <hr className="border-gray-500" />
+                    <div className="pl-4">
+                      Total Sugar {nutrientTable.sugar} g
+                      <div className="pl-4">
+                        <hr className="border-gray-500" />
+                      </div>
+                    </div>
+                    <hr className="border-gray-500" />
+                    <div>
+                      <span className="font-bold">Protein </span>
+                      {nutrientTable.protein} g
+                    </div>
+                  </div>
+                  <div className="border-t-8 border-black pt-1 text-sm">
+                    <div className="flex justify-between">
+                      <div>Vitamin A {nutrientTable.vitaminA} mcg</div>
+                    </div>
+                    <hr className="border-gray-500" />
+                    <div className="flex justify-between">
+                      <div>Vitamin C {nutrientTable.vitaminC} mcg</div>
+                    </div>
+                    <hr className="border-gray-500" />
+                    <div className="flex justify-between">
+                      <div>Calcium {nutrientTable.calcium} mcg</div>
+                    </div>
+                    <hr className="border-gray-500" />
+                    <div className="flex justify-between">
+                      <div>Iron {nutrientTable.iron} mg</div>
+                    </div>
+                    <div className="border-t-4 border-black flex leading-none text-xs pt-2 pb-1">
+                      <div className="pr-1">*</div>
+                      <div>
+                        The % Daily Value (DV) tells you how much a nutrient in
+                        a serving of food contributes to a daily diet. 2,000
+                        calories a day is used for general nutrition advice.
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-
-
-
-              )
-            })} </div>
-
-          {ModalOpen && <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex flex-col 
-            justify-center items-center  ">
-
-            <div className="fixed bg-gray-100 rounded-md h-96 w-96 overflow-scroll ">
-              <div className="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600 w-full">
-                <h3 className="ml-2 text-xl font-semibold  items-center text-nGreen">
-                  Nutrients Facts
-                </h3>
-                <button
-                  className="ml-2 mt-2 mx-1 px-1 text-xs font-bold text-center transition ease-in-out delay-150 w-4 h-4 border border-gray-400 rounded bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
-                  onClick={ModalHandlerClose}
-                >
-                  X
-                </button>
-              </div>
-              <div >calories {nutrientTable.calories}</div>
-              <div>totalfat {nutrientTable.totalfat}</div>
-              <div>saturatedfat {nutrientTable.saturatedfat}</div>
-              <div>transfat {nutrientTable.transfat}</div>
-              <div>cholesterol {nutrientTable.cholesterol}</div>
-              <div>sodium {nutrientTable.sodium}</div>
-              <div>totalcarb {nutrientTable.totalcarb}</div>
-              <div>dietaryFiber {nutrientTable.dietaryFiber}</div>
-              <div>sugar {nutrientTable.sugar}</div>
-              <div>protein {nutrientTable.protein}</div>
-              <div>saturatedfat {nutrientTable.saturatedfat}</div>
-              <div>vitaminA {nutrientTable.vitaminA}</div>
-              <div>vitaminC {nutrientTable.vitaminC}</div>
-              <div>calcium {nutrientTable.calcium}</div>
-
-              <div className='mt-3'>
-                <button
-                  className="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
-                  onClick={ModalHandlerClose}
-                >
-                  close
-                </button>
-
+                <div className="mt-3">
+                  <button
+                    className="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
+                    onClick={ModalHandlerClose}
+                  >
+                    close
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-          }
-          {!ModalOpen && <button
-            className="mt-5 text-nGreen w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-            onClick={ModalHandlerOpen}
-          >
-            Nutrients
-          </button>}
-
+          )}
+          {!ModalOpen && (
+            <button
+              className="mt-5 text-nGreen w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+              onClick={ModalHandlerOpen}
+            >
+              Nutrients
+            </button>
+          )}
 
           {/* div for procedures */}
           <div className="flex flex-1 flex-col gap-2 mt-2 w-full py-4">
@@ -558,7 +657,6 @@ const CreatePin = ({ user }) => {
                 <button
                   onClick={() => handleProcedureDelete(u)}
                   className="text-nRed w-5 h-5 float-right px-1 mx-1 mt-1 text-xs font-bold text-center text-white bg-gray-50 rounded-lg border border-red-200"
-
                 >
                   x
                 </button>
@@ -567,7 +665,6 @@ const CreatePin = ({ user }) => {
             {/* button for add procedures */}
             <button
               className="text-nGreen w-24 h-7.5 float-left py-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-
               onClick={() => handleProcedureAdd()}
             >
               ADD
@@ -576,16 +673,23 @@ const CreatePin = ({ user }) => {
 
           <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
             <div>
-              <p className="mb-2 font-semibold text:lg sm:text-xl">Choose Recipe Category</p>
+              <p className="mb-2 font-semibold text:lg sm:text-xl">
+                Choose Recipe Category
+              </p>
               <select
                 onChange={(e) => {
                   setCategory(e.target.value);
                 }}
                 className="outline-none w-4/5 text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer"
               >
-                <option value="others" className="sm:text-bg bg-white">Select Category</option>
+                <option value="others" className="sm:text-bg bg-white">
+                  Select Category
+                </option>
                 {categories.map((item) => (
-                  <option className="text-base border-0 outline-none capitalize bg-gray-100 text-black " value={item.name}>
+                  <option
+                    className="text-base border-0 outline-none capitalize bg-gray-100 text-black "
+                    value={item.name}
+                  >
                     {item.name}
                   </option>
                 ))}
@@ -596,23 +700,18 @@ const CreatePin = ({ user }) => {
                 <p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
                   Please add all fields.
                 </p>
-
               )}
               <button
                 type="button"
                 onClick={savePin}
-                className="transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nGreen duration-300">
-
+                className="transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nGreen duration-300"
+              >
                 Upload Recipe
               </button>
-
             </div>
           </div>
         </div>
       </div>
-
-
-
     </div>
   );
 };

@@ -1,34 +1,41 @@
 /* eslint-disable no-shadow */
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
-import { AiTwotoneDelete, AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import ReactTooltip from 'react-tooltip';
-import { client, urlFor } from '../client';
-import MasonryLayout from './MasonryLayout';
-import { pinDetailMorePinQuery, pinDetailQuery, ingredientBaseValue, fetchIngredientValue } from '../utils/data';
-import Spinner from './Spinner';
+import React, { useEffect, useState } from "react";
+import { AiTwotoneDelete, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+import ReactTooltip from "react-tooltip";
+import { client, urlFor } from "../client";
+import MasonryLayout from "./MasonryLayout";
+import {
+  pinDetailMorePinQuery,
+  pinDetailQuery,
+  ingredientBaseValue,
+  fetchIngredientValue,
+} from "../utils/data";
+import Spinner from "./Spinner";
 
 const PinDetail = ({ user }) => {
   const { pinId } = useParams();
   const [pins, setPins] = useState();
   const [pinDetail, setPinDetail] = useState();
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
   const [addingComment, setAddingComment] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
- 
 
   const navigate = useNavigate();
 
-  const User = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
+  const User =
+    localStorage.getItem("user") !== "undefined"
+      ? JSON.parse(localStorage.getItem("user"))
+      : localStorage.clear();
 
-  let alreadySaved = pinDetail?.save?.filter((item) => item?.postedBy?._id === User?.sub);
+  let alreadySaved = pinDetail?.save?.filter(
+    (item) => item?.postedBy?._id === User?.sub
+  );
 
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
-
-
 
   const fetchPinDetails = () => {
     const query = pinDetailQuery(pinId);
@@ -47,11 +54,9 @@ const PinDetail = ({ user }) => {
   };
 
   const deletePin = (id) => {
-    client
-      .delete(id)
-      .then(() => {
-        navigate('/');
-      });
+    client.delete(id).then(() => {
+      navigate("/");
+    });
   };
 
   const savePin = (id) => {
@@ -60,14 +65,16 @@ const PinDetail = ({ user }) => {
       client
         .patch(id)
         .setIfMissing({ save: [] })
-        .insert('after', 'save[-1]', [{
-          _key: uuidv4(),
-          userId: User?.sub,
-          postedBy: {
-            _type: 'postedBy',
-            _ref: User?.sub,
+        .insert("after", "save[-1]", [
+          {
+            _key: uuidv4(),
+            userId: User?.sub,
+            postedBy: {
+              _type: "postedBy",
+              _ref: User?.sub,
+            },
           },
-        }])
+        ])
         .commit()
         .then(() => {
           setSavingPost(false);
@@ -97,7 +104,7 @@ const PinDetail = ({ user }) => {
       .commit()
       .then(() => {
         fetchPinDetails();
-        setComment('');
+        setComment("");
         setAddingComment(false);
       });
     // window.location.reload();
@@ -114,36 +121,42 @@ const PinDetail = ({ user }) => {
       client
         .patch(pinId)
         .setIfMissing({ comments: [] })
-        .insert('after', 'comments[-1]', [{ comment, _key: uuidv4(), postedBy: { _type: 'postedBy', _ref: user._id } }])
+        .insert("after", "comments[-1]", [
+          {
+            comment,
+            _key: uuidv4(),
+            postedBy: { _type: "postedBy", _ref: user._id },
+          },
+        ])
         .commit()
         .then(() => {
           fetchPinDetails();
-          setComment('');
+          setComment("");
           setAddingComment(false);
         });
     }
   };
 
   if (!pinDetail) {
-    return (
-      <Spinner message="Loading Recipe" />
-    );
+    return <Spinner message="Loading Recipe" />;
   }
 
   return (
     <>
       {pinDetail && (
-        <div className="flex xl:flex-row flex-col m-auto bg-white" style={{ maxWidth: '1500px', borderRadius: '32px' }}>
-          <div className="flex justify-center items-center md:items-start flex-initial">
+        <div
+          className="flex xl:flex-row flex-col m-auto bg-white w-full border rounded-lg "
+        >
+          
+          <div className="flex justify-center items-center md:items-start flex-initial ">
             <img
               className="rounded-t-3xl rounded-b-lg px-10 py-10"
-              src={(pinDetail?.image && urlFor(pinDetail?.image).url())}
+              src={pinDetail?.image && urlFor(pinDetail?.image).url()}
               alt="user-post"
             />
-
           </div>
-
-          <div className="w-full p-5 flex-1 xl:min-w-620">
+          
+          <div className="w-full p-5 flex-1 xl:min-w-620 ">
             {alreadySaved?.length !== 0 ? (
               <button
                 type="button"
@@ -174,14 +187,14 @@ const PinDetail = ({ user }) => {
                 onClick={(e) => {
                   e.stopPropagation();
                   deletePin(pinDetail._id);
-                  navigate('/home');
+                  navigate("/home");
                 }}
                 className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
               >
                 <AiTwotoneDelete />
               </button>
             )}
-            <div>
+            <div >
               <div>
                 <h1 className="text-4xl font-bold break-words mt-3 uppercase">
                   {pinDetail.title}
@@ -192,66 +205,172 @@ const PinDetail = ({ user }) => {
               </p>
               {/* border for ingre */}
               <div className="flex justify-left items-left flex-col border bg-gray-100">
-                <div className="float-root  flex">
-                  <div className='float-left py-4'>
-                    <p style={{ marginBottom: '15px' }} className="font-semibold "> Ingredients: </p>
+                
+                  
+                    <p 
+                      className="font-bold ml-2.5 ">
+                      {" "}Ingredients:{" "}
+                    </p>
+
                     {pinDetail?.ingredientListPost.map((info) => {
                       return (
-                        <div key={info?._key} >
-                          <br />
-                          <div>{info.ingredientName}</div>
-                          <div>{info.metric}</div>
-                          <div>{info.amount}</div>
+                        <div key={info?._key} className="float-root flex ml-2.5">
+                         
+                         
+                            <li className="float-left py-4 capitalize flex flex-nowrap">{info.ingredientName}</li>
+
+                            <li className="float-middle mx-3 pt-4 flex flex-nowrap ">{info.amount}</li>
+                      
+                            <li className="float-middle pt-4 flex flex-nowrap">{info.metric}</li>
+                         
                         </div>
-                      )
+                      );
                     })}
-
-                  </div>
-
-
-                </div>
-                <p style={{ marginBottom: '15px' }} className="font-semibold"> Procedure: </p>
+                  
+                
+                <p  className="font-semibold mb-1 ml-2.5">
+                  {" "}
+                  Procedure:{" "}
+                </p>
                 {pinDetail.procedure.map((item, i) => (
-                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} key={i}>
-                  <li className="capitalize" key={i}>{item}</li>
-                </div>
-              ))}
-
+                  <div
+                    className="ml-2.5"
+                    key={i}
+                  >
+                    <li className="capitalize" key={i}>
+                      {item}
+                    </li>
+                  </div>
+                ))}
               </div>
 
-
-              <div className="float-root  flex">
-                <div className='float-left py-4'>
-                  <div>calories: {pinDetail?.nutritionPost?.calories}</div>
-                  <div>totalfat: {pinDetail?.nutritionPost?.totalfat}</div>
-                  <div>saturatedfat: {pinDetail?.nutritionPost?.saturatedfat}</div>
-                  <div>transfat: {pinDetail?.nutritionPost?.transfat}</div>
-                  <div>cholesterol: {pinDetail?.nutritionPost?.cholesterol}</div>
-                  <div>sodium: {pinDetail?.nutritionPost?.sodium}</div>
-                  <div>totalcarb: {pinDetail?.nutritionPost?.totalcarb}</div>
-                  <div>dietaryFiber: {pinDetail?.nutritionPost?.dietaryFiber}</div>
-                  <div>sugar: {pinDetail?.nutritionPost?.sugar}</div>
-                  <div>protein: {pinDetail?.nutritionPost?.protein}</div>
-                  <div>vitaminA: {pinDetail?.nutritionPost?.vitaminA}</div>
-                  <div>vitaminC: {pinDetail?.nutritionPost?.vitaminC}</div>
-                  <div>calcium: {pinDetail?.nutritionPost?.calcium}</div>
-                  <div>iron: {pinDetail?.nutritionPost?.iron}</div>
-
-
+              <div className="p-1 mt-3 border-2 border-black font-sans w-full">
+                <div className="text-4xl font-extrabold leading-none">
+                  Nutrition Facts
                 </div>
 
-
+                <div className="flex justify-between font-bold border-b-8 border-black"></div>
+                <div className="flex justify-between items-end font-extrabold">
+                  <div>
+                    
+                    <div className="text-4xl">Calories </div>
+                  </div>
+                  <div className="text-5xl">
+                    {pinDetail?.nutritionPost?.calories}g
+                  </div>
+                </div>
+                <div className="border-t-4 border-black text-sm pb-1">
+                  <hr className="border-gray-500" />
+                  <div className="flex justify-between">
+                    <div>
+                      <span className="font-bold ">Total Fat </span>
+                      {pinDetail?.nutritionPost?.totalfat} g
+                    </div>
+                  </div>
+                  <hr className="border-gray-500" />
+                  <div className="flex justify-between">
+                    <div>
+                      {" "}
+                      <span> Saturated Fat </span>
+                      {pinDetail?.nutritionPost?.saturatedfat} g
+                    </div>
+                  </div>
+                  <hr className="border-gray-500" />
+                  <div>
+                    <span className="italic">Trans Fat </span>
+                    {pinDetail?.nutritionPost?.transfat} g
+                  </div>
+                  <hr className="border-gray-500" />
+                  <div className="flex justify-between">
+                    <div>
+                      <span className="font-bold">Cholesterol </span>
+                      {pinDetail?.nutritionPost?.cholesterol} mg
+                    </div>
+                  </div>
+                  <hr className="border-gray-500" />
+                  <div className="flex justify-between">
+                    <div>
+                      <span className="font-bold">Sodium </span>
+                      {pinDetail?.nutritionPost?.sodium} mg
+                    </div>
+                  </div>
+                  <hr className="border-gray-500" />
+                  <div className="flex justify-between">
+                    <div>
+                      <span className="font-bold">Total Carbohydrate </span>
+                      {pinDetail?.nutritionPost?.totalcarb} g
+                    </div>
+                  </div>
+                  <hr className="border-gray-500" />
+                  <div className="flex justify-between">
+                    <div className="pl-4">
+                      Dietary Fiber {pinDetail?.nutritionPost?.dietaryFiber} g
+                    </div>
+                  </div>
+                  <hr className="border-gray-500" />
+                  <div className="pl-4">
+                    Total Sugar {pinDetail?.nutritionPost?.sugar} g
+                    <div className="pl-4">
+                      <hr className="border-gray-500" />
+                    </div>
+                  </div>
+                  <hr className="border-gray-500" />
+                  <div>
+                    <span className="font-bold">Protein </span>
+                    {pinDetail?.nutritionPost?.protein} g
+                  </div>
+                </div>
+                <div className="border-t-8 border-black pt-1 text-sm">
+                  <div className="flex justify-between">
+                    <div>
+                      Vitamin A {pinDetail?.nutritionPost?.vitaminA} mcg
+                    </div>
+                  </div>
+                  <hr className="border-gray-500" />
+                  <div className="flex justify-between">
+                    <div>
+                      Vitamin C {pinDetail?.nutritionPost?.vitaminC} mcg
+                    </div>
+                  </div>
+                  <hr className="border-gray-500" />
+                  <div className="flex justify-between">
+                    <div>Calcium {pinDetail?.nutritionPost?.calcium} mcg</div>
+                  </div>
+                  <hr className="border-gray-500" />
+                  <div className="flex justify-between">
+                    <div>Iron {pinDetail?.nutritionPost?.iron} mg</div>
+                  </div>
+                  <div className="border-t-4 border-black flex leading-none text-xs pt-2 pb-1">
+                    <div className="pr-1">*</div>
+                    <div>
+                      The % Daily Value (DV) tells you how much a nutrient in a
+                      serving of food contributes to a daily diet. 2,000
+                      calories a day is used for general nutrition advice.
+                    </div>
+                  </div>
+                </div>
               </div>
-
             </div>
-            <Link to={`/user-profile/${pinDetail?.postedBy._id}`} className="flex gap-2 mt-5 items-center bg-white rounded-lg ">
-              <img src={pinDetail?.postedBy.image} className="w-10 h-10 rounded-full" alt="user-profile" />
-              <p className="font-semibold capitalize">{pinDetail.postedBy?.userName}</p>
+            <Link
+              to={`/user-profile/${pinDetail?.postedBy._id}`}
+              className="flex gap-2 mt-5 items-center bg-white rounded-lg "
+            >
+              <img
+                src={pinDetail?.postedBy.image}
+                className="w-10 h-10 rounded-full"
+                alt="user-profile"
+              />
+              <p className="font-semibold capitalize">
+                {pinDetail.postedBy?.userName}
+              </p>
             </Link>
             <h2 className="mt-5 text-2xl"> Comments </h2>
             <div className="max-h-370 overflow-y-auto h-40 whitespace-normal">
               {pinDetail?.comments?.map((comment, i) => (
-                <div className="flex gap-2 mt-5 items-center bg-white rounded-lg  " key={i}>
+                <div
+                  className="flex gap-2 mt-5 items-center bg-white rounded-lg  "
+                  key={i}
+                >
                   <Link to={`/user-profile/${comment?.postedBy._id}`}>
                     <img
                       src={comment.postedBy?.image}
@@ -261,7 +380,7 @@ const PinDetail = ({ user }) => {
                   </Link>
                   <div className="flex flex-col ">
                     <p className="font-bold">{comment.postedBy?.userName}</p>
-                    <p className='flex '>{comment.comment}</p>
+                    <p className="flex ">{comment.comment}</p>
                   </div>
                   <div className="flex flex-col mt-4">
                     {comment?.postedBy?._id === user._id ? (
@@ -273,7 +392,9 @@ const PinDetail = ({ user }) => {
                         className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
                       >
                         <ReactTooltip />
-                        <p data-tip="Delete Comment"><AiTwotoneDelete /></p>
+                        <p data-tip="Delete Comment">
+                          <AiTwotoneDelete />
+                        </p>
                       </button>
                     ) : null}
                   </div>
@@ -282,7 +403,11 @@ const PinDetail = ({ user }) => {
             </div>
             <div className="flex flex-wrap mt-6 gap-3">
               <Link to={`/user-profile/${user._id}`}>
-                <img src={user.image} className="w-10 h-10 rounded-full cursor-pointer" alt="user-profile" />
+                <img
+                  src={user.image}
+                  className="w-10 h-10 rounded-full cursor-pointer"
+                  alt="user-profile"
+                />
               </Link>
               <input
                 className=" flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300"
@@ -296,12 +421,11 @@ const PinDetail = ({ user }) => {
                 className="bg-nOrange text-white rounded-full px-6 py-2 font-semibold text-base outline-none"
                 onClick={addComment}
               >
-                {addingComment ? 'Posting...' : 'Post'}
+                {addingComment ? "Posting..." : "Post"}
               </button>
             </div>
           </div>
         </div>
-
       )}
       {pins?.length > 0 && (
         <h2 className="text-center font-bold text-2xl mt-8 mb-4">
