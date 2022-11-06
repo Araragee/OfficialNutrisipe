@@ -54,7 +54,7 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
       <input
         type="text"
         onChange={(e) => setSearchIngredientTerm(e.target.value)}
-        placeholder="Search INGREDIENT"
+        placeholder="Search an Ingredient"
         value={searchIngredientTerm}
         className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
       />
