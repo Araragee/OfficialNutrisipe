@@ -232,12 +232,6 @@ const CreatePin = ({ user }) => {
   const handleProcedureAdd = () => {
     const qwe = [...procedure, []];
     setProcedure(qwe);
-    // console.log(chosenIngredient);
-    // console.log(chosenIngredientObject);
-    console.log(chosenMetric);
-    console.log(chosenIngredient);
-    console.log(chosenIngredientObject);
-    console.log(amount);
   };
   const handleProcedureChange = (onChangeValue, u) => {
     const inputdata = [...procedure];
@@ -405,7 +399,7 @@ const CreatePin = ({ user }) => {
               className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
             />
           </div>
-          <p className="font-semibold mt-6">Add Ingredients: </p>
+          <p className="font-semibold mt-6">Add Ingredient to the list: </p>
           <div className="h-56 grid  content-evenly w-auto float-root flex items-stretch ">
            
             {/* NUTRIENT MODULE */}
@@ -414,7 +408,7 @@ const CreatePin = ({ user }) => {
                 Please add all ingredient fields.
               </p>
             )}
-            <div className="float-left py-4 ">
+            <div className="float-left py-4 bg-gray-200 rounded">
               <div className="flex flex-nowrap flex-1 flex-col gap-6 w-auto ">
                 <input
                   type="text"
@@ -423,7 +417,7 @@ const CreatePin = ({ user }) => {
                     dropdownClickHandlerOpen();
                   }}
                   onBlur={() => dropdownClickHandlerClose()}
-                  placeholder="Ingedients"
+                  placeholder="Search Ingredient"
                   value={chosenIngredient}
                   className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
                 />
@@ -599,7 +593,7 @@ const CreatePin = ({ user }) => {
           
 
           <div className="flex justify-left items-left flex-col  w-full ">
-            <p className="font-semibold"> Ingredients: </p>
+            <p className="font-semibold"> Ingredient List: </p>
             {finalRecipeObject.map((info, i) => {
               return (
                 <div key={i} className="float-root  flex full">
@@ -772,10 +766,10 @@ const CreatePin = ({ user }) => {
           )}
           {!ModalOpen && (
             <button
-              className="mt-5 text-nGreen w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+              className="mt-5 text-white w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-nOrange  rounded-full border border-blue-300"
               onClick={ModalHandlerOpen}
             >
-              Nutrients
+              See Nutrients
             </button>
           )}
 
@@ -845,7 +839,7 @@ const CreatePin = ({ user }) => {
               <button
                 type="button"
                 onClick={savePin}
-                className="transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nGreen duration-300"
+                className="transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-nGreen text-white hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nOrange duration-300"
               >
                 Upload Recipe
               </button>
