@@ -413,7 +413,8 @@ export const allIngredientsQuery = `*[_type == 'ingredientAdmin']{
   vitaminC,
   totalcarb,
   _key
-  }
+  },
+  _key
 }`;
 
 
@@ -438,7 +439,8 @@ export const searchIngredientQuery = (searchIngredientTerm) => {
     vitaminC,
     totalcarb,
     _key
-    }
+    },
+    _key
   }`;
   return query;
 };

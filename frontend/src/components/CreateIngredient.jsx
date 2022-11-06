@@ -150,8 +150,8 @@ const CreateIngredient = ({ user }) => {
                 <div className="flex flex-col">
                     <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div className="py-2 inline-block  sm:px-6 lg:px-8">
-                            <div className="overflow-hidden container">
-                                <table className="w-full border-b sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
+                            <div className="overflow-hidden container flex">
+                                <table className="w-auto sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
                                     <thead class="text-gray-400">
                                         {/* <tbody> */}
                                         <tr className="bg-nOrange flex flex-col flex-nowrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
@@ -175,7 +175,7 @@ const CreateIngredient = ({ user }) => {
                                         
                                     </thead>
 
-                                    <tbody class="flex-1 sm:flex-none text-center">
+                                    <tbody class=" text-center">
                                         {baseSizeList.length < 1 ?
                                             <tr >
                                                 <td colSpan={3}>No Base Size Data entered Yet</td>
@@ -451,11 +451,11 @@ const CreateIngredient = ({ user }) => {
                     </button>
                 </div>
 
-                <ReadIngredient />
-
+                <ReadIngredient uploadSuccessAlert={uploadSuccessAlert} setuploadSuccessAlert={setuploadSuccessAlert} />
+                        
             </div>
 
-
+            
 
 
 
@@ -466,4 +466,5 @@ const CreateIngredient = ({ user }) => {
         </p>;
     }
 }
+            
 export default CreateIngredient
