@@ -211,7 +211,11 @@ const PinDetail = ({ user }) => {
 
                 </div>
                 <p style={{ marginBottom: '15px' }} className="font-semibold"> Procedure: </p>
-
+                {pinDetail.procedure.map((item, i) => (
+                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} key={i}>
+                  <li className="capitalize" key={i}>{item}</li>
+                </div>
+              ))}
 
               </div>
 
