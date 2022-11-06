@@ -18,27 +18,17 @@ const PinDetail = ({ user }) => {
   const [comment, setComment] = useState('');
   const [addingComment, setAddingComment] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
-  const [ingredient, setIngredient] = useState();
-  const [baseval, setBaseval] = useState([]);
-  
+ 
 
-const getfetchIngredientValue = () => {
-    const query = ingredientBaseValue(pinDetail);
-      client.fetch(`${query}`).then((data) => {
-        setBaseval(data);
-       
-      })}
-  
-  
-      const navigate = useNavigate();
-  
-      const User = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
-  
+  const navigate = useNavigate();
+
+  const User = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
+
   let alreadySaved = pinDetail?.save?.filter((item) => item?.postedBy?._id === User?.sub);
-  
+
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
 
-  
+
 
   const fetchPinDetails = () => {
     const query = pinDetailQuery(pinId);
@@ -150,7 +140,7 @@ const getfetchIngredientValue = () => {
               src={(pinDetail?.image && urlFor(pinDetail?.image).url())}
               alt="user-post"
             />
-        
+
           </div>
 
           <div className="w-full p-5 flex-1 xl:min-w-620">
@@ -179,17 +169,17 @@ const getfetchIngredientValue = () => {
             )}
 
             {pinDetail.postedBy?._id === User.sub && (
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                deletePin(pinDetail._id);
-                navigate('/home');
-              }}
-              className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
-            > 
-              <AiTwotoneDelete />
-            </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deletePin(pinDetail._id);
+                  navigate('/home');
+                }}
+                className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
+              >
+                <AiTwotoneDelete />
+              </button>
             )}
             <div>
               <div>
@@ -200,45 +190,59 @@ const getfetchIngredientValue = () => {
               <p className="mt-3 py-4 capitalize font-semibold">
                 {pinDetail.about}
               </p>
-                {/* border for ingre */}
+              {/* border for ingre */}
               <div className="flex justify-left items-left flex-col border bg-gray-100">
-              <div className="float-root  flex">
-              <div className='float-left py-4'>
-              <p style={{ marginBottom: '15px' }} className="font-semibold "> Ingredients: </p>
-               
-              {pinDetail.ingredient.map((item, i) => (
-                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} key={i}>
-                <li className="capitalize flex flex-nowrap" key={i}> {item} </li>
+                <div className="float-root  flex">
+                  <div className='float-left py-4'>
+                    <p style={{ marginBottom: '15px' }} className="font-semibold "> Ingredients: </p>
+                    {pinDetail?.ingredientListPost.map((info) => {
+                      return (
+                        <div key={info?._key} >
+                          <br />
+                          <div>{info.ingredientName}</div>
+                          <div>{info.metric}</div>
+                          <div>{info.amount}</div>
+                        </div>
+                      )
+                    })}
+
+                  </div>
+
+
                 </div>
-              ))}
-                </div>
-              
-                <div className='float-middle pt-14 pl-2'>
-             
-              {pinDetail.ingredientVal.map((item, i) => (
-                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} key={i}>
-                  <li className=" flex flex-nowrap" key={i}>{item}</li>
-                </div>
-              ))}
-                 </div>
-                 <div className='float-middle pt-14'>
-            
-              {pinDetail.metric.map((item, i) => (
-                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} key={i}>
-                  <li className=" flex flex-nowrap" key={i}>{item}</li>
-                </div>
-              ))}
-                 </div>
-                 </div>
-              <p style={{ marginBottom: '15px' }} className="font-semibold"> Procedure: </p>
-              {pinDetail.procedure.map((item, i) => (
+                <p style={{ marginBottom: '15px' }} className="font-semibold"> Procedure: </p>
+                {pinDetail.procedure.map((item, i) => (
                 <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} key={i}>
                   <li className="capitalize" key={i}>{item}</li>
                 </div>
               ))}
 
-            </div>
-            
+              </div>
+
+
+              <div className="float-root  flex">
+                <div className='float-left py-4'>
+                  <div>calories: {pinDetail?.nutritionPost?.calories}</div>
+                  <div>totalfat: {pinDetail?.nutritionPost?.totalfat}</div>
+                  <div>saturatedfat: {pinDetail?.nutritionPost?.saturatedfat}</div>
+                  <div>transfat: {pinDetail?.nutritionPost?.transfat}</div>
+                  <div>cholesterol: {pinDetail?.nutritionPost?.cholesterol}</div>
+                  <div>sodium: {pinDetail?.nutritionPost?.sodium}</div>
+                  <div>totalcarb: {pinDetail?.nutritionPost?.totalcarb}</div>
+                  <div>dietaryFiber: {pinDetail?.nutritionPost?.dietaryFiber}</div>
+                  <div>sugar: {pinDetail?.nutritionPost?.sugar}</div>
+                  <div>protein: {pinDetail?.nutritionPost?.protein}</div>
+                  <div>vitaminA: {pinDetail?.nutritionPost?.vitaminA}</div>
+                  <div>vitaminC: {pinDetail?.nutritionPost?.vitaminC}</div>
+                  <div>calcium: {pinDetail?.nutritionPost?.calcium}</div>
+                  <div>iron: {pinDetail?.nutritionPost?.iron}</div>
+
+
+                </div>
+
+
+              </div>
+
             </div>
             <Link to={`/user-profile/${pinDetail?.postedBy._id}`} className="flex gap-2 mt-5 items-center bg-white rounded-lg ">
               <img src={pinDetail?.postedBy.image} className="w-10 h-10 rounded-full" alt="user-profile" />
@@ -249,11 +253,11 @@ const getfetchIngredientValue = () => {
               {pinDetail?.comments?.map((comment, i) => (
                 <div className="flex gap-2 mt-5 items-center bg-white rounded-lg  " key={i}>
                   <Link to={`/user-profile/${comment?.postedBy._id}`}>
-                  <img
-                    src={comment.postedBy?.image}
-                    alt="user-profile"
-                    className="pointer-events-none w-10 h-10 rounded-full cursor-pointer "
-                  />
+                    <img
+                      src={comment.postedBy?.image}
+                      alt="user-profile"
+                      className="pointer-events-none w-10 h-10 rounded-full cursor-pointer "
+                    />
                   </Link>
                   <div className="flex flex-col ">
                     <p className="font-bold">{comment.postedBy?.userName}</p>

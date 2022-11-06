@@ -19,6 +19,7 @@ const CreatePin = ({ user }) => {
   const [loading, setLoading] = useState(false);
   const [loadingIngredient, setLoadingIngredient] = useState(false);
   const [fields, setFields] = useState();
+  const [ingredientFields, setIngredientFields] = useState();
   const [category, setCategory] = useState();
   const [imageAsset, setImageAsset] = useState();
   const [wrongImageType, setWrongImageType] = useState(false);
@@ -95,83 +96,94 @@ const ModalHandlerClose = () => {
   const handleIngredientList = () => {
 
 
+    if (chosenIngredient && chosenMetric && chosenIngredientObject && amount) {
+      var item = chosenIngredientObject?.baseSize.find(item => item?.baseSizeNum == chosenMetric);
 
-    var item = chosenIngredientObject?.baseSize.find(item => item?.baseSizeNum == chosenMetric);
+      console.log(item);
 
-    console.log(item);
+      const doc = {
+        ingredientName: chosenIngredientObject.ingAdminName,
+        metric: chosenMetric,
+        amount: parseInt(amount),
+        calories: item.calories * amount,
+        totalfat: item.totalfat * amount,
+        saturatedfat: item.saturatedfat * amount,
+        transfat: item.transfat * amount,
+        cholesterol: item.cholesterol * amount,
+        sodium: item.sodium * amount,
+        totalcarb: item.totalcarb * amount,
+        dietaryFiber: item.dietaryFiber * amount,
+        sugar: item.sugar * amount,
+        protein: item.protein * amount,
+        vitaminA: item.vitaminA * amount,
+        vitaminC: item.vitaminC * amount,
+        calcium: item.calcium * amount,
+        iron: item.iron * amount,
+        _key: item._key
 
-    const doc = {
-      ingredientName: chosenIngredientObject.ingAdminName,
-      metric: chosenMetric,
-      amount: parseInt(amount),
-      calories: item.calories * amount,
-      totalfat: item.totalfat * amount,
-      saturatedfat: item.saturatedfat * amount,
-      transfat: item.transfat * amount,
-      cholesterol: item.cholesterol * amount,
-      sodium: item.sodium * amount,
-      totalcarb: item.totalcarb * amount,
-      dietaryFiber: item.dietaryFiber * amount,
-      sugar: item.sugar * amount,
-      protein: item.protein * amount,
-      vitaminA: item.vitaminA * amount,
-      vitaminC: item.vitaminC * amount,
-      calcium: item.calcium * amount,
-      iron: item.iron * amount,
-      _key: item._key
+      }
 
+      const newArray = [...finalRecipeObject, doc];
+      setFinalRecipeObject(newArray);
+
+      setChosenIngredient('');
+      setchosenIngredientObject();
+      setChosenMetric('')
+      setIngredientDropDown([]);
+      setAmount('');
+
+    } else {
+      setIngredientFields(true);
+
+      setTimeout(
+        () => {
+          setIngredientFields(false);
+        },
+        4000,
+      );
     }
-
-    const newArray = [...finalRecipeObject, doc];
-    setFinalRecipeObject(newArray);
-
-    setChosenIngredient('');
-    setchosenIngredientObject();
-    setChosenMetric('')
-    setIngredientDropDown([]);
-    setAmount('');
+  };
 
 
+
+
+
+// USE EFFECT FOR CONSTANT RECALCULATION FOR SUM OF ALL NUTRIENTS IN THE FinalRecipeObject
+// NUTRIENT TABLE = SUM OF ALL NUTRIENTS IN FINAL RECIPE OBJECT
+useEffect(() => {
+  if (finalRecipeObject.length !== 0) {
+    var add = finalRecipeObject.reduce(function (previousValue, currentValue) {
+      return {
+        calories: previousValue.calories + currentValue.calories,
+        totalfat: previousValue.totalfat + currentValue.totalfat,
+        saturatedfat: previousValue.saturatedfat + currentValue.saturatedfat,
+        transfat: previousValue.transfat + currentValue.transfat,
+        cholesterol: previousValue.cholesterol + currentValue.cholesterol,
+        sodium: previousValue.sodium + currentValue.sodium,
+        totalcarb: previousValue.totalcarb + currentValue.totalcarb,
+        dietaryFiber: previousValue.dietaryFiber + currentValue.dietaryFiber,
+        sugar: previousValue.sugar + currentValue.sugar,
+        protein: previousValue.protein + currentValue.protein,
+        vitaminA: previousValue.vitaminA + currentValue.vitaminA,
+        vitaminC: previousValue.vitaminC + currentValue.vitaminC,
+        calcium: previousValue.calcium + currentValue.calcium,
+        iron: previousValue.iron + currentValue.iron,
+
+      }
+    });
+
+    setNutrientTable(add);
   }
 
 
 
-  // USE EFFECT FOR CONSTANT RECALCULATION FOR SUM OF ALL NUTRIENTS IN THE FinalRecipeObject
-  // NUTRIENT TABLE = SUM OF ALL NUTRIENTS IN FINAL RECIPE OBJECT
-  useEffect(() => {
-    if (finalRecipeObject.length !== 0) {
-      var add = finalRecipeObject.reduce(function (previousValue, currentValue) {
-        return {
-          calories: previousValue.calories + currentValue.calories,
-          totalfat: previousValue.totalfat + currentValue.totalfat,
-          saturatedfat: previousValue.saturatedfat + currentValue.saturatedfat,
-          transfat: previousValue.transfat + currentValue.transfat,
-          cholesterol: previousValue.cholesterol + currentValue.cholesterol,
-          sodium: previousValue.sodium + currentValue.sodium,
-          totalcarb: previousValue.totalcarb + currentValue.totalcarb,
-          dietaryFiber: previousValue.dietaryFiber + currentValue.dietaryFiber,
-          sugar: previousValue.sugar + currentValue.sugar,
-          protein: previousValue.protein + currentValue.protein,
-          vitaminA: previousValue.vitaminA + currentValue.vitaminA,
-          vitaminC: previousValue.vitaminC + currentValue.vitaminC,
-          calcium: previousValue.calcium + currentValue.calcium,
-          iron: previousValue.iron + currentValue.iron,
 
-        }
-      });
+}, [finalRecipeObject])
 
-      setNutrientTable(add);
-    }
-
-
-
-
-  }, [finalRecipeObject])
-
-  const deleteFinalRecipeObjectHandler = (i) => {
-    let newDataArr = [...finalRecipeObject]
-    newDataArr.splice(i, 1)
-    setFinalRecipeObject(newDataArr)
+const deleteFinalRecipeObjectHandler = (i) => {
+  let newDataArr = [...finalRecipeObject]
+  newDataArr.splice(i, 1)
+  setFinalRecipeObject(newDataArr)
 }
 
 
@@ -180,122 +192,123 @@ const ModalHandlerClose = () => {
 
 
 
-  // handle procedure
+// handle procedure
 
-  const handleProcedureAdd = () => {
-    const qwe = [...procedure, []];
-    setProcedure(qwe);
-    // console.log(chosenIngredient);
-    // console.log(chosenIngredientObject);
-    console.log(finalRecipeObject);
-    console.log(nutrientTable)
-    console.log(loadingIngredient)
-    console.log(dropdownClick)
-
-
+const handleProcedureAdd = () => {
+  const qwe = [...procedure, []];
+  setProcedure(qwe);
+  // console.log(chosenIngredient);
+  // console.log(chosenIngredientObject);
+  console.log(finalRecipeObject);
+  console.log(nutrientTable)
+  console.log(loadingIngredient)
+  console.log(dropdownClick)
 
 
 
-  };
-  const handleProcedureChange = (onChangeValue, u) => {
-    const inputdata = [...procedure];
-    inputdata[u] = onChangeValue.target.value;
-    setProcedure(inputdata);
-  };
-  const handleProcedureDelete = (u) => {
-    const deleteProcedure = [...procedure];
-    deleteProcedure.splice(u, 1);
-    setProcedure(deleteProcedure);
-  };
 
-  const navigate = useNavigate();
 
-  const uploadImage = (e) => {
-    const selectedFile = e.target.files[0];
-    // uploading asset to sanity
-    if (selectedFile.type === 'image/png' || selectedFile.type === 'image/svg' || selectedFile.type === 'image/jpeg' || selectedFile.type === 'image/gif' || selectedFile.type === 'image/tiff') {
-      setWrongImageType(false);
-      setLoading(true);
-      client.assets
-        .upload('image', selectedFile, { contentType: selectedFile.type, filename: selectedFile.name })
-        .then((document) => {
-          setImageAsset(document);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.log('Upload failed:', error.message);
-        });
-    } else {
-      setLoading(false);
-      setWrongImageType(true);
-    }
-  };
+};
+const handleProcedureChange = (onChangeValue, u) => {
+  const inputdata = [...procedure];
+  inputdata[u] = onChangeValue.target.value;
+  setProcedure(inputdata);
+};
+const handleProcedureDelete = (u) => {
+  const deleteProcedure = [...procedure];
+  deleteProcedure.splice(u, 1);
+  setProcedure(deleteProcedure);
+};
 
-  const savePin = () => {
+const navigate = useNavigate();
 
-    if (title && about && procedure && imageAsset?._id && category && finalRecipeObject) {
-      const doc = {
-        _type: 'pin',
-        _key: uuidv4(),
-        title,
-        about,
-        procedure,
-        image: {
-          _type: 'image',
-          asset: {
-            _type: 'reference',
-            _ref: imageAsset?._id,
-          },
-        },
-        userId: user._id,
-        postedBy: {
-          _type: 'postedBy',
-          _ref: user._id,
-        },
-        category,
-        ingredientListPost: finalRecipeObject,
-        nutritionPost: nutrientTable
-      };
-      client.create(doc).then(() => {
-        navigate('/');
-        console.log(doc);
+const uploadImage = (e) => {
+  const selectedFile = e.target.files[0];
+  // uploading asset to sanity
+  if (selectedFile.type === 'image/png' || selectedFile.type === 'image/svg' || selectedFile.type === 'image/jpeg' || selectedFile.type === 'image/gif' || selectedFile.type === 'image/tiff') {
+    setWrongImageType(false);
+    setLoading(true);
+    client.assets
+      .upload('image', selectedFile, { contentType: selectedFile.type, filename: selectedFile.name })
+      .then((document) => {
+        setImageAsset(document);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log('Upload failed:', error.message);
       });
-    } else {
-      setFields(true);
+  } else {
+    setLoading(false);
+    setWrongImageType(true);
+  }
+};
 
-      setTimeout(
-        () => {
-          setFields(false);
+const savePin = () => {
+
+  if (title && about && procedure && imageAsset?._id && category && finalRecipeObject) {
+    const doc = {
+      _type: 'pin',
+      _key: uuidv4(),
+      title,
+      about,
+      procedure,
+      image: {
+        _type: 'image',
+        asset: {
+          _type: 'reference',
+          _ref: imageAsset?._id,
         },
-        2000,
-      );
-    }
-  };
+      },
+      userId: user._id,
+      postedBy: {
+        _type: 'postedBy',
+        _ref: user._id,
+      },
+      category,
+      ingredientListPost: finalRecipeObject,
+      nutritionPost: nutrientTable
+    };
+    client.create(doc).then(() => {
+      navigate('/');
+      console.log(doc);
+    });
+  } else {
+    setFields(true);
 
-  return (
-    <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
+    setTimeout(
+      () => {
+        setFields(false);
+      },
+      2000,
+    );
+  }
+};
 
-      <div className=" flex lg:flex-row flex-col justify-center items-center bg-white lg:p-5 p-3 lg:w-4/5  w-full">
-        <div className="bg-secondaryColor p-3 flex flex-0.7 w-full">
-          <div className=" flex justify-center items-center flex-col border-2 border-dotted border-blue-400 p-3 w-full h-420">
-            {loading && (
-              <Spinner />
-            )}
-            {
-              wrongImageType && (
-                <p>It&apos;s wrong file type.</p>
-              )
-            }
-            {!imageAsset ? (
-              // eslint-disable-next-line jsx-a11y/label-has-associated-control
-              <label>
-                <div className="flex flex-col items-center justify-center h-full">
-                  <div className="flex flex-col justify-center items-center">
-                    <p className="font-bold text-2xl">
-                      <AiOutlineCloudUpload />
-                    </p>
-                    <p className="text-lg font-semibold">Click to upload</p>
-                  </div>
+return (
+  <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
+    <div className=" flex lg:flex-row flex-col justify-center items-center bg-white lg:p-5 p-3 lg:w-4/5  w-full">
+      <div className="bg-secondaryColor p-3 flex flex-0.7 w-full">
+        <div className=" flex justify-center items-center flex-col border-2 border-dotted border-blue-400 p-3 w-full h-420">
+          {loading && (
+            <Spinner />
+          )}
+          {
+            wrongImageType && (
+              <p>It&apos;s wrong file type.</p>
+            )
+          }
+          {!imageAsset ? (
+            // eslint-disable-next-line jsx-a11y/label-has-associated-control
+            <label>
+              <div className="flex flex-col items-center justify-center h-full">
+                <div className="flex flex-col justify-center items-center">
+                  <p className="font-bold text-2xl">
+                    <AiOutlineCloudUpload />
+                  </p>
+                  <p className="text-lg font-semibold">Click to upload</p>
+                </div>
+
+              
 
                   <p className="mt-3 text-gray-400 text-xs">
                     Recommendation: Use high-quality JPG, JPEG, SVG, PNG, GIF or TIFF less than 20MB
@@ -583,24 +596,25 @@ const ModalHandlerClose = () => {
                 <p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
                   Please add all fields.
                 </p>
-              )}
-              <button
-                type="button"
-                onClick={savePin}
-                className="transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nGreen duration-300">
+             
+            )}
+            <button
+              type="button"
+              onClick={savePin}
+              className="transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nGreen duration-300">
 
-                Upload Recipe
-              </button>
+              Upload Recipe
+            </button>
 
-            </div>
           </div>
         </div>
       </div>
-
-
-
     </div>
-  );
+
+
+
+  </div>
+);
 };
 
 export default CreatePin;
