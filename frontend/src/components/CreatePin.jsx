@@ -373,6 +373,11 @@ return (
           <div className="h-56 grid  content-evenly w-auto float-root flex items-stretch "> 
           <p className="font-semibold ">Add Ingredients: </p>
           {/* NUTRIENT MODULE */}
+          {ingredientFields && (
+              <p className="text-nGreen mr-5 text-medium transition-all duration-150 ease-in ">
+                Please add all ingredient fields.
+              </p>
+            )}
           <div className='float-left py-4 '>
           <div className="flex flex-nowrap flex-1 flex-col gap-6 w-auto ">
           <input
