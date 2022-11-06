@@ -25,11 +25,14 @@ const CreatePin = ({ user }) => {
   const [wrongImageType, setWrongImageType] = useState(false);
   const [procedure, setProcedure] = useState([]);
   const [ModalOpen, setModalOpen] = useState(false);
+  const [nonIngredient, setNonIngredient] = useState(false);
+
 
   const [dropdownClick, setDropdownClick] = useState(true)
 
   //Ingredient Label For Users
   const [chosenIngredient, setChosenIngredient] = useState('');
+  const [nonChosenIngredient, setNonChosenIngredient] = useState('');
   //Full Ingredient Object storage after search -- TEMPORARY STORAGE
   const [chosenIngredientObject, setchosenIngredientObject] = useState();
   const [ingredientDropDown, setIngredientDropDown] = useState([])
@@ -91,12 +94,50 @@ const CreatePin = ({ user }) => {
 
   }
 
+  const nonIngredientHandler = () => {
+    setNonIngredient(true);
+
+  }
+
+  const nonIngredientConfirm = () => {
+    if (nonChosenIngredient && chosenMetric && chosenMetric) {
+
+
+      const doc = {
+        ingredientName: nonChosenIngredient,
+        metric: chosenMetric,
+        amount: parseInt(amount),
+      }
+
+      const newArray = [...finalRecipeObject, doc];
+      setFinalRecipeObject(newArray);
+
+      setChosenIngredient('');
+      setchosenIngredientObject();
+      setChosenMetric('')
+      setIngredientDropDown([]);
+      setAmount('');
+      setNonIngredient(false)
+
+    } else {
+      setIngredientFields(true);
+
+      setTimeout(
+        () => {
+          setIngredientFields(false);
+        },
+        4000,
+      );
+    }
+  };
+
+
   //Handler For Ingredient List Button -- MAIN STORAGE OF FULL INGREDIENT OBJECT -- USES PUSH AND MAKES ARRAY OF OBJECTS TO BE MANIPULATED FOR FINAL RESULT
 
   const handleIngredientList = () => {
 
 
-    if (chosenIngredient && chosenMetric && chosenMetric!== null && chosenIngredientObject && amount) {
+    if (chosenIngredient && chosenMetric && chosenMetric !== null && chosenIngredientObject && amount) {
       var item = chosenIngredientObject?.baseSize.find(item => item?.baseSizeNum == chosenMetric);
 
       console.log(item);
@@ -200,6 +241,8 @@ const CreatePin = ({ user }) => {
     // console.log(chosenIngredient);
     // console.log(chosenIngredientObject);
     console.log(chosenMetric);
+    console.log(nonIngredient);
+
 
 
 
@@ -431,13 +474,22 @@ const CreatePin = ({ user }) => {
                       </button>
                     </div>
                   </div>
+
+                  <button onClick={() => nonIngredientHandler()}>Ingredient not in database? Add here!</button>
                 </div>
               </div>}
             </div>
             {/* DISPLAY ALERT IF NO INGREDIENTS FOUND */}
             <div >
               {ingredientDropDown.length == 0 && chosenIngredient !== "" && !loadingIngredient && dropdownClick &&
-                <div className="text-xs">NO INGREDIENTS FOUND</div>}
+                <div>
+                  <div className="text-xs">NO INGREDIENTS FOUND IN DATABASE</div>
+
+
+                </div>}
+
+
+
 
               {/* DISPLAY WHEN LOADING SEARCH INGREDIENTS */}
               {loadingIngredient && <div className="text-xs">LOADING</div>}
@@ -455,6 +507,50 @@ const CreatePin = ({ user }) => {
               }
             </div>
           </div>
+
+          {/*NO INGREDIENT IN DATABASE FALLBACK INPUTS*/}
+          {nonIngredient && <div className='float-left py-4 '>
+            <div className="flex flex-nowrap flex-1 flex-col gap-6 w-auto ">
+              {ingredientFields && (
+                <p className="text-nGreen mr-5 text-medium transition-all duration-150 ease-in ">
+                  Please add all ingredient fields.
+                </p>
+              )}
+              <input
+                type="text"
+                onChange={(e) => { setNonChosenIngredient(e.target.value) }}
+                placeholder="Ingedients"
+                value={nonChosenIngredient}
+                className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
+              />
+
+              <input
+                type="text"
+                onChange={(e) => setAmount((e.target.value))}
+                placeholder="Amount"
+                value={amount}
+                className="  block p-2 w-24 h-9 bg-white outline-none border rounded-lg "
+              />
+
+              <input
+                type="text"
+                onChange={(e) => setChosenMetric((e.target.value))}
+                placeholder="Metric"
+                value={chosenMetric}
+                className="  block p-2 w-24 h-9 bg-white outline-none border rounded-lg "
+              />
+
+              <button
+                className="text-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+
+                onClick={() => nonIngredientConfirm()}
+              >
+                ADD
+              </button>
+
+            </div>
+          </div>
+          }
 
           <div className="flex justify-left items-left flex-col  w-full ">
             <p className="font-semibold"> Ingredients: </p>
