@@ -134,8 +134,8 @@ const CreateIngredient = ({ user }) => {
 
             <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
 
-
-                <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2">
+                <div className='font-bold text-3xl pb-4'> ADD AN INGREDIENT TO DATABASE</div>
+                <div className="flex flex-1 flex-col gap-6 lg:pl-5 "> 
                     <input
                         type="text"
                         value={ingAdminName}
@@ -147,30 +147,29 @@ const CreateIngredient = ({ user }) => {
 
                 {/* TABLE FOR BaseArrayList */}
 
-                <div className="flex flex-col">
-                    <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
-                        <div className="py-2 inline-block  sm:px-6 lg:px-8">
-                            <div className="overflow-hidden container flex">
-                                <table className="w-auto sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
-                                    <thead class="text-gray-400">
+               
+                        <div className="container">
+                        
+                                <table className='w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden sm:shadow-lg my-5'>
+                                    <thead className="border-b">
                                         {/* <tbody> */}
-                                        <tr className="bg-nOrange flex flex-col flex-nowrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
-                                        <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Base Size </th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Calories</th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Total Fat</th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Saturated Fat </th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Trans Fat</th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Cholesterol</th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Sodium</th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Total Carb</th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Dietary Fiber </th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Sugar</th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Protein</th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Vitamin A</th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Vitamin C</th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Calcium</th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Iron</th>
-                                            <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4">Action</th>
+                                        <tr className="bg-nGreen ">
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Base Size </th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Calories</th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Total Fat</th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Saturated Fat </th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Trans Fat</th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Cholesterol</th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Sodium</th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Total Carb</th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Dietary Fiber </th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Sugar</th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Protein</th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Vitamin A</th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Vitamin C</th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Calcium</th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Iron</th>
+                                            <th scope="col" className="text-sm font-medium text-white px-6 py-4">Action</th>
                                         </tr>
                                         
                                     </thead>
@@ -183,7 +182,7 @@ const CreateIngredient = ({ user }) => {
 
                                             baseSizeList.map((info, i) => {
                                                 return (
-                                                    <tr key={i} class="flex flex-col sm:table-row mb-2 sm:mb-0">
+                                                    <tr key={i} className="bg-white border-b text-center">
                                                         <td>{info.baseSizeNum}</td>
                                                         <td>{info.calories}</td>
                                                         <td>{info.totalfat}</td>
@@ -219,9 +218,8 @@ const CreateIngredient = ({ user }) => {
 
 
                             </div>
-                        </div>
-                    </div>
-                </div>
+                       
+                    
 
 
                 {ModalOpen && <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex flex-col 

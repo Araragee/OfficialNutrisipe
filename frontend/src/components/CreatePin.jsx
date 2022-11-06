@@ -501,7 +501,7 @@ const CreatePin = ({ user }) => {
                     </div>
                   </div>
                   <button
-                    className=" pt-1 text-nRed mx-4 mb-2 text-xs font-bold text-center  p-1 "
+                    className=" pt-1 text-nRed mx-4  text-xs font-bold text-center  p-1 "
                     onClick={() => deleteFinalRecipeObjectHandler(i)}
                   >
                     Delete

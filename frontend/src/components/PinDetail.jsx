@@ -218,9 +218,7 @@ const PinDetail = ({ user }) => {
                          
                          
                             <li className="float-left py-4 capitalize flex flex-nowrap">{info.ingredientName}</li>
-
-                            <li className="float-middle mx-3 pt-4 flex flex-nowrap ">{info.amount}</li>
-                      
+                            <li className="float-middle mx-3 pt-4 flex flex-nowrap ">{info.amount}</li>                     
                             <li className="float-middle pt-4 flex flex-nowrap">{info.metric}</li>
                          
                         </div>
@@ -365,7 +363,7 @@ const PinDetail = ({ user }) => {
               </p>
             </Link>
             <h2 className="mt-5 text-2xl"> Comments </h2>
-            <div className="max-h-370 overflow-y-auto h-40 whitespace-normal">
+            <div className="max-h-370 overflow-y-auto h-40 ">
               {pinDetail?.comments?.map((comment, i) => (
                 <div
                   className="flex gap-2 mt-5 items-center bg-white rounded-lg  "
@@ -380,7 +378,7 @@ const PinDetail = ({ user }) => {
                   </Link>
                   <div className="flex flex-col ">
                     <p className="font-bold">{comment.postedBy?.userName}</p>
-                    <p className="flex ">{comment.comment}</p>
+                    <p className="flex break-all">{comment.comment}</p>
                   </div>
                   <div className="flex flex-col mt-4">
                     {comment?.postedBy?._id === user._id ? (
