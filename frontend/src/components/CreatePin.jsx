@@ -23,7 +23,7 @@ const CreatePin = ({ user }) => {
   const [imageAsset, setImageAsset] = useState();
   const [wrongImageType, setWrongImageType] = useState(false);
   const [procedure, setProcedure] = useState([]);
-
+  const [ModalOpen, setModalOpen] = useState(false);
 
   const [dropdownClick, setDropdownClick] = useState(true)
 
@@ -37,7 +37,12 @@ const CreatePin = ({ user }) => {
   const [finalRecipeObject, setFinalRecipeObject] = useState([]);
   const [nutrientTable, setNutrientTable] = useState([]);
 
-
+  const ModalHandlerOpen = () => {
+    setModalOpen(true);
+}
+const ModalHandlerClose = () => {
+    setModalOpen(false);
+}
 
   //INGREDIENT SEARCH == SHOW DROPDOWN
   useEffect(() => {
@@ -322,9 +327,9 @@ const CreatePin = ({ user }) => {
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col gap-1 lg:pl-5 mt-5 w-full">
+        <div className="flex flex-1 flex-col gap-1 lg:pl-5 mt-5 w-full ">
           {user && (
-            <div className="flex gap-2 mt-2 mb-2 ml-6 items-center bg-white rounded-lg ">
+            <div className="flex gap-2 mt-2 mb-2 items-center bg-white rounded-lg ">
               <img
                 src={user.image}
                 className="w-10 h-10 rounded-full"
@@ -333,7 +338,7 @@ const CreatePin = ({ user }) => {
               <p className="font-bold">{user.userName}</p>
             </div>
           )}
-          <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-2 w-full">
+          <div className="flex flex-1 flex-col gap-6  mt-2 w-auto">
             <input
               type="text"
               value={title}
@@ -343,30 +348,86 @@ const CreatePin = ({ user }) => {
             />
           </div>
 
-          <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
+          <div className="flex flex-1 flex-col gap-6  mt-5 w-auto">
             <input
               type="text"
               value={about}
               onChange={(e) => setAbout(e.target.value)}
               placeholder="Recipe Description"
-              className="outline-none text-base sm:text-lg border-b-2 border-gray-200 p-2"
+              className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
             />
           </div>
-
+          <div className="h-56 grid  content-evenly w-auto float-root flex items-stretch "> 
+          <p className="font-semibold ">Add Ingredients: </p>
           {/* NUTRIENT MODULE */}
-
+          <div className='float-left py-4 '>
+          <div className="flex flex-nowrap flex-1 flex-col gap-6 w-auto ">
           <input
             type="text"
             onChange={(e) => { setChosenIngredient(e.target.value); dropdownClickHandlerOpen() }}
             onBlur={() => dropdownClickHandlerClose()}
-            placeholder="Search INGREDIENT"
+            placeholder="Ingedients"
             value={chosenIngredient}
-            className="p-2 w-full bg-white outline-none"
+            className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
           />
 
+            </div>
+            
+          {/* DISPLAY INGREDIENT LIST/FINAL RECIPE OBJECT WITH DELETE */}
+
+ 
+
+          {/* amount */}
+          <div className="float-left py-4 ">
+          <div className=" flex flex-nowrap ">
+          {/* <div class="flex flex-nowrap"> */}
+          <input
+            type="text"
+            onChange={(e) => setAmount((e.target.value))}
+            placeholder="Amount"
+            value={amount}
+            className="  block p-2 w-24 h-9 bg-white outline-none border rounded-lg "
+          />
+            {/* </div> */}
+          <div >
+          <div class="flex flex-nowrap pl-8">
+          {/* metric */}
+          
+         <select value={chosenMetric}
+              onChange={(e) => {
+                setChosenMetric(e.target.value);
+              }}
+              className=" block p-2 w-24 h-9 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs font-semibold focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              <option className="text-base border outline-none capitalize bg-gray-100 text-gray " value={null} >
+                Metric
+              </option>
+              {
+                chosenIngredientObject?.baseSize.map((item) => (
+                  <option className="text-base border-0 outline-none capitalize bg-white text-gray " value={item?.baseSizeNum} >
+                    {item?.baseSizeNum}
+                  </option>
+                ))}
+            </select>
+            <button
+            className="text-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+
+            onClick={() => handleIngredientList()}
+          >
+            ADD
+          </button>
+          </div>
+          </div>
+          </div>
+          </div>
+          </div>
           {/* DISPLAY ALERT IF NO INGREDIENTS FOUND */}
-          <div>
-            {ingredientDropDown.length == 0 && chosenIngredient !== "" && !loadingIngredient && dropdownClick && <div>NO INGREDIENTS FOUND</div>}
+          <div >
+            {ingredientDropDown.length == 0 && chosenIngredient !== "" && !loadingIngredient && dropdownClick && 
+            <div className="text-xs">NO INGREDIENTS FOUND</div>}
+           
+            {/* DISPLAY WHEN LOADING SEARCH INGREDIENTS */}
+             {loadingIngredient && <div className="text-xs">LOADING</div>}
 
             {/* DROPDOWN BAR FOR INGREDIENT SEARCH */}
             {ingredientDropDown?.map((item) => (
@@ -380,73 +441,57 @@ const CreatePin = ({ user }) => {
             ))
             }
           </div>
-
-          {/* DISPLAY WHEN LOADING SEARCH INGREDIENTS */}
-          {loadingIngredient && <div>LOADING</div>}
-          
-          {/* DISPLAY INGREDIENT LIST/FINAL RECIPE OBJECT WITH DELETE */}
-
+          </div>
+         
+          <div className="flex justify-left items-left flex-col  w-full ">
+          <p className="font-semibold"> Ingredients: </p>
           {finalRecipeObject.map((info, i) => {
             return (
-              <div key={i} >
-                <br />
-                <div>{info.ingredientName}</div>
-                <div>{info.metric}</div>
-                <div>{info.amount}</div>
-                <button onClick={() => deleteFinalRecipeObjectHandler(i)}>Delete</button>
-              </div>
+              
+              <div key={i} className="float-root  flex full">
+                <div className=' float-left  py-4 ' >
+                
+                <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} className="capitalize flex flex-nowrap">
+                {info.ingredientName}
+                </div>
+                </div> 
+                <div className='float-middle py-4 '>
+                
+                  <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} className=" flex flex-nowrap">
+                  {info.amount} 
+                </div>
+                </div>
+                <div className='float-middle py-4 '>
+                
+                  <div style={{ width: 'auto', height: 'auto', marginLeft: '10px', position: 'relative' }} className=" flex flex-nowrap">
+                  {info.metric}
+                </div>
+                </div>
+                <button className=" pt-1 text-nRed mx-4 mb-2 text-xs font-bold text-center  p-1 " onClick={() => deleteFinalRecipeObjectHandler(i)}>Delete</button>
+                </div>
+                
+            
+            
+              
             )
-          })}
+          })} </div>
 
+{ModalOpen && <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex flex-col 
+            justify-center items-center  ">
 
-
-
-
-
-
-
-
-
-          {/* METRIC DROPDOWN */}
-          <div className="flex flex-nowrap">
-
-            <select value={chosenMetric}
-              onChange={(e) => {
-                setChosenMetric(e.target.value);
-              }}
-              className="mx-2 mt-2 ml-3 block p-2 w-24 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option className="text-base border-0 outline-none capitalize bg-gray-100 text-gray " value={null} >
-                Metric
-              </option>
-              {
-                chosenIngredientObject?.baseSize.map((item) => (
-                  <option className="text-base border-0 outline-none capitalize bg-gray-100 text-gray " value={item?.baseSizeNum} >
-                    {item?.baseSizeNum}
-                  </option>
-                ))}
-            </select>
-          </div>
-
-          {/* AMOUNT */}
-          <input
-            type="text"
-            onChange={(e) => setAmount((e.target.value))}
-            placeholder="Amount"
-            value={amount}
-            className="p-2 w-full bg-white outline-none"
-          />
-          <button
-            className="text-nGreen w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-
-            onClick={() => handleIngredientList()}
-          >
-            ADD
-          </button>
-
-
-          
-                <div>calories {nutrientTable.calories}</div>
+                    <div className="fixed bg-gray-100 rounded-md h-96 w-96 overflow-scroll ">
+                        <div className="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600 w-full">
+                            <h3 className="ml-2 text-xl font-semibold  items-center text-nGreen">
+                                Nutrients Facts
+                            </h3>
+                            <button
+                                className="ml-2 mt-2 mx-1 px-1 text-xs font-bold text-center transition ease-in-out delay-150 w-4 h-4 border border-gray-400 rounded bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
+                                onClick={ModalHandlerClose}
+                            >
+                                X
+                            </button>
+                        </div>
+                <div >calories {nutrientTable.calories}</div>
                 <div>totalfat {nutrientTable.totalfat}</div>
                 <div>saturatedfat {nutrientTable.saturatedfat}</div>
                 <div>transfat {nutrientTable.transfat}</div>
@@ -460,21 +505,29 @@ const CreatePin = ({ user }) => {
                 <div>vitaminA {nutrientTable.vitaminA}</div>
                 <div>vitaminC {nutrientTable.vitaminC}</div>
                 <div>calcium {nutrientTable.calcium}</div>
-                
-              
-            
 
+                <div className='mt-3'>
+                            <button
+                                className="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
+                                onClick={ModalHandlerClose}
+                            >
+                                close
+                            </button>
 
+                        </div>
+                    </div>
+                </div>
+                }
+                {!ModalOpen && <button
+                    className="mt-5 text-nGreen w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+                    onClick={ModalHandlerOpen}
+                >
+                    Nutrients
+                </button>}
 
-
-
-
-
-
-
-
+ 
           {/* div for procedures */}
-          <div className="flex flex-1 flex-col gap-2 lg:pl-5 mt-2 w-full py-4">
+          <div className="flex flex-1 flex-col gap-2 mt-2 w-full py-4">
             <label className=" font-semibold">Procedure</label>
             {procedure.map((data, u) => (
               <div className="flow-root">
@@ -483,7 +536,7 @@ const CreatePin = ({ user }) => {
                   key="u"
                   id="message"
                   rows="4"
-                  className="float-left block p-1 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 "
+                  className="float-left block w-full h-auto text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 "
                   placeholder="Procedure"
                   value={data}
                   onChange={(e) => handleProcedureChange(e, u)}
@@ -500,7 +553,7 @@ const CreatePin = ({ user }) => {
             ))}
             {/* button for add procedures */}
             <button
-              className="text-nGreen w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+              className="text-nGreen w-24 h-7.5 float-left py-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
 
               onClick={() => handleProcedureAdd()}
             >

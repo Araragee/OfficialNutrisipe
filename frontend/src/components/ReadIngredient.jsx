@@ -33,8 +33,10 @@ const ReadIngredient = () => {
     }
   }, [searchIngredientTerm]);
 
+  
   return (
     //SEARCH BAR
+    
     <div>
       <input
         type="text"
@@ -52,7 +54,7 @@ const ReadIngredient = () => {
               
                 {ingredientList?.map((item, index) => (
                   <div key={index} className="container">
-                    <table className="w-full border-b sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5"></table>
+                    <table className="w-auto border-b sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5"></table>
                     <thead className="border-b ">
                       <tr className="bg-nOrange flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0">
                         <th
