@@ -28,14 +28,13 @@ const CreatePin = ({ user }) => {
   const [ModalOpen, setModalOpen] = useState(false);
   const [nonIngredient, setNonIngredient] = useState(false);
 
-
   const [dropdownClick, setDropdownClick] = useState(true);
 
   //Ingredient Label For Users
-  const [chosenIngredient, setChosenIngredient] = useState('');
-  const [nonChosenIngredient, setNonChosenIngredient] = useState('');
-  const [nonChosenMetric, setNonChosenMetric] = useState('');
-  const [nonChosenAmount, setNonChosenAmount] = useState('');
+  const [chosenIngredient, setChosenIngredient] = useState("");
+  const [nonChosenIngredient, setNonChosenIngredient] = useState("");
+  const [nonChosenMetric, setNonChosenMetric] = useState("");
+  const [nonChosenAmount, setNonChosenAmount] = useState("");
   //Full Ingredient Object storage after search -- TEMPORARY STORAGE
   const [chosenIngredientObject, setchosenIngredientObject] = useState();
   const [ingredientDropDown, setIngredientDropDown] = useState([]);
@@ -93,18 +92,14 @@ const CreatePin = ({ user }) => {
 
   const nonIngredientHandler = () => {
     setNonIngredient(true);
-
-  }
+  };
 
   const nonIngredientHandlerClose = () => {
     setNonIngredient(false);
-
-  }
+  };
   //SAVE NON INGREDIENTS TO LIST NO NUTRIENT VALUE
   const nonIngredientConfirm = () => {
     if (nonChosenIngredient && nonChosenMetric && nonChosenAmount) {
-
-
       const doc = {
         ingredientName: nonChosenIngredient,
         metric: nonChosenMetric,
@@ -122,38 +117,39 @@ const CreatePin = ({ user }) => {
         vitaminA: 0,
         vitaminC: 0,
         calcium: 0,
-        iron: 0
-      }
+        iron: 0,
+      };
 
       const newArray = [...finalRecipeObject, doc];
       setFinalRecipeObject(newArray);
 
-      setNonChosenIngredient('');
-      setNonChosenMetric('');
-      setNonChosenAmount('')
+      setNonChosenIngredient("");
+      setNonChosenMetric("");
+      setNonChosenAmount("");
       setIngredientDropDown([]);
-      setNonIngredient(false)
-
+      setNonIngredient(false);
     } else {
       setNonIngredientFields(true);
 
-      setTimeout(
-        () => {
-          setNonIngredientFields(false);
-        },
-        4000,
-      );
+      setTimeout(() => {
+        setNonIngredientFields(false);
+      }, 4000);
     }
   };
-
 
   //Handler For Ingredient List Button -- MAIN STORAGE OF FULL INGREDIENT OBJECT -- USES PUSH AND MAKES ARRAY OF OBJECTS TO BE MANIPULATED FOR FINAL RESULT
 
   const handleIngredientList = () => {
-
-
-    if (chosenIngredient && chosenMetric && chosenMetric !== null && chosenIngredientObject && amount) {
-      var item = chosenIngredientObject?.baseSize.find(item => item?.baseSizeNum == chosenMetric);
+    if (
+      chosenIngredient &&
+      chosenMetric &&
+      chosenMetric !== null &&
+      chosenIngredientObject &&
+      amount
+    ) {
+      var item = chosenIngredientObject?.baseSize.find(
+        (item) => item?.baseSizeNum == chosenMetric
+      );
 
       console.log(item);
 
@@ -241,14 +237,7 @@ const CreatePin = ({ user }) => {
     console.log(chosenMetric);
     console.log(chosenIngredient);
     console.log(chosenIngredientObject);
-    console.log(amount)
-
-
-
-
-
-
-
+    console.log(amount);
   };
   const handleProcedureChange = (onChangeValue, u) => {
     const inputdata = [...procedure];
@@ -386,7 +375,7 @@ const CreatePin = ({ user }) => {
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col gap-1 lg:pl-5 mt-5 w-96 ">
+        <div className="flex flex-1 flex-col gap-1 lg:pl-5 mt-5 w-full ">
           {user && (
             <div className="flex gap-2 mt-2 mb-2 items-center bg-white rounded-lg ">
               <img
@@ -416,8 +405,9 @@ const CreatePin = ({ user }) => {
               className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
             />
           </div>
+          <p className="font-semibold mt-6">Add Ingredients: </p>
           <div className="h-56 grid  content-evenly w-auto float-root flex items-stretch ">
-            <p className="font-semibold ">Add Ingredients: </p>
+           
             {/* NUTRIENT MODULE */}
             {ingredientFields && (
               <p className="text-nGreen mr-5 text-medium transition-all duration-150 ease-in ">
@@ -445,13 +435,11 @@ const CreatePin = ({ user }) => {
                   chosenIngredient !== "" &&
                   !loadingIngredient &&
                   dropdownClick && (
-                    <div className="text-xs">NO INGREDIENTS FOUND
-                    </div>
-
+                    <div className="text-xs">NO INGREDIENTS FOUND</div>
                   )}
 
                 {/* DISPLAY WHEN LOADING SEARCH INGREDIENTS */}
-                {loadingIngredient && <div className="text-xs">LOADING </div>}
+                {loadingIngredient && <div className="text-xs">LOADING</div>}
 
                 {/* DROPDOWN BAR FOR INGREDIENT SEARCH */}
                 <div className="border bg-gray-100">
@@ -469,109 +457,146 @@ const CreatePin = ({ user }) => {
                 </div>
               </div>
               {/* amount */}
-              {ingredientDropDown.length == 0 && <div className="float-left py-4 ">
-                <div className=" flex flex-nowrap ">
-                  {/* <div class="flex flex-nowrap"> */}
-                  <input
-                    type="text"
-                    onChange={(e) => setAmount((e.target.value))}
-                    placeholder="Amount"
-                    value={amount}
-                    className="  block p-2 w-24 h-9 bg-white outline-none border rounded-lg "
-                  />
-                  {/* </div> */}
-                  <div >
-                    <div class="flex flex-nowrap pl-8">
-                      {/* metric */}
+              {ingredientDropDown.length == 0 && (
+                <div className="float-left py-4 ">
+                  <div className=" flex flex-nowrap ">
+                    {/* <div class="flex flex-nowrap"> */}
+                    <input
+                      type="number"
+                      step='1'
+                      min='0'
+                      onChange={(e) => setAmount(e.target.value)}
+                      placeholder="Amount"
+                      value={amount}
+                      className="  block p-2 w-24 h-9 bg-white outline-none border rounded-lg "
+                    />
+                    {/* </div> */}
+                    <div>
+                      <div className="flex flex-nowrap pl-8">
+                        {/* metric */}
 
-                      <select
-                        value={chosenMetric}
-                        onChange={(e) => {
-                          setChosenMetric(e.target.value);
-                        }}
-                        className=" block p-2 w-24 h-9 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs font-semibold focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      >
-                        <option
-                          className="text-base border outline-none capitalize bg-gray-100 text-gray " value={null} disable selected hidden>
-                          metric
-                        </option>
-                        {chosenIngredientObject?.baseSize.map((item) => (
+                        <select
+                          value={chosenMetric}
+                          onChange={(e) => {
+                            setChosenMetric(e.target.value);
+                          }}
+                          className=" block p-2 w-24 h-9 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs font-semibold focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        >
                           <option
-                            className="text-base border-0 outline-none capitalize bg-white text-gray "
-                            value={item?.baseSizeNum}
+                            className="text-base border outline-none capitalize bg-gray-100 text-gray "
+                            value={null}
+                            disable
+                            selected
+                            hidden
                           >
-                            {item?.baseSizeNum}
+                            metric
                           </option>
-                        ))}
-                      </select>
-                      <button
-                        className="text-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-
-                        onClick={() => handleIngredientList()}
-                      >
-                        ADD
-                      </button>
+                          {chosenIngredientObject?.baseSize.map((item) => (
+                            <option
+                              className="text-base border-0 outline-none capitalize bg-white text-gray "
+                              value={item?.baseSizeNum}
+                            >
+                              {item?.baseSizeNum}
+                            </option>
+                          ))}
+                        </select>
+                        <button
+                          className="text-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+                          onClick={() => handleIngredientList()}
+                        >
+                          ADD
+                        </button>
+                      </div>
                     </div>
                   </div>
-
-
                 </div>
-              </div>}
-            </div>
-          </div>
-          <button onClick={() => nonIngredientHandler()}>Ingredient not in database? Add here!</button>
-
-          {/*NO INGREDIENT IN DATABASE FALLBACK INPUTS*/}
-          {nonIngredient && <div className='float-left py-4 '>
-            <div>This Ingredient will not be included in the nutrition fact estimation</div>
-            <button
-              className="text-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-
-              onClick={() => nonIngredientHandlerClose()}
-            >
-              Close
-            </button>
-            <div className="flex flex-nowrap flex-1 flex-col gap-6 w-auto ">
-              {nonIngredientFields && (
-                <p className="text-nGreen mr-5 text-medium transition-all duration-150 ease-in ">
-                  Please add all ingredient fields.
-                </p>
               )}
-              <input
-                type="text"
-                onChange={(e) => { setNonChosenIngredient(e.target.value) }}
-                placeholder="Ingedients"
-                value={nonChosenIngredient}
-                className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
-              />
-
-              <input
-                type="text"
-                onChange={(e) => setNonChosenAmount((e.target.value))}
-                placeholder="Amount"
-                value={nonChosenAmount}
-                className="  block p-2 w-24 h-9 bg-white outline-none border rounded-lg "
-              />
-
-              <input
-                type="text"
-                onChange={(e) => setNonChosenMetric((e.target.value))}
-                placeholder="Metric"
-                value={nonChosenMetric}
-                className="  block p-2 w-24 h-9 bg-white outline-none border rounded-lg "
-              />
-
-              <button
-                className="text-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-
-                onClick={() => nonIngredientConfirm()}
-              >
-                ADD
-              </button>
-
-            </div>
+           
           </div>
-          }
+          <div className="float-root">
+           <div className="float-left flex flex-nowrap mb-8 ">
+           {!nonIngredient && (
+            <button onClick={() => nonIngredientHandler()} className="text-nGreen underline underline-offset-1">
+              Ingredient not in database? Add here!
+            </button>
+          )}
+          </div>
+          </div>
+          </div>
+          {/* modal  */}
+          {nonIngredient && (
+            <div
+              className="fixed inset-0 bg-black-500 bg-opacity-30 backdrop-blur-md  flex flex-col 
+    justify-center items-center  "
+            >
+              <div className="fixed bg-gray-100 rounded-md h-auto w-auto ">
+                <div className="p-1 border-2 border-black font-sans w-full">
+                  <div className="h-56 grid  content-evenly w-auto float-root flex items-stretch ">
+                    <p>
+                      This Ingredient will not be included in the nutrition fact
+                      estimation
+                    </p>
+
+                    {nonIngredientFields && (
+                      <p className="text-nGreen mr-5 text-medium transition-all duration-150 ease-in ">
+                        Please add all ingredient fields.
+                      </p>
+                    )}
+                    <div className="float-left py-4 ">
+                      <div className="flex flex-nowrap flex-1 flex-col gap-6 w-auto ">
+                        <input
+                          type="text"
+                          onChange={(e) => {
+                            setNonChosenIngredient(e.target.value);
+                          }}
+                          placeholder="Ingedients"
+                          value={nonChosenIngredient}
+                          className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
+                        />
+                      </div>
+
+                      <div className="float-left py-4 ">
+                        <div className=" flex flex-nowrap ">
+                          {/* <div class="flex flex-nowrap"> */}
+                          <input
+                            type="number"
+                            step='1'
+                            min='0'
+                            onChange={(e) => setNonChosenAmount(e.target.value)}
+                            placeholder="Amount"
+                            value={nonChosenAmount}
+                            className="  block p-2 w-24 h-9 bg-white outline-none border rounded-lg "
+                          />
+                          <div>
+                            <div class="flex flex-nowrap pl-8">
+                              {/* metric */}
+
+                              <input
+                                type="text"
+                                onChange={(e) =>
+                                  setNonChosenMetric(e.target.value)
+                                }
+                                placeholder="Metric"
+                                value={nonChosenMetric}
+                                className=" block p-2 w-24 h-9 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs font-semibold focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                              />
+                              <button
+                                className="text-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+                                onClick={() => nonIngredientConfirm()}
+                              >
+                                ADD
+                              </button>
+                            </div>{" "}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          
 
           <div className="flex justify-left items-left flex-col  w-full ">
             <p className="font-semibold"> Ingredients: </p>
@@ -642,7 +667,6 @@ const CreatePin = ({ user }) => {
                   <div className="flex justify-between font-bold border-b-8 border-black"></div>
                   <div className="flex justify-between items-end font-extrabold">
                     <div>
-
                       <div className="text-4xl">Calories </div>
                     </div>
                     <div className="text-5xl">{nutrientTable.calories}g</div>
