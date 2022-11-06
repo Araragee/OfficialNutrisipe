@@ -3,9 +3,10 @@ import { allIngredientsQuery, searchIngredientQuery } from "../utils/data";
 import { client } from "../client";
 import { AiTwotoneDelete } from 'react-icons/ai';
 
-const ReadIngredient = () => {
+const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
   const [ingredientList, setIngredientList] = useState();
   const [searchIngredientTerm, setSearchIngredientTerm] = useState("");
+  const [refresher, setRefresher] = useState(0)
   const ingredientFetchHandler = () => {
     client.fetch(allIngredientsQuery).then((data) => {
       setIngredientList(data);
@@ -28,7 +29,7 @@ const ReadIngredient = () => {
         console.log(ingredientList);
       });
     }
-  }, [searchIngredientTerm, ingredientList]);
+  }, [searchIngredientTerm, refresher, uploadSuccessAlert, setuploadSuccessAlert]);
 
 
   const deleteDatabaseIngredient = (key) => {
@@ -36,7 +37,7 @@ const ReadIngredient = () => {
     client
       .delete({query: `*[_type == "ingredientAdmin" && _key == "${key}"]`})
       .then(() => {
-        setIngredientList();
+        setRefresher(refresher + 1);
 
       });
 

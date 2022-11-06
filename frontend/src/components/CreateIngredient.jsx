@@ -451,7 +451,7 @@ const CreateIngredient = ({ user }) => {
                     </button>
                 </div>
 
-                <ReadIngredient />
+                <ReadIngredient uploadSuccessAlert={uploadSuccessAlert} setuploadSuccessAlert={setuploadSuccessAlert} />
                         
             </div>
 
