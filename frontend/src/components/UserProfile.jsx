@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { useParams, useNavigate } from 'react-router-dom';
 import { googleLogout } from '@react-oauth/google';
-
 import { userCreatedPinsQuery, userQuery, userSavedPinsQuery, userfollowers, userfollowing } from '../utils/data';
 import { client } from '../client';
 import MasonryLayout from './MasonryLayout';
@@ -29,14 +28,11 @@ const UserProfile = () => {
   const create = (id) => {
     client
       .patch(id)
-      .setIfMissing({ save: [] })
-      .insert('after', 'save[-1]', [{
-        _key: users.sub,
+      .setIfMissing({ follow: [] })
+      .insert('after', 'follow[-1]', [{
+        _key: uuidv4(),
         userId: users.sub,
-        postedBy: {
-          _type: 'postedBy',
-          _ref: users.sub,
-        },
+        _type: "reference"
       }])
       .commit()
       .then(() => {
@@ -49,8 +45,8 @@ const UserProfile = () => {
   const fetchfollowing = () => {
     const followers = userfollowers(userId);
     client.fetch(followers).then((data) => {
-      setLengths(data[0]?.save);
-      if ((data[0]?.save?.filter((item) => item?.postedBy?._id === users?.sub))?.length > 0) {
+      setLengths(data[0]?.follow);
+      if ((data[0]?.follow?.filter((item) => item?.postedBy?._id === users?.sub))?.length > 0) {
         setAlreadyFollowed(true);
       }
     });
@@ -59,7 +55,7 @@ const UserProfile = () => {
   const fetchFollower = () => {
     client.fetch(userfollowing).then((data) => {
       const index = (data?.map((index) => (
-        index?.save?.map((index) => index?.postedBy?._id === userId)
+        index?.follow?.map((index) => index?.postedBy?._id === userId)
       )));
 
       const index2 = (index?.map((value) => (
@@ -73,7 +69,7 @@ const UserProfile = () => {
   };
 
   const unfollow = (id) => {
-    const ToRemove = [`save[userId=="${users.sub}"]`];
+    const ToRemove = [`follow[userId=="${users.sub}"]`];
     client
       .patch(id)
       .unset(ToRemove)
@@ -93,15 +89,17 @@ const UserProfile = () => {
   useEffect(() => {
     if (text === 'Created') {
       const createdPinsQuery = userCreatedPinsQuery(userId);
-
-      client.fetch(createdPinsQuery).then((data) => {
-        setPins(data);
+      client.fetch(createdPinsQuery)
+      .then((data) => {
+       setPins(data);
       });
-    } else {
+    } 
+    else {
       const savedPinsQuery = userSavedPinsQuery(userId);
 
-      client.fetch(savedPinsQuery).then((data) => {
-        setPins(data);
+      client.fetch(savedPinsQuery)
+      .then((data) => {
+       setPins(data);
       });
     }
   }, [text, userId]);
