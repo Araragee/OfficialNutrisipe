@@ -145,18 +145,18 @@ const PinDetail = ({ user }) => {
     <>
       {pinDetail && (
         <div
-          className="flex xl:flex-row flex-col m-auto bg-white w-full border rounded-lg "
+          className=" flex xl:flex-row flex-col m-auto bg-white w-full border rounded-lg float-root"
         >
           
-          <div className="flex justify-center items-center md:items-start flex-initial ">
+          <div className="justify-center align-center items-center md:items-start flex-initial w-4/5 float-left">
             <img
               className="rounded-t-3xl rounded-b-lg px-10 py-10"
               src={pinDetail?.image && urlFor(pinDetail?.image).url()}
               alt="user-post"
             />
           </div>
-          
-          <div className="w-full p-5 flex-1 xl:min-w-620 ">
+          <div className="w-full p-5  align-right float-right">
+          <div className="w-auto align-right  ">
             {alreadySaved?.length !== 0 ? (
               <button
                 type="button"
@@ -361,24 +361,38 @@ const PinDetail = ({ user }) => {
               </p>
             </Link>
             <h2 className="mt-5 text-2xl"> Comments </h2>
-            <div className="max-h-370 overflow-y-auto h-40 ">
+            <div className="min-h-100 overflow-y-auto h-40 w-auto">
               {pinDetail?.comments?.map((comment, i) => (
                 <div
-                  className="flex gap-2 mt-5 items-center bg-white rounded-lg  "
+                  className="flex  gap-2 mt-5 items-center bg-white w-full rounded-lg  "
                   key={i}
                 >
-                  <Link to={`/user-profile/${comment?.postedBy._id}`}>
+                  
+                  <Link to={`/user-profile/${comment?.postedBy._id}`} className="flex">
+                  <div className=" w-full float-root">
+                    <div className="float-left ">
+                      <div className="flex flex-nowrap "> 
                     <img
                       src={comment.postedBy?.image}
                       alt="user-profile"
-                      className="pointer-events-none w-10 h-10 rounded-full cursor-pointer "
+                      className="pointer-events-none  w-10 h-10 rounded-full align-top cursor-pointer  "
                     />
-                  </Link>
-                  <div className="flex flex-col ">
-                    <p className="font-bold">{comment.postedBy?.userName}</p>
-                    <p className="flex break-all">{comment.comment}</p>
+                     </div></div>
+
+                     <div className="font-bold  float-left">
+                      <div className="flex flex-nowrap ml-2"> 
+                      {comment.postedBy?.userName}
+                      </div> </div>
+                  
+                 
+                  <div className="float-middle ml-2">
+                  <div  className="align-left mt-6 ml-6">
+                    <p className=" break-all ml-4 ">{comment.comment}</p>
                   </div>
-                  <div className="flex flex-col mt-4">
+                  </div>
+                  </div>
+                  </Link>
+                  <div className="flex flex-col mt-6">
                     {comment?.postedBy?._id === user._id ? (
                       <button
                         onClick={(e) => {
@@ -401,7 +415,7 @@ const PinDetail = ({ user }) => {
               <Link to={`/user-profile/${user._id}`}>
                 <img
                   src={user.image}
-                  className="w-10 h-10 rounded-full cursor-pointer"
+                  className=" fixed w-10 h-10 rounded-full cursor-pointer"
                   alt="user-profile"
                 />
               </Link>
@@ -420,6 +434,7 @@ const PinDetail = ({ user }) => {
                 {addingComment ? "Posting..." : "Post"}
               </button>
             </div>
+          </div>
           </div>
         </div>
       )}
