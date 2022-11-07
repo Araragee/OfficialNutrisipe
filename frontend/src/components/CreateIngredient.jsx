@@ -116,7 +116,7 @@ const CreateIngredient = ({ user }) => {
     return (
       //UPLOAD INGREDIENT BUTTON
 
-      <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
+      <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5 ">
         <div className="font-bold text-3xl pb-4">
           {" "}
           ADD AN INGREDIENT TO DATABASE
@@ -134,7 +134,7 @@ const CreateIngredient = ({ user }) => {
         {/* TABLE FOR BaseArrayList */}
 
         <div className="container">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden sm:shadow-lg my-5">
+          <table className="w-5/6 text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg overflow-hidden sm:shadow-lg my-5">
             <thead className="border-b">
               {/* <tbody> */}
               <tr className="bg-nGreen ">
