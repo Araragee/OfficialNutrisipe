@@ -36,7 +36,7 @@ const Sidebar = ({ closeToggle, user }) => {
             <RiHomeFill />
             Home
           </NavLink>
-
+{/* 
           <NavLink
             to="/FollowFeed"
             className={({ isActive }) => (isActive ? isActiveStyle : isNotActiveStyle)}
@@ -45,7 +45,7 @@ const Sidebar = ({ closeToggle, user }) => {
           >
             <RiUserFollowLine />
             My Following
-          </NavLink>
+          </NavLink> */}
 
 
           <h3 className="mt-2 px-5 text-base text-gray-500 2xl:text-xl font-semibold">Categories</h3>
