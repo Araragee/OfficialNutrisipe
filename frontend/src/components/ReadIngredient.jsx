@@ -69,7 +69,7 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
                     <tr className="bg-nOrange  ">
                       <th
 
-                        className="text-sm font-semibold text-gray-900 px-6 py-4  "
+                        className="text-sm font-semibold text-gray-900 px-6 py-4 w-24"
                       >
                         {item?.ingAdminName}
                       </th>
@@ -182,9 +182,10 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
                   </thead>
 
                   {item?.baseSize?.map((c) => (
-                    <tbody >
-                      <tr key={c?._key} className="bg-white border-b text-center">
-                        <td className=" text-sm font-medium text-gray-900 px-6 py-4"></td>
+                   
+                      <tbody key={c?._key} className="bg-white border-b text-center">
+                        <tr>
+                        <td className=" text-sm font-medium text-gray-900 px-6 py-4 w-32"></td>
                         <td className="text-sm font-medium text-gray-900 px-6 py-4">
                           {c.baseSizeNum}
                         </td>
