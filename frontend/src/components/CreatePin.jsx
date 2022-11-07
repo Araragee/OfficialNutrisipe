@@ -401,7 +401,6 @@ const CreatePin = ({ user }) => {
           </div>
           <p className="font-semibold mt-6">Add Ingredient to the list: </p>
           <div className="h-56 grid  content-evenly w-auto float-root flex items-stretch ">
-
             {/* NUTRIENT MODULE */}
             {ingredientFields && (
               <p className="text-nGreen mr-5 text-medium transition-all duration-150 ease-in ">
@@ -457,8 +456,8 @@ const CreatePin = ({ user }) => {
                     {/* <div class="flex flex-nowrap"> */}
                     <input
                       type="number"
-                      step='1'
-                      min='0'
+                      step="1"
+                      min="0"
                       onChange={(e) => setAmount(e.target.value)}
                       placeholder="Amount"
                       value={amount}
@@ -505,12 +504,14 @@ const CreatePin = ({ user }) => {
                   </div>
                 </div>
               )}
-
             </div>
             <div className="float-root">
               <div className="float-left flex flex-nowrap mb-8 ">
                 {!nonIngredient && (
-                  <button onClick={() => nonIngredientHandler()} className="text-nGreen underline underline-offset-1">
+                  <button
+                    onClick={() => nonIngredientHandler()}
+                    className="text-nGreen underline underline-offset-1"
+                  >
                     Ingredient not in database? Add without nutrition data.
                   </button>
                 )}
@@ -525,7 +526,7 @@ const CreatePin = ({ user }) => {
             >
               <div className="fixed bg-gray-100 rounded-md h-auto w-auto ">
                 <div className="p-1 border-2 border-black font-sans w-full">
-                  <div className="h-56 grid  content-evenly w-auto float-root flex items-stretch ">
+                  <div className="h-auto grid  content-evenly w-auto float-root flex items-stretch ">
                     <p>
                       This Ingredient will not be included in the nutrition fact
                       estimation
@@ -554,8 +555,8 @@ const CreatePin = ({ user }) => {
                           {/* <div class="flex flex-nowrap"> */}
                           <input
                             type="number"
-                            step='1'
-                            min='0'
+                            step="1"
+                            min="0"
                             onChange={(e) => setNonChosenAmount(e.target.value)}
                             placeholder="Amount"
                             value={nonChosenAmount}
@@ -580,11 +581,24 @@ const CreatePin = ({ user }) => {
                               >
                                 ADD
                               </button>
-
                             </div>{" "}
                           </div>
                         </div>
                       </div>
+                    </div>
+                    <a
+                      href="mailto:nutrisipe@gmail.com?subject=Request an ingredient"
+                      className="text-nGreen underline underline-offset-1"
+                    >
+                      Send Ingredient Email Request Instead?
+                    </a>
+                    <div className="mt-3 pb-4">
+                      <button
+                        className="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
+                        onClick={() => nonIngredientHandlerClose()}
+                      >
+                        close
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -592,7 +606,6 @@ const CreatePin = ({ user }) => {
             </div>
           )}
 
-          <a href="mailto:nutrisipe@gmail.com?subject=Request an ingredient">Send Ingredient Email Request Instead?</a>
           <div className="flex justify-left items-left flex-col  w-full ">
             <p className="font-semibold"> Ingredient List: </p>
             {finalRecipeObject.map((info, i) => {
@@ -746,9 +759,7 @@ const CreatePin = ({ user }) => {
                     <div className="border-t-4 border-black flex leading-none text-xs pt-2 pb-1">
                       <div className="pr-1">*</div>
                       <div>
-                        The % Daily Value (DV) tells you how much a nutrient in
-                        a serving of food contributes to a daily diet. 2,000
-                        calories a day is used for general nutrition advice.
+                        This nutrient fact estimation is based on System's nutrition database.
                       </div>
                     </div>
                   </div>
