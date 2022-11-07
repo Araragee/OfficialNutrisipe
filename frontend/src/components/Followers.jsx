@@ -18,7 +18,7 @@ const Followers = () => {
     const followers = userfollowers(userId);
     client.fetch(followers).then((data) => {
       setFollowers(data[0]);
-      setLength(data[0]?.save?.filter((index) => index.postedBy)?.length);
+      setLength(data[0]?.follow?.filter((index) => index.postedBy)?.length);
       setLoading(false);
     });
   }
@@ -28,7 +28,7 @@ const Followers = () => {
   }, [userId]);
 
   const Unfollow = (id) => {
-    const ToRemove = [`save[userId=="${id}"]`]
+    const ToRemove = [`follow[userId=="${id}"]`]
     client
       .patch(userId)
       .unset(ToRemove)
@@ -47,7 +47,7 @@ const Followers = () => {
   return (
     <>
       <div className='md:flex md:flex-row '>
-        {followers?.save?.map((index, i) => (
+        {followers?.follow?.map((index, i) => (
             <div className="flex gap-2 ml-2 lg:w-1/6 md:w-full mt-5 items-center bg-white rounded-lg" key={i}>
               <Link to={`/user-profile/${index.postedBy?._id}`}>
               <img

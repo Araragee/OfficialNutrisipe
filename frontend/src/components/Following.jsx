@@ -18,13 +18,13 @@ const Following = () => {
         client
         .fetch(userfollowing)
         .then((data) => {
-            const index1 = (data?.map((index) => (index?.save?.map((index) => index?.postedBy?._id === userId))));
+            const index1 = (data?.map((index) => (index?.follow?.map((index) => index?.postedBy?._id === userId))));
             const index2 = (index1?.map((value) => (value?.filter((Boolean)))));
             const index3 = (index2?.filter(Boolean).map((index) => index?.length).filter(Number));
             const index4 =  (a1, a2) => a1.map((index, i) => [index, a2[i]]);
             const index5 =  (a1, a2) => a1.map((index,i) => [index, a2[i]]);
-            const index6 = (index4(data?.map((index) => index?.save?.map((index) => index?.postedBy?._id === userId).reduce((acc,cv)=>(cv)?acc+1:acc,0) && index?.image).filter((Boolean)),data?.map((index) => index?.save?.map((index) => index?.postedBy?._id === userId).reduce((acc,cv)=>(cv)?acc+1:acc,0) && index?._id).filter((Boolean))));
-            const index7 = data?.map((index) => index?.save?.map((index) => index?.postedBy?._id === userId).reduce((acc,cv)=>(cv)?acc+1:acc,0) && index?.userName).filter((Boolean));
+            const index6 = (index4(data?.map((index) => index?.follow?.map((index) => index?.postedBy?._id === userId).reduce((acc,cv)=>(cv)?acc+1:acc,0) && index?.image).filter((Boolean)),data?.map((index) => index?.follow?.map((index) => index?.postedBy?._id === userId).reduce((acc,cv)=>(cv)?acc+1:acc,0) && index?._id).filter((Boolean))));
+            const index7 = data?.map((index) => index?.follow?.map((index) => index?.postedBy?._id === userId).reduce((acc,cv)=>(cv)?acc+1:acc,0) && index?.userName).filter((Boolean));
             setLength(index3?.length);
             setFollowing(index5(index6,index7));
             setLoading(false);       
@@ -36,7 +36,7 @@ const Following = () => {
     },[userId]);
 
     const Unfollow = (id) => {
-        const ToRemove = [`save[userId=="${userId}"]`]
+        const ToRemove = [`follow[userId=="${userId}"]`]
         client
           .patch(id)
           .unset(ToRemove)

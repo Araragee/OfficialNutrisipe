@@ -3,8 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { useParams, useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import { googleLogout } from '@react-oauth/google';
-import { userCreatedPinsQuery, userQuery, userSavedPinsQuery, userfollowers, userfollowing } from '../utils/data';
+import { userCreatedPinsQuery, userQuery, userSavedPinsQuery /* userfollowers, userfollowing*/ } from '../utils/data';
 import { client } from '../client';
 import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
@@ -25,59 +26,62 @@ const UserProfile = () => {
   const { userId } = useParams();
   const users = fetchUser();
 
-  const create = (id) => {
-    client
-      .patch(id)
-      .setIfMissing({ follow: [] })
-      .insert('after', 'follow[-1]', [{
-        _key: uuidv4(),
-        userId: users.sub,
-        _type: "reference"
-      }])
-      .commit()
-      .then(() => {
-        setAlreadyFollowed(true);
-        fetchFollower();
-        fetchfollowing();
-      });
-  };
+  // const create = (id) => {
+  //   client
+  //     .patch(id)
+  //     .setIfMissing({ follow: [] })
+  //     .insert('after', 'follow[-1]', [{
+  //       _key: users.sub,
+  //       userId: users.sub,
+  //       postedBy: {
+  //         _type: 'postedBy',
+  //         _ref: users.sub,
+  //       }
+  //     }])
+  //     .commit()
+  //     .then(() => {
+  //       setAlreadyFollowed(true);
+  //       fetchFollower();
+  //       fetchfollowing();
+  //     });
+  // };
 
-  const fetchfollowing = () => {
-    const followers = userfollowers(userId);
-    client.fetch(followers).then((data) => {
-      setLengths(data[0]?.follow);
-      if ((data[0]?.follow?.filter((item) => item?.postedBy?._id === users?.sub))?.length > 0) {
-        setAlreadyFollowed(true);
-      }
-    });
-  };
+  // const fetchfollowing = () => {
+  //   const followers = userfollowers(userId);
+  //   client.fetch(followers).then((data) => {
+  //     setLengths(data[0]?.follow);
+  //     if ((data[0]?.follow?.filter((item) => item?.postedBy?._id === users?.sub))?.length > 0) {
+  //       setAlreadyFollowed(true);
+  //     }
+  //   });
+  // };
 
-  const fetchFollower = () => {
-    client.fetch(userfollowing).then((data) => {
-      const index = (data?.map((index) => (
-        index?.follow?.map((index) => index?.postedBy?._id === userId)
-      )));
+  // const fetchFollower = () => {
+  //   client.fetch(userfollowing).then((data) => {
+  //     const index = (data?.map((index) => (
+  //       index?.follow?.map((index) => index?.postedBy?._id === userId)
+  //     )));
 
-      const index2 = (index?.map((value) => (
-        value?.filter((Boolean))
-      )));
+  //     const index2 = (index?.map((value) => (
+  //       value?.filter((Boolean))
+  //     )));
 
-      const index3 = (index2?.filter(Boolean).map((index) => index?.length).filter(Number));
+  //     const index3 = (index2?.filter(Boolean).map((index) => index?.length).filter(Number));
 
-      setFollowing(index3);
-    });
-  };
+  //     setFollowing(index3);
+  //   });
+  // };
 
-  const unfollow = (id) => {
-    const ToRemove = [`follow[userId=="${users.sub}"]`];
-    client
-      .patch(id)
-      .unset(ToRemove)
-      .commit()
-      .then(() => {
-        window.location.reload();
-      });
-  };
+  // const unfollow = (id) => {
+  //   const ToRemove = [`follow[userId=="${users.sub}"]`];
+  //   client
+  //     .patch(id)
+  //     .unset(ToRemove)
+  //     .commit()
+  //     .then(() => {
+  //       window.location.reload();
+  //     });
+  // };
 
   useEffect(() => {
     const query = userQuery(userId);
@@ -104,21 +108,21 @@ const UserProfile = () => {
     }
   }, [text, userId]);
 
-  useEffect(() => {
-    fetchfollowing();
-  }, [userId]);
+  // useEffect(() => {
+  //   fetchfollowing();
+  // }, [userId]);
 
-  useEffect(() => {
-    fetchFollower();
-  }, [userId]);
+  // useEffect(() => {
+  //   fetchFollower();
+  // }, [userId]);
 
   if (!user) {
     return <Spinner message="Loading Profile...." />;
   }
 
-  const alerts = () => {
-    navigate(`/user-profile/${userId}/following`);
-  };
+  // const alerts = () => {
+  //   navigate(`/user-profile/${userId}/following`);
+  // };
 
   const image = 'https://source.unsplash.com/1600x900/?philippines-food';
 
@@ -144,20 +148,21 @@ const UserProfile = () => {
               {userId === users.sub && (
               <button
                 type="button"
-                className="bg-white p-2 rounded-full cursor-pointer outline-none shadow-md"
+                className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
                 onClick={() => {
                   googleLogout();
                   localStorage.clear();
                   navigate('/login');
                 }}
               >
-                <AiOutlineLogout color="red" fontSize={21} />
+                logout
               </button>
               )}
             </div>
           </div>
-          <div className="text-center mb-7">
-            {/* followers user button */}
+
+{/*          <div className="text-center mb-7">
+            
             <button
               type="button"
               className=" mr-4 text-nGreen font-bold p-1 rounded-full w-24 outline-none "
@@ -166,7 +171,7 @@ const UserProfile = () => {
             >
               {lengths?.length || 0} Followers
             </button>
-            {/* following user button */}
+          
             <button
               type="button"
               className="mr-4 text-nGreen font-bold p-1 rounded-full w-24 outline-none"
@@ -178,7 +183,7 @@ const UserProfile = () => {
           </div>
 
           {alreadyfollowed ? (
-            // follow/following button other user
+            
             <div className="text-center mb-7">
               <button
                 type="button"
@@ -210,7 +215,7 @@ const UserProfile = () => {
               )}
             </>
           )}
-
+                */}
           <div className="text-center mb-7">
             <button
               type="button"
