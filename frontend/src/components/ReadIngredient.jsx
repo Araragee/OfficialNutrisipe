@@ -46,7 +46,7 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
 
   return (
     //SEARCH BAR
-    <div className="border-t-8 border-black pt-1 text-sm w-screen">
+    <div className="border-t-8 border-black pt-1 text-sm w-full">
     <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
 
 <div className='font-bold text-3xl pb-4'> SEARCH INGREDIENT TO DATABASE</div>
@@ -66,10 +66,10 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
                 <div key={item?.key} className="container">
                   <table className='w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5'></table>
                   <thead lassName="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr className="bg-nOrange w-full">
+                    <tr className="bg-nOrange ">
                       <th
 
-                        className="text-sm font-semibold text-gray-900 px-6 py-4 w-24"
+                        className="text-sm font-semibold text-gray-900 px-6 py-4 "
                       >
                         {item?.ingAdminName}
                       </th>
@@ -171,11 +171,11 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
                       </th>
                     </tr>
                   </thead>
-                        <tbody>
+                       
                   {item?.baseSize?.map((c) => (
-                   
-                      <tr key={c?._key} className="bg-white border-b text-center w-full">
-                        {/* <tr className="w-full"> */}
+                    <tbody>
+                      <tr key={c?._key} className="bg-white border-b text-center ">
+                        
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4"></td>
                         <td className="text-sm font-medium text-gray-900 px-6 py-4">
                           {c.baseSizeNum}
@@ -235,10 +235,10 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
                         </button>
                         </td>
                       </tr>
-                    
+                      </tbody>
                   ))}
 
-</tbody>
+
 
                 </div>
               ))}
