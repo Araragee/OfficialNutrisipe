@@ -10,7 +10,7 @@ const Search = ({ searchTerm }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (searchTerm.length > 3) 
+    if (searchTerm.length !== 0) 
     {
       setLoading(true);
       const query = searchQuery(searchTerm.toLowerCase());

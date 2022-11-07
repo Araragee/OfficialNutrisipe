@@ -231,14 +231,14 @@ const PinDetail = ({ user }) => {
                   Procedure:{" "}
                 </p>
                 {pinDetail.procedure.map((item, i) => (
-                  <div
+                  <ol
                     className="ml-2.5"
                     key={i}
                   >
                     <li className="capitalize" key={i}>
                       {item}
                     </li>
-                  </div>
+                  </ol>
                 ))}
               </div>
 

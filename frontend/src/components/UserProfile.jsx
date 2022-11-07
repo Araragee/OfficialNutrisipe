@@ -246,7 +246,7 @@ const UserProfile = () => {
             </div>
           ) : (
             <div className="flex justify-center font-bold items-center w-full text-1xl mt-2">
-              No Pins found!
+              No Recipes Found!
             </div>
           )}
 

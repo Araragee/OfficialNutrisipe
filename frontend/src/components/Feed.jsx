@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { client } from '../client';
-import { feedQuery, searchQuery,  } from '../utils/data';
+import { feedQuery, searchQuery, } from '../utils/data';
 import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
 
@@ -39,7 +39,14 @@ const Feed = () => {
       {pins && (
         <MasonryLayout pins={pins} />
       )}
-    </div>
+
+      {pins?.length == 0 &&
+        <div className="mt-10 text-center text-xl ">No Recipes Found!</div>
+      }
+
+
+     
+    </div >
   );
 };
 
