@@ -10,13 +10,13 @@
   "start_url": "/login",
   "screenshots": [
     {
-      "src": "sc1.png",
-      "sizes": "1356x665",
+      "src": "1.png",
+      "sizes": "1366x670",
       "type": "image/png"
     },
     {
-      "src": "sc2.png",
-      "sizes": "328x579",
+      "src": "2.png",
+      "sizes": "427x615",
       "type": "image/png"
     }
   ],
