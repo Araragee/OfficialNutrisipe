@@ -529,7 +529,7 @@ const CreatePin = ({ user }) => {
                   <div className="h-auto grid  content-evenly w-auto float-root flex items-stretch ">
                     <p>
                       This Ingredient will not be included in the nutrition fact
-                      estimation
+                      estimation.
                     </p>
 
                     {nonIngredientFields && (
