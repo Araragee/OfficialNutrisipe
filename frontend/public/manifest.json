@@ -7,7 +7,7 @@
   "background_color": "#42C9BD",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/login",
+  "start_url": "/",
   "screenshots": [
     {
       "src": "1.png",

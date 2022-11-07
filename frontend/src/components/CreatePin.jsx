@@ -521,7 +521,7 @@ const CreatePin = ({ user }) => {
           {/* modal  */}
           {nonIngredient && (
             <div
-              className="fixed inset-0 bg-black-500 bg-opacity-30 backdrop-blur-md  flex flex-col 
+              className="fixed inset-0 bg-black-500 bg-opacity-30 backdrop-blur-lg  flex flex-col 
     justify-center items-center  "
             >
               <div className="fixed bg-gray-100 rounded-md h-auto w-auto ">
@@ -613,39 +613,24 @@ const CreatePin = ({ user }) => {
                 <div key={i} className="float-root  flex full">
                   <div className=" float-left  py-4 ">
                     <div
-                      style={{
-                        width: "auto",
-                        height: "auto",
-                        marginLeft: "10px",
-                        position: "relative",
-                      }}
-                      className="capitalize flex flex-nowrap"
+                      
+                      className="capitalize flex flex-nowrap ml-2.5"
                     >
                       {info.ingredientName}
                     </div>
                   </div>
                   <div className="float-middle py-4 ">
                     <div
-                      style={{
-                        width: "auto",
-                        height: "auto",
-                        marginLeft: "10px",
-                        position: "relative",
-                      }}
-                      className=" flex flex-nowrap"
+                      
+                      className=" flex flex-nowrap ml-2.5"
                     >
                       {info.amount}
                     </div>
                   </div>
                   <div className="float-middle py-4 ">
                     <div
-                      style={{
-                        width: "auto",
-                        height: "auto",
-                        marginLeft: "10px",
-                        position: "relative",
-                      }}
-                      className=" flex flex-nowrap"
+                     
+                      className=" flex flex-nowrap ml-2.5"
                     >
                       {info.metric}
                     </div>
@@ -765,7 +750,7 @@ const CreatePin = ({ user }) => {
                   </div>
                 </div>
 
-                <div className="mt-3">
+                <div className="mt-3 mb-4">
                   <button
                     className="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
                     onClick={ModalHandlerClose}
