@@ -146,17 +146,17 @@ const UserProfile = () => {
             </h1>
             <div className="absolute top-0 z-1 right-0 p-2">
               {userId === users.sub && (
-              <button
-                type="button"
-                className="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                onClick={() => {
-                  googleLogout();
-                  localStorage.clear();
-                  navigate('/login');
-                }}
-              >
-                logout
-              </button>
+               <button
+               type="button"
+               className="bg-white p-2 rounded-full cursor-pointer outline-none shadow-md"
+               onClick={() => {
+                 googleLogout();
+                 localStorage.clear();
+                 navigate('/login');
+               }}
+             >
+               <AiOutlineLogout color="red" fontSize={21} />
+             </button>
               )}
             </div>
           </div>
