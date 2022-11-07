@@ -8,9 +8,9 @@ import { AiOutlineCloudUpload } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
-import { ingval, metrics, searchChosenIngredientQuery } from "../utils/data";
+import { searchChosenIngredientQuery } from "../utils/data";
 import { client } from "../client";
-import { categories, fakeDataIng } from "../utils/data";
+import { categories } from "../utils/data";
 import Spinner from "./Spinner";
 
 const CreatePin = ({ user }) => {
