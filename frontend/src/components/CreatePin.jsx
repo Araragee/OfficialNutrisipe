@@ -401,7 +401,7 @@ const CreatePin = ({ user }) => {
           </div>
           <p className="font-semibold mt-6">Add Ingredient to the list: </p>
           <div className="h-56 grid  content-evenly w-auto float-root flex items-stretch ">
-           
+
             {/* NUTRIENT MODULE */}
             {ingredientFields && (
               <p className="text-nGreen mr-5 text-medium transition-all duration-150 ease-in ">
@@ -505,17 +505,17 @@ const CreatePin = ({ user }) => {
                   </div>
                 </div>
               )}
-           
-          </div>
-          <div className="float-root">
-           <div className="float-left flex flex-nowrap mb-8 ">
-           {!nonIngredient && (
-            <button onClick={() => nonIngredientHandler()} className="text-nGreen underline underline-offset-1">
-              Ingredient not in database? Add here!
-            </button>
-          )}
-          </div>
-          </div>
+
+            </div>
+            <div className="float-root">
+              <div className="float-left flex flex-nowrap mb-8 ">
+                {!nonIngredient && (
+                  <button onClick={() => nonIngredientHandler()} className="text-nGreen underline underline-offset-1">
+                    Ingredient not in database? Add without nutrition data.
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
           {/* modal  */}
           {nonIngredient && (
@@ -580,6 +580,7 @@ const CreatePin = ({ user }) => {
                               >
                                 ADD
                               </button>
+
                             </div>{" "}
                           </div>
                         </div>
@@ -590,8 +591,8 @@ const CreatePin = ({ user }) => {
               </div>
             </div>
           )}
-          
 
+          <a href="mailto:nutrisipe@gmail.com?subject=Request an ingredient">Send Ingredient Email Request Instead?</a>
           <div className="flex justify-left items-left flex-col  w-full ">
             <p className="font-semibold"> Ingredient List: </p>
             {finalRecipeObject.map((info, i) => {
