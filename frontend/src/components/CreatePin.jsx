@@ -103,7 +103,7 @@ const CreatePin = ({ user }) => {
       const doc = {
         ingredientName: nonChosenIngredient,
         metric: nonChosenMetric,
-        amount: parseInt(nonChosenAmount),
+        amount: Number(nonChosenAmount),
         calories: 0,
         totalfat: 0,
         saturatedfat: 0,
@@ -156,7 +156,7 @@ const CreatePin = ({ user }) => {
       const doc = {
         ingredientName: chosenIngredientObject.ingAdminName,
         metric: chosenMetric,
-        amount: parseInt(amount),
+        amount: Number(amount),
         calories: item.calories * amount,
         totalfat: item.totalfat * amount,
         saturatedfat: item.saturatedfat * amount,
