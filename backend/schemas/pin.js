@@ -19,11 +19,11 @@ export default {
       type: 'array',
       of: [{type: 'ingredientList'}]
     },
-    {
-      name: 'nutritionPost',
-      title: 'NutritionPost',
-      type: 'baseSize',
-    },
+    // {
+    //   name: 'nutritionPost',
+    //   title: 'NutritionPost',
+    //   type: 'baseSize',
+    // },
     {
       name: 'procedure',
       title: 'Procedure',

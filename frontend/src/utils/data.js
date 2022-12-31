@@ -426,52 +426,44 @@ export const ingval = `*[IngredientAdmin == "ChokoNyoks"]`;
 
 export const image = '*[_type == "user"]';
 
-export const allIngredientsQuery = `*[_type == 'ingredientAdmin']{
-  ingAdminName,
-  baseSize[]{
-    baseSizeNum,
-  calcium,
-  calories,
-  cholesterol,
-  dietaryFiber,
-  iron,
-  protein,
-  saturatedfat,
-  sodium,
-  sugar,
-  totalfat,
-  transfat,
-  vitaminA,
-  vitaminC,
-  totalcarb,
-  _key
-  },
-  _key
-}`;
+export const allIngredientsQuery = `*[_type == 'ingredientData']{
+  foodItem,
+    altName,
+    ediblePortion,
+    energy,
+    prot,
+    fat,
+    carb,
+    calcium,
+    phos,
+    iron,
+    vitA,
+    thia,
+    ribo,
+    nia,
+    vitC,
+    _key
+  }`;
 
 
 
 export const searchIngredientQuery = (searchIngredientTerm) => {
-  const query = `*[_type == 'ingredientAdmin'  && ingAdminName match '${searchIngredientTerm}*' ]{
-    ingAdminName,
-    baseSize[]{
-      baseSizeNum,
+  const query = `*[_type == 'ingredientData'  && foodItem match '${searchIngredientTerm}*' ]{
+    foodItem,
+    altName,
+    ediblePortion,
+    energy,
+    prot,
+    fat,
+    carb,
     calcium,
-    calories,
-    cholesterol,
-    dietaryFiber,
+    phos,
     iron,
-    protein,
-    saturatedfat,
-    sodium,
-    sugar,
-    totalfat,
-    transfat,
-    vitaminA,
-    vitaminC,
-    totalcarb,
-    _key
-    },
+    vitA,
+    thia,
+    ribo,
+    nia,
+    vitC,
     _key
   }`;
   return query;
