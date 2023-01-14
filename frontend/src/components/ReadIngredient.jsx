@@ -35,7 +35,7 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
   const deleteDatabaseIngredient = (key) => {
 
     client
-      .delete({query: `*[_type == "ingredientAdmin" && _key == "${key}"]`})
+      .delete({query: `*[_type == "ingredientData" && _key == "${key}"]`})
       .then(() => {
         setRefresher(refresher + 1);
 
@@ -63,7 +63,7 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
      
 
               {ingredientList?.map((item) => (
-                <div key={item?.key} className="container">
+                <div key={item?._key} className="container">
                   <table className='w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5'></table>
                   <thead lassName="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr className="bg-nOrange ">
@@ -71,156 +71,140 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4 "
                       >
-                        {item?.ingAdminName}
+                        Food Item
                       </th>
                       <th
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4"
                       >
-                        Base Size{" "}
+                        Alt Name
                       </th>
                       <th
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4"
                       >
-                        Calories
+                        Edible Portion
                       </th>
                       <th
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4"
                       >
-                        TotalFat
+                        energy
                       </th>
                       <th
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4"
                       >
-                        Saturated Fat
+                        prot
                       </th>
                       <th
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4"
                       >
-                        Trans Fat
+                        fat
                       </th>
                       <th
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4"
                       >
-                        Cholesterol
+                        carb
                       </th>
                       <th
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4"
                       >
-                        Sodium
+                        calcium
                       </th>
                       <th
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4"
                       >
-                        Total Carb
+                        phos
                       </th>
                       <th
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4"
                       >
-                        Dietary Fiber
+                        iron
                       </th>
                       <th
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4"
                       >
-                        Sugar
+                        vitA
                       </th>
                       <th
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4"
                       >
-                        Protein
+                        thia
                       </th>
                       <th
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4"
                       >
-                        Vitamin A
+                        ribo
                       </th>
                       <th
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4"
                       >
-                        Vitamin C
+                        nia
                       </th>
                       <th
 
                         className="text-sm font-semibold text-gray-900 px-6 py-4"
                       >
-                        Calcium
-                      </th>
-                      <th
-
-                        className="text-sm font-semibold text-gray-900 px-6 py-4"
-                      >
-                        Iron
-                      </th>
-                      <th
-
-                        className="text-sm font-semibold text-gray-900 px-6 py-4 "
-                      >
-                        
+                        vitC
                       </th>
                     </tr>
-                  </thead>
-                       
-                  {item?.baseSize?.map((c) => (
-                    <tbody>
-                      <tr key={c?._key} className="bg-white border-b text-center ">
+
+                    <tr className="bg-white border-b text-center ">
                         
-                        <td className=" text-sm font-medium text-gray-900 px-6 py-4"></td>
                         <td className="text-sm font-medium text-gray-900 px-6 py-4">
-                          {c.baseSizeNum}
+                          {item.foodItem}
                         </td>
                         <td className="ext-sm font-medium text-gray-900 px-6 py-4">
-                          {c.calories}
+                          {item.altName}
                         </td>
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4">
-                          {c.totalfat}
+                          {item.ediblePortion}
                         </td>
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4">
-                          {c.saturatedfat}
+                          {item.energy}
                         </td>
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4">
-                          {c.transfat}
+                          {item.prot}
                         </td>
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4">
-                          {c.cholesterol}
+                          {item.fat}
                         </td>
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4">
-                          {c.sodium}
+                          {item.carb}
                         </td>
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4">
-                          {c.totalcarb}
+                          {item.calcium}
                         </td>
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4">
-                          {c.dietaryFiber}
+                          {item.phos}
                         </td>
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4">
-                          {c.sugar}
+                          {item.iron}
                         </td>
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4">
-                          {c.protein}
+                          {item.vitA}
                         </td>
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4">
-                          {c.vitaminA}
+                          {item.thia}
                         </td>
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4">
-                          {c.vitaminC}
+                          {item.ribo}
                         </td>
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4">
-                          {c.calcium}
+                          {item.nia}
                         </td>
                         <td className=" text-sm font-medium text-gray-900 px-6 py-4">
-                          {c.iron}
+                          {item.vitC}
                         </td>
                         <td >
                         <button
@@ -235,6 +219,11 @@ const ReadIngredient = ({uploadSuccessAlert, setuploadSuccessAlert}) => {
                         </button>
                         </td>
                       </tr>
+                  </thead>
+                       
+                  {ingredientList?.map((c) => (
+                    <tbody>
+                     
                       </tbody>
                   ))}
 

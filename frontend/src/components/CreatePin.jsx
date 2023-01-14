@@ -45,6 +45,8 @@ const CreatePin = ({ user }) => {
 
   const ModalHandlerOpen = () => {
     setModalOpen(true);
+    console.log(finalRecipeObject);
+    console.log(nutrientTable)
   };
   const ModalHandlerClose = () => {
     setModalOpen(false);
@@ -61,6 +63,7 @@ const CreatePin = ({ user }) => {
           setIngredientDropDown(data);
           setChosenMetric("");
           setLoadingIngredient(false);
+          console.log(ingredientDropDown)
         } else {
           setIngredientDropDown([]);
           setChosenMetric("");
@@ -77,7 +80,7 @@ const CreatePin = ({ user }) => {
 
   // CHANGE INGREDIENT WHEN DROPDOWN IS CLICKED && RESET DROPDOWNSTATE
   const ChooseIngredientHandler = (a) => {
-    setChosenIngredient(a.ingAdminName);
+    setChosenIngredient(a.foodItem);
     setchosenIngredientObject(a);
     setIngredientDropDown([]);
   };
@@ -141,37 +144,26 @@ const CreatePin = ({ user }) => {
 
   const handleIngredientList = () => {
     if (
-      chosenIngredient &&
-      chosenMetric &&
-      chosenMetric !== null &&
-      chosenIngredientObject &&
-      amount
+      chosenIngredient
     ) {
-      var item = chosenIngredientObject?.baseSize.find(
-        (item) => item?.baseSizeNum == chosenMetric
-      );
-
-      console.log(item);
-
+      
       const doc = {
-        ingredientName: chosenIngredientObject.ingAdminName,
-        metric: chosenMetric,
-        amount: Number(amount),
-        calories: (item.calories * amount).toFixed(2),
-        totalfat: (item.totalfat * amount).toFixed(2),
-        saturatedfat: (item.saturatedfat * amount).toFixed(2),
-        transfat: (item.transfat * amount).toFixed(2),
-        cholesterol: (item.cholesterol * amount).toFixed(2),
-        sodium: (item.sodium * amount).toFixed(2),
-        totalcarb: (item.totalcarb * amount).toFixed(2),
-        dietaryFiber: (item.dietaryFiber * amount).toFixed(2),
-        sugar: (item.sugar * amount).toFixed(2),
-        protein: (item.protein * amount).toFixed(2),
-        vitaminA: (item.vitaminA * amount).toFixed(2),
-        vitaminC: (item.vitaminC * amount).toFixed(2),
-        calcium: (item.calcium * amount).toFixed(2),
-        iron: (item.iron * amount).toFixed(2),
-        _key: item._key,
+        ingredientName: chosenIngredientObject.foodItem,
+        purchasedWeight: Number(amount),
+        ediblePortionWeight: Number(amount) * (chosenIngredientObject.ediblePortion / 100),
+        energy: (chosenIngredientObject.energy * 0.01) * (Number(amount) * (chosenIngredientObject.ediblePortion / 100)),
+        prot: (chosenIngredientObject.prot * 0.01) * (Number(amount) * (chosenIngredientObject.ediblePortion / 100)),
+        fat: (chosenIngredientObject.fat * 0.01) * (Number(amount) * (chosenIngredientObject.ediblePortion / 100)),
+        carb: (chosenIngredientObject.carb * 0.01) * (Number(amount) * (chosenIngredientObject.ediblePortion / 100)),
+        calcium: (chosenIngredientObject.calcium * 0.01) * (Number(amount) * (chosenIngredientObject.ediblePortion / 100)),
+        phos: (chosenIngredientObject.phos * 0.01) * (Number(amount) * (chosenIngredientObject.ediblePortion / 100)),
+        iron: (chosenIngredientObject.iron * 0.01) * (Number(amount) * (chosenIngredientObject.ediblePortion / 100)),
+        vitA: (chosenIngredientObject.vitA * 0.01) * (Number(amount) * (chosenIngredientObject.ediblePortion / 100)),
+        thia: (chosenIngredientObject.thia * 0.01) * (Number(amount) * (chosenIngredientObject.ediblePortion / 100)),
+        ribo: (chosenIngredientObject.ribo * 0.01) * (Number(amount) * (chosenIngredientObject.ediblePortion / 100)),
+        nia: (chosenIngredientObject.nia * 0.01) * (Number(amount) * (chosenIngredientObject.ediblePortion / 100)),
+        vitC: (chosenIngredientObject.vitC * 0.01) * (Number(amount) * (chosenIngredientObject.ediblePortion / 100)),
+        _key: chosenIngredientObject._key,
       };
 
       const newArray = [...finalRecipeObject, doc];
@@ -200,20 +192,18 @@ const CreatePin = ({ user }) => {
         currentValue
       ) {
         return {
-          calories: previousValue.calories + currentValue.calories,
-          totalfat: previousValue.totalfat + currentValue.totalfat,
-          saturatedfat: previousValue.saturatedfat + currentValue.saturatedfat,
-          transfat: previousValue.transfat + currentValue.transfat,
-          cholesterol: previousValue.cholesterol + currentValue.cholesterol,
-          sodium: previousValue.sodium + currentValue.sodium,
-          totalcarb: previousValue.totalcarb + currentValue.totalcarb,
-          dietaryFiber: previousValue.dietaryFiber + currentValue.dietaryFiber,
-          sugar: previousValue.sugar + currentValue.sugar,
-          protein: previousValue.protein + currentValue.protein,
-          vitaminA: previousValue.vitaminA + currentValue.vitaminA,
-          vitaminC: previousValue.vitaminC + currentValue.vitaminC,
+          energy: previousValue.energy + currentValue.energy,
+          prot: previousValue.prot + currentValue.prot,
+          fat: previousValue.fat + currentValue.fat,
+          carb: previousValue.carb + currentValue.carb,
           calcium: previousValue.calcium + currentValue.calcium,
+          phos: previousValue.phos + currentValue.phos,
           iron: previousValue.iron + currentValue.iron,
+          vitA: previousValue.vitA + currentValue.vitA,
+          thia: previousValue.thia + currentValue.thia,
+          ribo: previousValue.ribo + currentValue.ribo,
+          nia: previousValue.nia + currentValue.nia,
+          vitC: previousValue.vitC + currentValue.vitC,
         };
       });
 
@@ -444,7 +434,7 @@ const CreatePin = ({ user }) => {
                       }}
                       key={item?._key}
                     >
-                      {item?.ingAdminName}
+                      {item?.foodItem}
                     </div>
                   ))}
                 </div>
@@ -468,31 +458,7 @@ const CreatePin = ({ user }) => {
                       <div className="flex flex-nowrap pl-8">
                         {/* metric */}
 
-                        <select
-                          value={chosenMetric}
-                          onChange={(e) => {
-                            setChosenMetric(e.target.value);
-                          }}
-                          className=" block p-2 w-24 h-9 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs font-semibold focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        >
-                          <option
-                            className="text-base border outline-none capitalize bg-gray-100 text-gray "
-                            value={null}
-                            disable
-                            selected
-                            hidden
-                          >
-                            metric
-                          </option>
-                          {chosenIngredientObject?.baseSize.map((item) => (
-                            <option
-                              className="text-base border-0 outline-none capitalize bg-white text-gray "
-                              value={item?.baseSizeNum}
-                            >
-                              {item?.baseSizeNum}
-                            </option>
-                          ))}
-                        </select>
+                        
                         <button
                           className="text-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
                           onClick={() => handleIngredientList()}
@@ -624,15 +590,15 @@ const CreatePin = ({ user }) => {
                       
                       className=" flex flex-nowrap ml-2.5"
                     >
-                      {info.amount}
+                      {info.ediblePortionWeight + "g"}
                     </div>
                   </div>
                   <div className="float-middle py-4 ">
                     <div
-                     
+                      
                       className=" flex flex-nowrap ml-2.5"
                     >
-                      {info.metric}
+                      {info.purchasedWeight + "g"}
                     </div>
                   </div>
                   <button
@@ -660,87 +626,80 @@ const CreatePin = ({ user }) => {
                   <div className="flex justify-between font-bold border-b-8 border-black"></div>
                   <div className="flex justify-between items-end font-extrabold">
                     <div>
-                      <div className="text-4xl">Calories </div>
+                      <div className="text-4xl">energy </div>
                     </div>
-                    <div className="text-5xl">{nutrientTable.calories}g</div>
+                    <div className="text-5xl">{nutrientTable.energy}g</div>
                   </div>
                   <div className="border-t-4 border-black text-sm pb-1">
                     <hr className="border-gray-500" />
                     <div className="flex justify-between">
                       <div>
-                        <span className="font-bold ">Total Fat </span>
-                        {nutrientTable.totalfat} g
+                        <span className="font-bold ">prot </span>
+                        {nutrientTable.prot} g
                       </div>
                     </div>
                     <hr className="border-gray-500" />
                     <div className="flex justify-between">
                       <div>
                         {" "}
-                        <span> Saturated Fat </span>
-                        {nutrientTable.saturatedfat} g
+                        <span className="font-bold"> fat </span>
+                        {nutrientTable.fat} g
                       </div>
                     </div>
                     <hr className="border-gray-500" />
                     <div>
-                      <span className="italic">Trans Fat </span>
-                      {nutrientTable.transfat} g
+                      <span className="font-bold">carb </span>
+                      {nutrientTable.carb} g
                     </div>
                     <hr className="border-gray-500" />
                     <div className="flex justify-between">
                       <div>
-                        <span className="font-bold">Cholesterol </span>
-                        {nutrientTable.cholesterol} mg
+                        <span className="font-bold">calcium </span>
+                        {nutrientTable.calcium} mg
                       </div>
                     </div>
                     <hr className="border-gray-500" />
                     <div className="flex justify-between">
                       <div>
-                        <span className="font-bold">Sodium </span>
-                        {nutrientTable.sodium} mg
+                        <span className="font-bold">phos </span>
+                        {nutrientTable.phos} mg
                       </div>
                     </div>
                     <hr className="border-gray-500" />
                     <div className="flex justify-between">
                       <div>
-                        <span className="font-bold">Total Carbohydrate </span>
-                        {nutrientTable.totalcarb} g
+                        <span className="font-bold">iron </span>
+                        {nutrientTable.iron} g
                       </div>
                     </div>
                     <hr className="border-gray-500" />
                     <div className="flex justify-between">
                       <div className="pl-4">
-                        Dietary Fiber {nutrientTable.dietaryFiber} g
+                      vitA {nutrientTable.vitA} g
                       </div>
                     </div>
                     <hr className="border-gray-500" />
                     <div className="pl-4">
-                      Total Sugar {nutrientTable.sugar} g
+                    thia {nutrientTable.thia} g
                       <div className="pl-4">
                         <hr className="border-gray-500" />
                       </div>
                     </div>
                     <hr className="border-gray-500" />
                     <div>
-                      <span className="font-bold">Protein </span>
-                      {nutrientTable.protein} g
+                      <span className="font-bold">ribo </span>
+                      {nutrientTable.ribo} g
                     </div>
                   </div>
                   <div className="border-t-8 border-black pt-1 text-sm">
                     <div className="flex justify-between">
-                      <div>Vitamin A {nutrientTable.vitaminA} mcg</div>
+                      <div>nia {nutrientTable.nia} mcg</div>
                     </div>
                     <hr className="border-gray-500" />
                     <div className="flex justify-between">
-                      <div>Vitamin C {nutrientTable.vitaminC} mcg</div>
+                      <div>Vitamin C {nutrientTable.vitC} </div>
                     </div>
                     <hr className="border-gray-500" />
-                    <div className="flex justify-between">
-                      <div>Calcium {nutrientTable.calcium} mcg</div>
-                    </div>
-                    <hr className="border-gray-500" />
-                    <div className="flex justify-between">
-                      <div>Iron {nutrientTable.iron} mg</div>
-                    </div>
                     <div className="border-t-4 border-black flex leading-none text-xs pt-2 pb-1">
                       <div className="pr-1">*</div>
                       <div>
