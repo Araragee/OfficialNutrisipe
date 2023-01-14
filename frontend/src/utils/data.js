@@ -471,26 +471,22 @@ export const searchIngredientQuery = (searchIngredientTerm) => {
 
 
 export const searchChosenIngredientQuery = (chosenIngredient) => {
-  const query = `*[_type == 'ingredientAdmin'  && ingAdminName match '${chosenIngredient}*' ]{
-    ingAdminName,
-    baseSize[]{
-      baseSizeNum,
+  const query = `*[_type == 'ingredientData'  && foodItem match '${chosenIngredient}*' ]{
+    foodItem,
+    altName,
+    ediblePortion,
+    energy,
+    prot,
+    fat,
+    carb,
     calcium,
-    calories,
-    cholesterol,
-    dietaryFiber,
+    phos,
     iron,
-    protein,
-    saturatedfat,
-    sodium,
-    sugar,
-    totalfat,
-    transfat,
-    vitaminA,
-    vitaminC,
-    totalcarb,
-    _key
-    },
+    vitA,
+    thia,
+    ribo,
+    nia,
+    vitC,
     _key
   }`;
   return query;
