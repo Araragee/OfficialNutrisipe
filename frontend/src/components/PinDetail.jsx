@@ -218,7 +218,7 @@ const PinDetail = ({ user }) => {
                          
                          
                             <li className="float-left py-4 capitalize flex flex-nowrap">{info.ingredientName}</li>
-                            <li className="float-middle mx-3 pt-4 flex flex-nowrap ">{info.amount}</li>                     
+                            <li className="float-middle mx-3 pt-4 flex flex-nowrap ">{info.purchasedWeight}g</li>                     
                             <li className="float-middle pt-4 flex flex-nowrap">{info.metric}</li>
                          
                         </div>
@@ -251,93 +251,86 @@ const PinDetail = ({ user }) => {
                 <div className="flex justify-between items-end font-extrabold">
                   <div>
                     
-                    <div className="text-4xl">Calories </div>
+                    <div className="text-4xl">energy </div>
                   </div>
                   <div className="text-5xl">
-                    {pinDetail?.nutritionPost?.calories}g
+                    {pinDetail?.nutritionPost?.energy}g
                   </div>
                 </div>
                 <div className="border-t-4 border-black text-sm pb-1">
                   <hr className="border-gray-500" />
                   <div className="flex justify-between">
                     <div>
-                      <span className="font-bold ">Total Fat </span>
-                      {pinDetail?.nutritionPost?.totalfat} g
+                      <span className="font-bold ">prot </span>
+                      {pinDetail?.nutritionPost?.prot} g
                     </div>
                   </div>
                   <hr className="border-gray-500" />
                   <div className="flex justify-between">
                     <div>
                       {" "}
-                      <span> Saturated Fat </span>
-                      {pinDetail?.nutritionPost?.saturatedfat} g
+                      <span> fat </span>
+                      {pinDetail?.nutritionPost?.fat} g
                     </div>
                   </div>
                   <hr className="border-gray-500" />
                   <div>
-                    <span className="italic">Trans Fat </span>
-                    {pinDetail?.nutritionPost?.transfat} g
+                    <span className="italic">carb </span>
+                    {pinDetail?.nutritionPost?.carb} g
                   </div>
                   <hr className="border-gray-500" />
                   <div className="flex justify-between">
                     <div>
-                      <span className="font-bold">Cholesterol </span>
-                      {pinDetail?.nutritionPost?.cholesterol} mg
+                      <span className="font-bold">calcium </span>
+                      {pinDetail?.nutritionPost?.calcium} mg
                     </div>
                   </div>
                   <hr className="border-gray-500" />
                   <div className="flex justify-between">
                     <div>
-                      <span className="font-bold">Sodium </span>
-                      {pinDetail?.nutritionPost?.sodium} mg
+                      <span className="font-bold">phos </span>
+                      {pinDetail?.nutritionPost?.phos} mg
                     </div>
                   </div>
                   <hr className="border-gray-500" />
                   <div className="flex justify-between">
                     <div>
-                      <span className="font-bold">Total Carbohydrate </span>
-                      {pinDetail?.nutritionPost?.totalcarb} g
+                      <span className="font-bold">iron </span>
+                      {pinDetail?.nutritionPost?.iron} g
                     </div>
                   </div>
                   <hr className="border-gray-500" />
                   <div className="flex justify-between">
                     <div className="pl-4">
-                      Dietary Fiber {pinDetail?.nutritionPost?.dietaryFiber} g
+                    vitA {pinDetail?.nutritionPost?.vitA} g
                     </div>
                   </div>
                   <hr className="border-gray-500" />
                   <div className="pl-4">
-                    Total Sugar {pinDetail?.nutritionPost?.sugar} g
+                  thia {pinDetail?.nutritionPost?.thia} g
                     <div className="pl-4">
                       <hr className="border-gray-500" />
                     </div>
                   </div>
                   <hr className="border-gray-500" />
                   <div>
-                    <span className="font-bold">Protein </span>
-                    {pinDetail?.nutritionPost?.protein} g
+                    <span className="font-bold">ribo </span>
+                    {pinDetail?.nutritionPost?.ribo} g
                   </div>
                 </div>
                 <div className="border-t-8 border-black pt-1 text-sm">
                   <div className="flex justify-between">
                     <div>
-                      Vitamin A {pinDetail?.nutritionPost?.vitaminA} mcg
+                    nia {pinDetail?.nutritionPost?.nia} mcg
                     </div>
                   </div>
                   <hr className="border-gray-500" />
                   <div className="flex justify-between">
                     <div>
-                      Vitamin C {pinDetail?.nutritionPost?.vitaminC} mcg
+                    vitC {pinDetail?.nutritionPost?.vitC} mcg
                     </div>
                   </div>
                   <hr className="border-gray-500" />
-                  <div className="flex justify-between">
-                    <div>Calcium {pinDetail?.nutritionPost?.calcium} mcg</div>
-                  </div>
-                  <hr className="border-gray-500" />
-                  <div className="flex justify-between">
-                    <div>Iron {pinDetail?.nutritionPost?.iron} mg</div>
-                  </div>
                   <div className="border-t-4 border-black flex leading-none text-xs pt-2 pb-1">
                     <div className="pr-1">*</div>
                     <div>
