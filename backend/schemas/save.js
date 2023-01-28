@@ -13,6 +13,12 @@ export default {
       title: 'UserId',
       type: 'string',
     },
+    {
+      name: 'pin',
+      title: 'Pin',
+      type: 'reference',
+      to: {type: 'pin'}
+      }
   ],
 };
 

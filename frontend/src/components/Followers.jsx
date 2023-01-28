@@ -18,7 +18,7 @@ const Followers = () => {
     const followers = userfollowers(userId);
     client.fetch(followers).then((data) => {
       setFollowers(data[0]);
-      setLength(data[0]?.follow?.filter((index) => index.postedBy)?.length);
+      setLength(data[0]?.followers?.filter((index) => index.postedBy)?.length);
       setLoading(false);
     });
   }
@@ -27,16 +27,29 @@ const Followers = () => {
     Followers();
   }, [userId]);
 
-  const Unfollow = (id) => {
-    const ToRemove = [`follow[userId=="${id}"]`]
+  const unfollow = (id) => {
+    // Remove current user from the 'following' field of the user being unfollowed
     client
-      .patch(userId)
-      .unset(ToRemove)
-      .commit()
-      .then(() => {
-        window.location.reload();
-      })
-  }
+        .patch(id)
+        .unset([`followers[userId=="${user.sub}"]`])
+        .commit()
+        .then(() => {
+          fetchFollowing();
+            console.log('Current user removed from following');
+        });
+
+    // Remove unfollowed user from the 'followers' field of your user document
+    client
+        .patch(user.sub)
+        .unset([`following[userId=="${id}"]`])
+        .commit()
+        .then(() => {
+            setAlreadyFollowed(false);
+            fetchFollower();
+            console.log('Unfollowed user removed from followers');
+        });
+};
+
 
   if(loading) return <Spinner message="Loading followers..." />
 
@@ -47,7 +60,7 @@ const Followers = () => {
   return (
     <>
       <div className='md:flex md:flex-row '>
-        {followers?.follow?.map((index, i) => (
+        {followers?.followers?.map((index, i) => (
             <div className="flex gap-2 ml-2 lg:w-1/6 md:w-full mt-5 items-center bg-white rounded-lg" key={i}>
               <Link to={`/user-profile/${index.postedBy?._id}`}>
               <img
@@ -65,7 +78,7 @@ const Followers = () => {
                 <button 
                   onClick={(e) => {
                       e.stopPropagation();
-                      Unfollow(`${index.postedBy?._id}`);
+                      unfollow(userId);
                   }}
                   className='font-bold text-red-500 ml-28 md:ml-0 md:text-sm'
                 >
