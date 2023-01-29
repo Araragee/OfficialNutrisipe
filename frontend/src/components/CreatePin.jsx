@@ -33,7 +33,6 @@ const CreatePin = ({ user }) => {
   //Ingredient Label For Users
   const [chosenIngredient, setChosenIngredient] = useState("");
   const [nonChosenIngredient, setNonChosenIngredient] = useState("");
-  const [nonChosenMetric, setNonChosenMetric] = useState("");
   const [nonChosenAmount, setNonChosenAmount] = useState("");
   //Full Ingredient Object storage after search -- TEMPORARY STORAGE
   const [chosenIngredientObject, setchosenIngredientObject] = useState();
@@ -102,32 +101,29 @@ const CreatePin = ({ user }) => {
   };
   //SAVE NON INGREDIENTS TO LIST NO NUTRIENT VALUE
   const nonIngredientConfirm = () => {
-    if (nonChosenIngredient && nonChosenMetric && nonChosenAmount) {
+    if (nonChosenIngredient && nonChosenAmount) {
       const doc = {
-        ingredientName: nonChosenIngredient,
-        metric: nonChosenMetric,
-        amount: Number(nonChosenAmount),
-        calories: 0,
-        totalfat: 0,
-        saturatedfat: 0,
-        transfat: 0,
-        cholesterol: 0,
-        sodium: 0,
-        totalcarb: 0,
-        dietaryFiber: 0,
-        sugar: 0,
-        protein: 0,
-        vitaminA: 0,
-        vitaminC: 0,
+        ingredientName: "* " + nonChosenIngredient,
+        ediblePortionWeight: nonChosenAmount,
+        purchasedWeight: nonChosenAmount,
+        energy: 0,
+        prot: 0,
+        fat: 0,
+        carb: 0,
         calcium: 0,
+        phos: 0,
         iron: 0,
+        vitA: 0,
+        thia: 0,
+        ribo: 0,
+        nia: 0,
+        vitC:  0,
       };
 
       const newArray = [...finalRecipeObject, doc];
       setFinalRecipeObject(newArray);
 
       setNonChosenIngredient("");
-      setNonChosenMetric("");
       setNonChosenAmount("");
       setIngredientDropDown([]);
       setNonIngredient(false);
@@ -144,7 +140,7 @@ const CreatePin = ({ user }) => {
 
   const handleIngredientList = () => {
     if (
-      chosenIngredient
+      chosenIngredientObject && amount
     ) {
       
       const doc = {
@@ -530,17 +526,6 @@ const CreatePin = ({ user }) => {
                           />
                           <div>
                             <div class="flex flex-nowrap pl-8">
-                              {/* metric */}
-
-                              <input
-                                type="text"
-                                onChange={(e) =>
-                                  setNonChosenMetric(e.target.value)
-                                }
-                                placeholder="Metric"
-                                value={nonChosenMetric}
-                                className=" block p-2 w-24 h-9 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 sm:text-xs font-semibold focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                              />
                               <button
                                 className="text-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
                                 onClick={() => nonIngredientConfirm()}
