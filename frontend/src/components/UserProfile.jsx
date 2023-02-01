@@ -95,7 +95,6 @@ const UserProfile = () => {
         .unset([`followers[userId=="${users.sub}"]`])
         .commit()
         .then(() => {
-          fetchFollowing();
             console.log('Current user removed from following');
         });
 
@@ -107,6 +106,7 @@ const UserProfile = () => {
         .then(() => {
             setAlreadyFollowed(false);
             fetchFollower();
+            fetchFollowing();
             console.log('Unfollowed user removed from followers');
         });
 };
@@ -249,10 +249,10 @@ const UserProfile = () => {
                 console.log(userId)
               }}
               className={`${activeBtn === 'created' ? activeBtnStyles : notActiveBtnStyles}`}
-              
             >
               Created
             </button>
+            
             <button
               type="button"
               onClick={(e) => {

@@ -70,7 +70,6 @@ const Feed = () => {
               onClick={(e) => {
                 setText(e.target.textContent);
                 setActiveBtn('All Recipes');
-                console.log(user.id)
               }}
               className={`${activeBtn === 'All Recipes' ? activeBtnStyles : notActiveBtnStyles}`}
               
@@ -83,9 +82,9 @@ const Feed = () => {
                 setText(e.target.textContent);
                 setActiveBtn('Following FYP');
               }}
-              className={`${activeBtn === 'Following FYP' ? activeBtnStyles : notActiveBtnStyles}`}
+              className={`${activeBtn === 'For you' ? activeBtnStyles : notActiveBtnStyles}`}
             >
-              Followed FYP
+              For you
             </button>
           </div>
       {pins && (

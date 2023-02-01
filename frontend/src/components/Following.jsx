@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-
 import { client } from '../client';
 import { userfollowing } from '../utils/data';
 import { fetchUser } from '../utils/fetchUser';
@@ -36,29 +35,22 @@ const Following = () => {
     },[userId]);
 
     const Unfollow = (id) => {
-        // Remove current user from the 'following' field of the user being unfollowed
         client
             .patch(id)
             .unset([`followers[userId=="${user.sub}"]`])
             .commit()
             .then(() => {
-              fetchFollowing();
                 console.log('Current user removed from following');
             });
-    
-        // Remove unfollowed user from the 'followers' field of your user document
         client
             .patch(user.sub)
             .unset([`following[userId=="${id}"]`])
             .commit()
             .then(() => {
-                setAlreadyFollowed(false);
-                fetchFollower();
                 console.log('Unfollowed user removed from followers');
             });
     };
     
-
     if(loading) return <Spinner message="Loading..." />
   
     if(!length) return <p className='mt-96 flex flex-col justify-center items-center text-nGreen text-2xl  transition-all duration-150 ease-in'>
@@ -86,7 +78,7 @@ const Following = () => {
                            <button 
                              onClick={(e) => {
                                  e.stopPropagation();
-                                 Unfollow(userId);
+                                 Unfollow(index?.[0]?.[1])
                              }}
                              className='font-bold text-red-500 ml-28 md:m-0'
                            >
