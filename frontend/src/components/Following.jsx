@@ -48,6 +48,7 @@ const Following = () => {
             .commit()
             .then(() => {
                 console.log('Unfollowed user removed from followers');
+                Following();
             });
     };
     
