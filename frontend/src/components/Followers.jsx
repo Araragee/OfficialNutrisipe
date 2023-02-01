@@ -13,7 +13,7 @@ const Followers = () => {
   const { userId } = useParams();
   const user = fetchUser();
 
-  const Followers = () => {
+  const fetchfollowers = () => {
     setLoading(true);
     const followers = userfollowers(userId);
     client.fetch(followers).then((data) => {
@@ -24,31 +24,31 @@ const Followers = () => {
   }
 
   useEffect(() => {
-    Followers();
+    fetchfollowers();
   }, [userId]);
-
+  
   const unfollow = (id) => {
-    // Remove current user from the 'following' field of the user being unfollowed
     client
-        .patch(id)
-        .unset([`followers[userId=="${user.sub}"]`])
-        .commit()
-        .then(() => {
-          fetchFollowing();
-            console.log('Current user removed from following');
-        });
-
-    // Remove unfollowed user from the 'followers' field of your user document
-    client
-        .patch(user.sub)
-        .unset([`following[userId=="${id}"]`])
-        .commit()
-        .then(() => {
-            setAlreadyFollowed(false);
-            fetchFollower();
-            console.log('Unfollowed user removed from followers');
-        });
-};
+      .patch(id)
+      .unset([`following[userId=="${user.sub}"]`])
+      .commit()
+      .catch((error) => {
+        console.error(`Error while removing current user from followers: ${error.message}`);
+      })
+      .then(() => {
+        client
+          .patch(user.sub)
+          .unset([`followers[userId=="${id}"]`])
+          .commit()
+          .catch((error) => {
+            console.error(`Error while removing unfollowed user from following: ${error.message}`);
+          })
+          .then(() => {
+            console.log('Unfollowed user removed from followers and following');
+            fetchfollowers();
+          });
+      });
+  };
 
 
   if(loading) return <Spinner message="Loading followers..." />
@@ -78,7 +78,7 @@ const Followers = () => {
                 <button 
                   onClick={(e) => {
                       e.stopPropagation();
-                      unfollow(userId);
+                      unfollow(`${index.postedBy?._id}`);
                   }}
                   className='font-bold text-red-500 ml-28 md:ml-0 md:text-sm'
                 >
