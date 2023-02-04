@@ -181,7 +181,7 @@ const PinDetail = ({ user }) => {
               </button>
             )}
 
-            {pinDetail.postedBy?._id === User.sub ? (
+            {pinDetail.postedBy?._id === user.sub ? (
               <button
                 type="button"
                 onClick={(e) => {
@@ -193,7 +193,7 @@ const PinDetail = ({ user }) => {
               >
                 <AiTwotoneDelete />
               </button>
-            ) : User?.isAdmin == true ? (
+            ) : user?.isAdmin == true ? (
               <button
                 type="button"
                 onClick={(e) => {
