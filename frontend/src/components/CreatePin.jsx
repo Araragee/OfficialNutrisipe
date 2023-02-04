@@ -26,18 +26,20 @@ const CreatePin = ({ user }) => {
   const [wrongImageType, setWrongImageType] = useState(false);
   const [procedure, setProcedure] = useState([]);
   const [ModalOpen, setModalOpen] = useState(false);
+  const [yieldAmount, setYieldAmount] = useState(0);
+  
+  //INDICATOR FOR NON INGREDIENT MODAL
   const [nonIngredient, setNonIngredient] = useState(false);
 
   const [dropdownClick, setDropdownClick] = useState(true);
 
   //Ingredient Label For Users
-  const [chosenIngredient, setChosenIngredient] = useState("");
   const [nonChosenIngredient, setNonChosenIngredient] = useState("");
   const [nonChosenAmount, setNonChosenAmount] = useState("");
   //Full Ingredient Object storage after search -- TEMPORARY STORAGE
+  const [chosenIngredient, setChosenIngredient] = useState("");
   const [chosenIngredientObject, setchosenIngredientObject] = useState();
   const [ingredientDropDown, setIngredientDropDown] = useState([]);
-  const [chosenMetric, setChosenMetric] = useState();
   const [amount, setAmount] = useState("");
   const [finalRecipeObject, setFinalRecipeObject] = useState([]);
   const [nutrientTable, setNutrientTable] = useState([]);
@@ -60,19 +62,19 @@ const CreatePin = ({ user }) => {
         //CHECK FOR DROPDOWN CLICK REMOVES DOUBLE DROPDOWN SHOWING
         if (dropdownClick) {
           setIngredientDropDown(data);
-          setChosenMetric("");
+
           setLoadingIngredient(false);
           console.log(ingredientDropDown)
         } else {
           setIngredientDropDown([]);
-          setChosenMetric("");
+
           setLoadingIngredient(false);
         }
       });
       //RESET EVERYTHING IF TEXTBOX IS EMPTY
     } else {
       setIngredientDropDown([]);
-      setChosenMetric("");
+
       setLoadingIngredient(false);
     }
   }, [chosenIngredient]);
@@ -167,7 +169,7 @@ const CreatePin = ({ user }) => {
 
       setChosenIngredient("");
       setchosenIngredientObject();
-      setChosenMetric("");
+
       setIngredientDropDown([]);
       setAmount("");
     } else {
@@ -385,6 +387,17 @@ const CreatePin = ({ user }) => {
               className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
             />
           </div>
+
+          <div className="flex flex-1 flex-col gap-6  mt-2 w-auto">
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Give your recipe a title"
+              className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
+
           <p className="font-semibold mt-6">Add Ingredient to the list: </p>
           <div className="h-56 grid  content-evenly w-auto float-root flex items-stretch ">
             {/* NUTRIENT MODULE */}
@@ -613,14 +626,14 @@ const CreatePin = ({ user }) => {
                     <div>
                       <div className="text-4xl">energy </div>
                     </div>
-                    <div className="text-5xl">{nutrientTable.energy}g</div>
+                    <div className="text-5xl">{(nutrientTable.energy).toFixed(0)}g</div>
                   </div>
                   <div className="border-t-4 border-black text-sm pb-1">
                     <hr className="border-gray-500" />
                     <div className="flex justify-between">
                       <div>
                         <span className="font-bold ">prot </span>
-                        {nutrientTable.prot} g
+                        {(nutrientTable.prot).toFixed(1)} g
                       </div>
                     </div>
                     <hr className="border-gray-500" />
@@ -628,44 +641,44 @@ const CreatePin = ({ user }) => {
                       <div>
                         {" "}
                         <span className="font-bold"> fat </span>
-                        {nutrientTable.fat} g
+                        {(nutrientTable.fat).toFixed(1)} g
                       </div>
                     </div>
                     <hr className="border-gray-500" />
                     <div>
                       <span className="font-bold">carb </span>
-                      {nutrientTable.carb} g
+                      {(nutrientTable.carb).toFixed(1)} g
                     </div>
                     <hr className="border-gray-500" />
                     <div className="flex justify-between">
                       <div>
                         <span className="font-bold">calcium </span>
-                        {nutrientTable.calcium} mg
+                        {(nutrientTable.calcium).toFixed(1)} mg
                       </div>
                     </div>
                     <hr className="border-gray-500" />
                     <div className="flex justify-between">
                       <div>
                         <span className="font-bold">phos </span>
-                        {nutrientTable.phos} mg
+                        {(nutrientTable.phos).toFixed(1)} mg
                       </div>
                     </div>
                     <hr className="border-gray-500" />
                     <div className="flex justify-between">
                       <div>
                         <span className="font-bold">iron </span>
-                        {nutrientTable.iron} g
+                        {(nutrientTable.iron).toFixed(1)} g
                       </div>
                     </div>
                     <hr className="border-gray-500" />
                     <div className="flex justify-between">
                       <div className="pl-4">
-                      vitA {nutrientTable.vitA} g
+                      vitA {(nutrientTable.vitA).toFixed(1)} g
                       </div>
                     </div>
                     <hr className="border-gray-500" />
                     <div className="pl-4">
-                    thia {nutrientTable.thia} g
+                    thia {(nutrientTable.thia).toFixed(1)} g
                       <div className="pl-4">
                         <hr className="border-gray-500" />
                       </div>
@@ -673,16 +686,16 @@ const CreatePin = ({ user }) => {
                     <hr className="border-gray-500" />
                     <div>
                       <span className="font-bold">ribo </span>
-                      {nutrientTable.ribo} g
+                      {(nutrientTable.ribo).toFixed(1)} g
                     </div>
                   </div>
                   <div className="border-t-8 border-black pt-1 text-sm">
                     <div className="flex justify-between">
-                      <div>nia {nutrientTable.nia} mcg</div>
+                      <div>nia {(nutrientTable.nia).toFixed(1)} mcg</div>
                     </div>
                     <hr className="border-gray-500" />
                     <div className="flex justify-between">
-                      <div>Vitamin C {nutrientTable.vitC} </div>
+                      <div>Vitamin C {(nutrientTable.vitC).toFixed(1)} </div>
                     </div>
                     <hr className="border-gray-500" />
                     <div className="border-t-4 border-black flex leading-none text-xs pt-2 pb-1">
