@@ -26,6 +26,8 @@ const CreatePin = ({ user }) => {
   const [wrongImageType, setWrongImageType] = useState(false);
   const [procedure, setProcedure] = useState([]);
   const [ModalOpen, setModalOpen] = useState(false);
+  const [yieldAmount, setYieldAmount] = useState(0);
+  
   //INDICATOR FOR NON INGREDIENT MODAL
   const [nonIngredient, setNonIngredient] = useState(false);
 
@@ -385,6 +387,17 @@ const CreatePin = ({ user }) => {
               className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
             />
           </div>
+
+          <div className="flex flex-1 flex-col gap-6  mt-2 w-auto">
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Give your recipe a title"
+              className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
+
           <p className="font-semibold mt-6">Add Ingredient to the list: </p>
           <div className="h-56 grid  content-evenly w-auto float-root flex items-stretch ">
             {/* NUTRIENT MODULE */}
