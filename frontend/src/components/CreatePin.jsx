@@ -623,186 +623,187 @@ const CreatePin = ({ user }) => {
 
                   <div className="flex justify-between font-bold border-b-8 border-black"></div>
                   <div className="flex justify-between items-end font-extrabold">
-                    <div>
-                      <div className="text-4xl">energy </div>
-                    </div>
-                    <div className="text-5xl">{(nutrientTable.energy).toFixed(0)}g</div>
-                  </div>
-                  <div className="border-t-4 border-black text-sm pb-1">
-                    <hr className="border-gray-500" />
-                    <div className="flex justify-between">
-                      <div>
-                        <span className="font-bold ">prot </span>
-                        {(nutrientTable.prot).toFixed(1)} g
-                      </div>
-                    </div>
-                    <hr className="border-gray-500" />
-                    <div className="flex justify-between">
-                      <div>
-                        {" "}
-                        <span className="font-bold"> fat </span>
-                        {(nutrientTable.fat).toFixed(1)} g
-                      </div>
-                    </div>
-                    <hr className="border-gray-500" />
-                    <div>
-                      <span className="font-bold">carb </span>
-                      {(nutrientTable.carb).toFixed(1)} g
-                    </div>
-                    <hr className="border-gray-500" />
-                    <div className="flex justify-between">
-                      <div>
-                        <span className="font-bold">calcium </span>
-                        {(nutrientTable.calcium).toFixed(1)} mg
-                      </div>
-                    </div>
-                    <hr className="border-gray-500" />
-                    <div className="flex justify-between">
-                      <div>
-                        <span className="font-bold">phos </span>
-                        {(nutrientTable.phos).toFixed(1)} mg
-                      </div>
-                    </div>
-                    <hr className="border-gray-500" />
-                    <div className="flex justify-between">
-                      <div>
-                        <span className="font-bold">iron </span>
-                        {(nutrientTable.iron).toFixed(1)} g
-                      </div>
-                    </div>
-                    <hr className="border-gray-500" />
-                    <div className="flex justify-between">
-                      <div className="pl-4">
-                      vitA {(nutrientTable.vitA).toFixed(1)} g
-                      </div>
-                    </div>
-                    <hr className="border-gray-500" />
-                    <div className="pl-4">
-                    thia {(nutrientTable.thia).toFixed(1)} g
-                      <div className="pl-4">
-                        <hr className="border-gray-500" />
-                      </div>
-                    </div>
-                    <hr className="border-gray-500" />
-                    <div>
-                      <span className="font-bold">ribo </span>
-                      {(nutrientTable.ribo).toFixed(1)} g
-                    </div>
-                  </div>
-                  <div className="border-t-8 border-black pt-1 text-sm">
-                    <div className="flex justify-between">
-                      <div>nia {(nutrientTable.nia).toFixed(1)} mcg</div>
-                    </div>
-                    <hr className="border-gray-500" />
-                    <div className="flex justify-between">
-                      <div>Vitamin C {(nutrientTable.vitC).toFixed(1)} </div>
-                    </div>
-                    <hr className="border-gray-500" />
-                    <div className="border-t-4 border-black flex leading-none text-xs pt-2 pb-1">
-                      <div className="pr-1">*</div>
-                      <div>
-                        This nutrient fact estimation is based on System's nutrition database.
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  <table className='w-full'>
 
-                <div className="mt-3 mb-4">
-                  <button
-                    className="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
-                    onClick={ModalHandlerClose}
-                  >
-                    close
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-          {!ModalOpen && (
-            <button
-              className="mt-5 text-white w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-nOrange  rounded-full border border-blue-300"
-              onClick={ModalHandlerOpen}
-            >
-              See Nutrients
-            </button>
-          )}
 
-          {/* div for procedures */}
-          <div className="flex flex-1 flex-col gap-2 mt-2 w-full py-4">
-            <label className=" font-semibold">Procedure</label>
-            {procedure.map((data, u) => (
-              <div className="flow-root">
-                {/* textarea for procedures */}
-                <textarea
-                  key="u"
-                  id="message"
-                  rows="4"
-                  className="float-left block w-full h-auto text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 "
-                  placeholder="Procedure"
-                  value={data}
-                  onChange={(e) => handleProcedureChange(e, u)}
-                />
-                {/* button for x procedures */}
-                <button
-                  onClick={() => handleProcedureDelete(u)}
-                  className="text-nRed w-5 h-5 float-right px-1 mx-1 mt-1 text-xs font-bold text-center text-white bg-gray-50 rounded-lg border border-red-200"
-                >
-                  x
-                </button>
-              </div>
-            ))}
-            {/* button for add procedures */}
-            <button
-              className="text-nGreen w-24 h-7.5 float-left py-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-              onClick={() => handleProcedureAdd()}
-            >
-              ADD
-            </button>
-          </div>
+<tbody className="w-full">
+  <tr className="text-center">
 
-          <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
-            <div>
-              <p className="mb-2 font-semibold text:lg sm:text-xl">
-                Choose Recipe Category
-              </p>
-              <select
-                onChange={(e) => {
-                  setCategory(e.target.value);
-                }}
-                className="outline-none w-4/5 text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer"
-              >
-                <option value="others" className="sm:text-bg bg-white">
-                  Select Category
-                </option>
-                {categories.map((item) => (
-                  <option
-                    className="text-base border-0 outline-none capitalize bg-gray-100 text-black "
-                    value={item.name}
-                  >
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex justify-end items-end mt-5">
-              {fields && (
-                <p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
-                  Please add all fields.
-                </p>
-              )}
-              <button
-                type="button"
-                onClick={savePin}
-                className="transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-nGreen text-white hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nOrange duration-300"
-              >
-                Upload Recipe
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+    <td className="flex justify-start  uppercase">energy</td>
+    <td>{(nutrientTable.energy).toFixed(0)}g</td>
+  </tr>
+
+  <tr className="text-center">
+
+    <td className="flex justify-start  uppercase">protein</td>
+    <td>{(nutrientTable.prot).toFixed(1)}g</td>
+  </tr>
+  <tr className="text-center">
+
+    <td className="flex justify-star  uppercase">fat</td>
+    <td>{(nutrientTable.fat).toFixed(1)}g</td>
+  </tr>
+
+  <tr className="text-center ">
+
+    <td className="flex justify-start  uppercase">carbohydrate</td>
+    <td>{(nutrientTable.carb).toFixed(1)}g</td>
+  </tr>
+
+  <tr className="text-center border-t-4 border-black">
+
+    <td className="flex justify-start">calcium</td>
+    <td>{(nutrientTable.calcium).toFixed(1)}g</td>
+  </tr>
+
+  <tr className="text-center">
+
+    <td className="flex justify-start">phosporus</td>
+    <td>{(nutrientTable.phos).toFixed(1)}g</td>
+  </tr>
+
+  <tr className="text-center">
+
+    <td className="flex justify-start">iron</td>
+    <td>{(nutrientTable.iron).toFixed(1)}g</td>
+  </tr>
+
+  <tr className="text-center">
+
+    <td className="flex justify-start">vitamin A</td>
+    <td>{(nutrientTable.vitA).toFixed(1)}g</td>
+  </tr>
+
+  <tr className="text-center">
+
+    <td className="flex justify-start">thiamine</td>
+    <td>{(nutrientTable.thia).toFixed(1)}g</td>
+  </tr>
+  <tr className="text-center">
+
+    <td className="flex justify-start">riboflavin</td>
+    <td>{(nutrientTable.ribo).toFixed(1)}g</td>
+  </tr>
+
+  <tr className="text-center">
+
+    <td className="flex justify-start">niacin</td>
+    <td>{(nutrientTable.nia).toFixed(1)}g</td>
+  </tr>
+
+  <tr className="text-center">
+
+    <td className="flex justify-start">vitamin C</td>
+    <td >{(nutrientTable.vitC).toFixed(1)}g</td>
+  </tr>
+
+</tbody>
+
+
+</table>
+<hr className="border-gray-500 mt-36" />
+
+</div>
+</div>
+
+<div className="mt-3 mb-4">
+<button
+className="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
+onClick={ModalHandlerClose}
+>
+close
+</button>
+</div>
+</div>
+</div>
+)}
+{!ModalOpen && (
+<button
+className="mt-5 text-white w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-nOrange  rounded-full border border-blue-300"
+onClick={ModalHandlerOpen}
+>
+See Nutrients
+</button>
+)}
+
+{/* div for procedures */}
+<div className="flex flex-1 flex-col gap-2 mt-2 w-full py-4">
+<label className=" font-semibold">Procedure</label>
+{procedure.map((data, u) => (
+<div className="flow-root">
+{/* textarea for procedures */}
+<textarea
+key="u"
+id="message"
+rows="4"
+className="float-left block w-full h-auto text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 "
+placeholder="Procedure"
+value={data}
+onChange={(e) => handleProcedureChange(e, u)}
+/>
+{/* button for x procedures */}
+<button
+onClick={() => handleProcedureDelete(u)}
+className="text-nRed w-5 h-5 float-right px-1 mx-1 mt-1 text-xs font-bold text-center text-white bg-gray-50 rounded-lg border border-red-200"
+>
+x
+</button>
+</div>
+))}
+{/* button for add procedures */}
+<button
+className="text-nGreen w-24 h-7.5 float-left py-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+onClick={() => handleProcedureAdd()}
+>
+ADD
+</button>
+</div>
+
+<div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
+<div>
+<p className="mb-2 font-semibold text:lg sm:text-xl">
+Choose Recipe Category
+</p>
+<select
+onChange={(e) => {
+setCategory(e.target.value);
+}}
+className="outline-none w-4/5 text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer"
+>
+<option value="others" className="sm:text-bg bg-white">
+Select Category
+</option>
+{categories.map((item) => (
+<option
+className="text-base border-0 outline-none capitalize bg-gray-100 text-black "
+value={item.name}
+>
+{item.name}
+</option>
+))}
+</select>
+</div>
+<div className="flex justify-end items-end mt-5">
+{fields && (
+<p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
+Please add all fields.
+</p>
+)}
+<button
+type="button"
+onClick={savePin}
+className="transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-nGreen text-white hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nOrange duration-300"
+>
+Upload Recipe
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+);
 };
 
 export default CreatePin;
+
+

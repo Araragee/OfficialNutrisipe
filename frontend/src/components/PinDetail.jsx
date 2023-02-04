@@ -255,194 +255,194 @@ const PinDetail = ({ user }) => {
                 ))}
               </div>
 
-              <div className="p-1 mt-3 border-2 border-black font-sans w-full">
-                <div className="text-4xl font-extrabold leading-none">
-                  Nutrition Facts
-                </div>
+              <div className="flow-root">
+                <div className="p-1 mt-3 border-2 border-black font-sans w-80 float-left">
+                  <div className="text-4xl font-extrabold leading-none">
+                    Nutrition Facts
+                  </div>
 
-                <div className="flex justify-between font-bold border-b-8 border-black"></div>
-                <div className="flex justify-between items-end font-extrabold">
-                  <div>
+                  <div className="flex justify-between font-bold border-b-8 border-black"></div>
+                  <div className="flex justify-between items-end font-extrabold">
+                    <table className='w-96'>
+
+
+                      <tbody className="w-96">
+                        <tr className="text-center">
+
+                          <td className="flex justify-start  uppercase">energy</td>
+                          <td>{(pinDetail?.nutritionPost?.energy).toFixed(0)}g</td>
+                        </tr>
+
+                        <tr className="text-center">
+
+                          <td className="flex justify-start  uppercase">protein</td>
+                          <td> {pinDetail?.nutritionPost?.prot}g</td>
+                        </tr>
+                        <tr className="text-center">
+                        {" "}
+                          <td className="flex justify-star  uppercase">fat</td>
+                          <td> {pinDetail?.nutritionPost?.fat}g</td>
+                        </tr>
+
+                        <tr className="text-center ">
+
+                          <td className="flex justify-start  uppercase">carbohydrate</td>
+                          <td> {pinDetail?.nutritionPost?.carb}g</td>
+                        </tr>
+
+                        <tr className="text-center border-t-4 border-black">
+
+                          <td className="flex justify-start">calcium</td>
+                          <td> {pinDetail?.nutritionPost?.calcium}g</td>
+                        </tr>
+
+                        <tr className="text-center">
+
+                          <td className="flex justify-start">phosporus</td>
+                          <td>{pinDetail?.nutritionPost?.phos}g</td>
+                        </tr>
+
+                        <tr className="text-center">
+
+                          <td className="flex justify-start">iron</td>
+                          <td> {pinDetail?.nutritionPost?.iron}g</td>
+                        </tr>
+
+                        <tr className="text-center">
+
+                          <td className="flex justify-start">vitamin A</td>
+                          <td>{pinDetail?.nutritionPost?.vitA}g</td>
+                        </tr>
+
+                        <tr className="text-center">
+
+                          <td className="flex justify-start">thiamine</td>
+                          <td>{pinDetail?.nutritionPost?.thia}g</td>
+                        </tr>
+                        <tr className="text-center">
+
+                          <td className="flex justify-start">riboflavin</td>
+                          <td> {pinDetail?.nutritionPost?.ribo} g</td>
+                        </tr>
+
+                        <tr className="text-center">
+
+                          <td className="flex justify-start">niacin</td>
+                          <td>{pinDetail?.nutritionPost?.nia}g</td>
+                        </tr>
+
+                        <tr className="text-center">
+
+                          <td className="flex justify-start">vitamin C</td>
+                          <td >{pinDetail?.nutritionPost?.vitC}g</td>
+                        </tr>
+
+                      </tbody>
+
+
+                    </table>
+                    <hr className="border-gray-500" />
                     
-                    <div className="text-4xl">energy </div>
                   </div>
-                  <div className="text-5xl">
-                    {pinDetail?.nutritionPost?.energy}g
-                  </div>
-                </div>
-                <div className="border-t-4 border-black text-sm pb-1">
-                  <hr className="border-gray-500" />
-                  <div className="flex justify-between">
-                    <div>
-                      <span className="font-bold ">prot </span>
-                      {pinDetail?.nutritionPost?.prot} g
-                    </div>
-                  </div>
-                  <hr className="border-gray-500" />
-                  <div className="flex justify-between">
-                    <div>
-                      {" "}
-                      <span> fat </span>
-                      {pinDetail?.nutritionPost?.fat} g
-                    </div>
-                  </div>
-                  <hr className="border-gray-500" />
-                  <div>
-                    <span className="italic">carb </span>
-                    {pinDetail?.nutritionPost?.carb} g
-                  </div>
-                  <hr className="border-gray-500" />
-                  <div className="flex justify-between">
-                    <div>
-                      <span className="font-bold">calcium </span>
-                      {pinDetail?.nutritionPost?.calcium} mg
-                    </div>
-                  </div>
-                  <hr className="border-gray-500" />
-                  <div className="flex justify-between">
-                    <div>
-                      <span className="font-bold">phos </span>
-                      {pinDetail?.nutritionPost?.phos} mg
-                    </div>
-                  </div>
-                  <hr className="border-gray-500" />
-                  <div className="flex justify-between">
-                    <div>
-                      <span className="font-bold">iron </span>
-                      {pinDetail?.nutritionPost?.iron} g
-                    </div>
-                  </div>
-                  <hr className="border-gray-500" />
-                  <div className="flex justify-between">
-                    <div className="pl-4">
-                    vitA {pinDetail?.nutritionPost?.vitA} g
-                    </div>
-                  </div>
-                  <hr className="border-gray-500" />
-                  <div className="pl-4">
-                  thia {pinDetail?.nutritionPost?.thia} g
-                    <div className="pl-4">
-                      <hr className="border-gray-500" />
-                    </div>
-                  </div>
-                  <hr className="border-gray-500" />
-                  <div>
-                    <span className="font-bold">ribo </span>
-                    {pinDetail?.nutritionPost?.ribo} g
-                  </div>
-                </div>
-                <div className="border-t-8 border-black pt-1 text-sm">
-                  <div className="flex justify-between">
-                    <div>
-                    nia {pinDetail?.nutritionPost?.nia} mcg
-                    </div>
-                  </div>
-                  <hr className="border-gray-500" />
-                  <div className="flex justify-between">
-                    <div>
-                    vitC {pinDetail?.nutritionPost?.vitC} mcg
-                    </div>
-                  </div>
-                  <hr className="border-gray-500" />
-                  <div className="border-t-4 border-black flex leading-none text-xs pt-2 pb-1">
-                    <div className="pr-1">*</div>
-                    <div>
-                    This nutrient fact estimation is based on System's nutrition database.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <Link
-              to={`/user-profile/${pinDetail?.postedBy._id}`}
-              className="flex gap-2 mt-5 items-center bg-white rounded-lg "
-            >
-              <img
-                src={pinDetail?.postedBy.image}
-                className="w-10 h-10 rounded-full"
-                alt="user-profile"
-              />
-              <p className="font-semibold capitalize">
-                {pinDetail.postedBy?.userName}
-              </p>
-            </Link>
-            <h2 className="mt-5 text-2xl"> Comments </h2>
-            <div className="min-h-100 overflow-y-auto h-40 w-auto">
-              {pinDetail?.comments?.map((comment, i) => (
-                <div
-                  className="flex  gap-2 mt-5 items-center bg-white w-full rounded-lg  "
-                  key={i}
-                >
-                  
-                  <Link to={`/user-profile/${comment?.postedBy._id}`} className="flex">
-                  <div className=" w-full float-root">
-                    <div className="float-left ">
-                      <div className="flex flex-nowrap "> 
-                    <img
-                      src={comment.postedBy?.image}
-                      alt="user-profile"
-                      className="pointer-events-none  w-10 h-10 rounded-full align-top cursor-pointer  "
-                    />
-                     </div></div>
 
-                     <div className="font-bold  float-left">
-                      <div className="flex flex-nowrap ml-2"> 
-                      {comment.postedBy?.userName}
-                      </div> </div>
                   
-                 
-                  <div className="float-middle ml-2">
-                  <div  className="align-left mt-6 ml-6">
-                    <p className=" break-all ml-4 ">{comment.comment}</p>
-                  </div>
-                  </div>
-                  </div>
-                  </Link>
-                  <div className="flex flex-col mt-6">
-                    {comment?.postedBy?._id === user._id ? (
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          deleteComment(comment?.comment);
-                        }}
-                        className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
-                      >
-                        <ReactTooltip />
-                        <p data-tip="Delete Comment">
-                          <AiTwotoneDelete />
-                        </p>
-                      </button>
-                    ) : null}
-                  </div>
                 </div>
-              ))}
-            </div>
-            <div className="flex flex-wrap mt-6 gap-3">
-              <Link to={`/user-profile/${user._id}`}>
+              
+              <div className="">
+              <Link
+                to={`/user-profile/${pinDetail?.postedBy._id}`}
+                className="flex gap-2 mt-5 items-center bg-white rounded-lg "
+              >
                 <img
-                  src={user.image}
-                  className=" fixed w-10 h-10 rounded-full cursor-pointer"
+                  src={pinDetail?.postedBy.image}
+                  className="w-10 h-10 rounded-full"
                   alt="user-profile"
                 />
+                <p className="font-semibold capitalize">
+                  {pinDetail.postedBy?.userName}
+                </p>
               </Link>
-              <input
-                className=" flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300"
-                type="text"
-                placeholder="Add a comment"
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-              />
-              <button
-                type="button"
-                className="bg-nOrange text-white rounded-full px-6 py-2 font-semibold text-base outline-none"
-                onClick={addComment}
-              >
-                {addingComment ? "Posting..." : "Post"}
-              </button>
+              <h2 className="mt-5 text-2xl"> Comments </h2>
+              <div className="min-h-100 overflow-y-auto h-40 w-auto">
+                {pinDetail?.comments?.map((comment, i) => (
+                  <div
+                    className="flex  gap-2 mt-5 items-center bg-white w-full rounded-lg  "
+                    key={i}
+                  >
+
+                    <Link to={`/user-profile/${comment?.postedBy._id}`} className="flex">
+                      <div className=" w-full float-root">
+                        <div className="float-left ">
+                          <div className="flex flex-nowrap ">
+                            <img
+                              src={comment.postedBy?.image}
+                              alt="user-profile"
+                              className="pointer-events-none  w-10 h-10 rounded-full align-top cursor-pointer  "
+                            />
+                          </div></div>
+
+                        <div className="font-bold  float-left">
+                          <div className="flex flex-nowrap ml-2">
+                            {comment.postedBy?.userName}
+                          </div> </div>
+
+
+                        <div className="float-middle ml-2">
+                          <div className="align-left mt-6 ml-6">
+                            <p className=" break-all ml-4 ">{comment.comment}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                    <div className="flex flex-col mt-6">
+                      {comment?.postedBy?._id === user._id ? (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            deleteComment(comment?.comment);
+                          }}
+                          className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
+                        >
+                          <ReactTooltip />
+                          <p data-tip="Delete Comment">
+                            <AiTwotoneDelete />
+                          </p>
+                        </button>
+                      ) : null}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-wrap mt-6 gap-3">
+                <Link to={`/user-profile/${user._id}`}>
+                  <img
+                    src={user.image}
+                    className=" fixed w-10 h-10 rounded-full cursor-pointer"
+                    alt="user-profile"
+                  />
+                </Link>
+                <input
+                  className=" flex-1 border-gray-100 outline-none border-2 p-2 rounded-2xl focus:border-gray-300"
+                  type="text"
+                  placeholder="Add a comment"
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="bg-nOrange text-white rounded-full px-6 py-2 font-semibold text-base outline-none"
+                  onClick={addComment}
+                >
+                  {addingComment ? "Posting..." : "Post"}
+                </button>
+                </div>
+              </div>
+              </div>
+              </div>
             </div>
           </div>
-          </div>
         </div>
+        
       )}
       {pins?.length > 0 && (
         <h2 className="text-center font-bold text-2xl mt-8 mb-4">
