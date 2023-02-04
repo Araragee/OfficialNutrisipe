@@ -162,7 +162,12 @@ export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
           }`;
       return query;
     };
-
+    export const adminUsers = (userId) => {
+     const query = `*[_type == "user" && isAdmin == true && id =='${userId}'] {
+        _id
+      }`;
+      return query;
+    }
     export const allUser = `*[_type == 'user']
     {
       _id,

@@ -181,7 +181,7 @@ const PinDetail = ({ user }) => {
               </button>
             )}
 
-            {pinDetail.postedBy?._id === User.sub && (
+            {pinDetail.postedBy?._id === user.sub ? (
               <button
                 type="button"
                 onClick={(e) => {
@@ -193,7 +193,20 @@ const PinDetail = ({ user }) => {
               >
                 <AiTwotoneDelete />
               </button>
-            )}
+            ) : user?.isAdmin == true ? (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deletePin(pinDetail._id);
+                  navigate("/home");
+                }}
+                className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
+              >
+                <AiTwotoneDelete />
+              </button>
+             ) : null
+          }
             <div >
               <div>
                 <h1 className="text-4xl font-bold break-words mt-3 uppercase">
