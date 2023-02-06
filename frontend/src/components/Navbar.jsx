@@ -37,7 +37,7 @@ const Navbar = ({ searchTerm, setSearchTerm, user }) => {
           {user.isAdmin
             && (
               // admin
-              <Link to="/create-ingredient" className="bg-black text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center">
+              <Link to="/create-ingredient" className="bg-black text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" aria-label="Input ingredient here" alt="Input Ingredient here">
                 <IconContext.Provider value={{ color: '#FF9F1C', className: 'global-class-name', background: '#008083' }}>
                   <BiFoodMenu />
                 </IconContext.Provider>
