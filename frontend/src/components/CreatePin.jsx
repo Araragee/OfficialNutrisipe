@@ -519,7 +519,7 @@ const CreatePin = ({ user }) => {
                           onChange={(e) => {
                             setNonChosenIngredient(e.target.value);
                           }}
-                          placeholder="Ingedients"
+                          placeholder="Ingredients"
                           value={nonChosenIngredient}
                           className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
                         />
