@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { AiTwotoneDelete, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { BsExclamationCircle } from "react-icons/bs"
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import ReactTooltip from "react-tooltip";
@@ -181,7 +182,7 @@ const PinDetail = ({ user }) => {
               </button>
             )}
 
-            {pinDetail.postedBy?._id === user.sub ? (
+            { user?.isAdmin == true ? (
               <button
                 type="button"
                 onClick={(e) => {
@@ -193,7 +194,7 @@ const PinDetail = ({ user }) => {
               >
                 <AiTwotoneDelete />
               </button>
-            ) : user?.isAdmin == true ? (
+            ) : pinDetail.postedBy?._id === User.sub ? (
               <button
                 type="button"
                 onClick={(e) => {
@@ -207,6 +208,22 @@ const PinDetail = ({ user }) => {
               </button>
              ) : null
           }
+
+              {user?.isAdmin === true ? (null) : 
+              pinDetail.postedBy?._id !== User.sub ? (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.location.href ='mailto:nutrisipe@gmail.com?subject=Report Recipe';
+                }}
+                className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
+              >
+                <BsExclamationCircle />
+              </button>
+            ) : null
+              }
+
             <div >
               <div>
                 <h1 className="text-4xl font-bold break-words mt-3 uppercase">
