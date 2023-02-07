@@ -27,7 +27,7 @@ const CreatePin = ({ user }) => {
   const [procedure, setProcedure] = useState([]);
   const [ModalOpen, setModalOpen] = useState(false);
   const [yieldAmount, setYieldAmount] = useState(0);
-  
+
   //INDICATOR FOR NON INGREDIENT MODAL
   const [nonIngredient, setNonIngredient] = useState(false);
 
@@ -144,7 +144,7 @@ const CreatePin = ({ user }) => {
     if (
       chosenIngredientObject && amount
     ) {
-      
+
       const doc = {
         ingredientName: chosenIngredientObject.foodItem,
         purchasedWeight: Number(amount),
@@ -406,7 +406,7 @@ const CreatePin = ({ user }) => {
                 Please add all ingredient fields.
               </p>
             )}
-            <div className="float-left py-4 bg-gray-200 rounded">
+            <div className="float-left py-4 bg-gray-200 rounded pl-3 pr-3">
               <div className="flex flex-nowrap flex-1 flex-col gap-6 w-auto ">
                 <input
                   type="text"
@@ -417,7 +417,7 @@ const CreatePin = ({ user }) => {
                   onBlur={() => dropdownClickHandlerClose()}
                   placeholder="Search Ingredient"
                   value={chosenIngredient}
-                  className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
+                  className="outline-none text-base sm:text-lg border-b-2 border-gray-200  rounded-md"
                 />
               </div>
 
@@ -450,7 +450,7 @@ const CreatePin = ({ user }) => {
               </div>
               {/* amount */}
               {ingredientDropDown.length == 0 && (
-                <div className="float-left py-4 ">
+                <div className="float-left py-4 pl-2 ">
                   <div className=" flex flex-nowrap ">
                     {/* <div class="flex flex-nowrap"> */}
                     <input
@@ -467,7 +467,7 @@ const CreatePin = ({ user }) => {
                       <div className="flex flex-nowrap pl-8">
                         {/* metric */}
 
-                        
+
                         <button
                           className="text-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
                           onClick={() => handleIngredientList()}
@@ -577,7 +577,7 @@ const CreatePin = ({ user }) => {
                 <div key={i} className="float-root  flex full">
                   <div className=" float-left  py-4 ">
                     <div
-                      
+
                       className="capitalize flex flex-nowrap ml-2.5"
                     >
                       {info.ingredientName}
@@ -585,7 +585,7 @@ const CreatePin = ({ user }) => {
                   </div>
                   <div className="float-middle py-4 ">
                     <div
-                      
+
                       className=" flex flex-nowrap ml-2.5"
                     >
                       {info.ediblePortionWeight + "g"}
@@ -593,7 +593,7 @@ const CreatePin = ({ user }) => {
                   </div>
                   <div className="float-middle py-4 ">
                     <div
-                      
+
                       className=" flex flex-nowrap ml-2.5"
                     >
                       {info.purchasedWeight + "g"}
@@ -623,186 +623,187 @@ const CreatePin = ({ user }) => {
 
                   <div className="flex justify-between font-bold border-b-8 border-black"></div>
                   <div className="flex justify-between items-end font-extrabold">
-                  <table className='w-full'>
+                    <table className='w-full'>
 
 
-<tbody className="w-full">
-  <tr className="text-center">
+                      <tbody className="w-full">
+                        <tr className="text-center">
 
-    <td className="flex justify-start  uppercase">energy</td>
-    <td>{(nutrientTable.energy).toFixed(0)}g</td>
-  </tr>
+                          <td className="flex justify-start  uppercase">energy</td>
+                          <td>{(nutrientTable.energy).toFixed(0)}g</td>
+                        </tr>
 
-  <tr className="text-center">
+                        <tr className="text-center">
 
-    <td className="flex justify-start  uppercase">protein</td>
-    <td>{(nutrientTable.prot).toFixed(1)}g</td>
-  </tr>
-  <tr className="text-center">
+                          <td className="flex justify-start  uppercase">protein</td>
+                          <td>{(nutrientTable.prot).toFixed(1)}g</td>
+                        </tr>
+                        <tr className="text-center">
 
-    <td className="flex justify-star  uppercase">fat</td>
-    <td>{(nutrientTable.fat).toFixed(1)}g</td>
-  </tr>
+                          <td className="flex justify-star  uppercase">fat</td>
+                          <td>{(nutrientTable.fat).toFixed(1)}g</td>
+                        </tr>
 
-  <tr className="text-center ">
+                        <tr className="text-center ">
 
-    <td className="flex justify-start  uppercase">carbohydrate</td>
-    <td>{(nutrientTable.carb).toFixed(1)}g</td>
-  </tr>
+                          <td className="flex justify-start  uppercase">carbohydrate</td>
+                          <td>{(nutrientTable.carb).toFixed(1)}g</td>
+                        </tr>
 
-  <tr className="text-center border-t-4 border-black">
+                        <tr className="text-center border-t-4 border-black">
 
-    <td className="flex justify-start">calcium</td>
-    <td>{(nutrientTable.calcium).toFixed(1)}g</td>
-  </tr>
+                          <td className="flex justify-start">calcium</td>
+                          <td>{(nutrientTable.calcium).toFixed(1)}g</td>
+                        </tr>
 
-  <tr className="text-center">
+                        <tr className="text-center">
 
-    <td className="flex justify-start">phosporus</td>
-    <td>{(nutrientTable.phos).toFixed(1)}g</td>
-  </tr>
+                          <td className="flex justify-start">phosporus</td>
+                          <td>{(nutrientTable.phos).toFixed(1)}g</td>
+                        </tr>
 
-  <tr className="text-center">
+                        <tr className="text-center">
 
-    <td className="flex justify-start">iron</td>
-    <td>{(nutrientTable.iron).toFixed(1)}g</td>
-  </tr>
+                          <td className="flex justify-start">iron</td>
+                          <td>{(nutrientTable.iron).toFixed(1)}g</td>
+                        </tr>
 
-  <tr className="text-center">
+                        <tr className="text-center">
 
-    <td className="flex justify-start">vitamin A</td>
-    <td>{(nutrientTable.vitA).toFixed(1)}g</td>
-  </tr>
+                          <td className="flex justify-start">vitamin A</td>
+                          <td>{(nutrientTable.vitA).toFixed(1)}g</td>
+                        </tr>
 
-  <tr className="text-center">
+                        <tr className="text-center">
 
-    <td className="flex justify-start">thiamine</td>
-    <td>{(nutrientTable.thia).toFixed(1)}g</td>
-  </tr>
-  <tr className="text-center">
+                          <td className="flex justify-start">thiamine</td>
+                          <td>{(nutrientTable.thia).toFixed(1)}g</td>
+                        </tr>
+                        <tr className="text-center">
 
-    <td className="flex justify-start">riboflavin</td>
-    <td>{(nutrientTable.ribo).toFixed(1)}g</td>
-  </tr>
+                          <td className="flex justify-start">riboflavin</td>
+                          <td>{(nutrientTable.ribo).toFixed(1)}g</td>
+                        </tr>
 
-  <tr className="text-center">
+                        <tr className="text-center">
 
-    <td className="flex justify-start">niacin</td>
-    <td>{(nutrientTable.nia).toFixed(1)}g</td>
-  </tr>
+                          <td className="flex justify-start">niacin</td>
+                          <td>{(nutrientTable.nia).toFixed(1)}g</td>
+                        </tr>
 
-  <tr className="text-center">
+                        <tr className="text-center">
 
-    <td className="flex justify-start">vitamin C</td>
-    <td >{(nutrientTable.vitC).toFixed(1)}g</td>
-  </tr>
+                          <td className="flex justify-start">vitamin C</td>
+                          <td >{(nutrientTable.vitC).toFixed(1)}g</td>
+                        </tr>
 
-</tbody>
+                      </tbody>
 
 
-</table>
-<hr className="border-gray-500 mt-36" />
+                    </table>
+                    <hr className="border-gray-500 mt-36" />
 
-</div>
-</div>
+                  </div>
+                </div>
 
-<div className="mt-3 mb-4">
-<button
-className="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
-onClick={ModalHandlerClose}
->
-close
-</button>
-</div>
-</div>
-</div>
-)}
-{!ModalOpen && (
-<button
-className="mt-5 text-white w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-nOrange  rounded-full border border-blue-300"
-onClick={ModalHandlerOpen}
->
-See Nutrients
-</button>
-)}
+                <div className="mt-3 mb-4">
+                  <button
+                    className="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
+                    onClick={ModalHandlerClose}
+                  >
+                    close
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+          {!ModalOpen && (
+            <button
+              className="mt-5 text-white w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-nOrange  rounded-full border border-blue-300"
+              onClick={ModalHandlerOpen}
+            >
+              See Nutrients
+            </button>
+          )}
 
-{/* div for procedures */}
-<div className="flex flex-1 flex-col gap-2 mt-2 w-full py-4">
-<label className=" font-semibold">Procedure</label>
-{procedure.map((data, u) => (
-<div className="flow-root">
-{/* textarea for procedures */}
-<textarea
-key="u"
-id="message"
-rows="4"
-className="float-left block w-full h-auto text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 "
-placeholder="Procedure"
-value={data}
-onChange={(e) => handleProcedureChange(e, u)}
-/>
-{/* button for x procedures */}
-<button
-onClick={() => handleProcedureDelete(u)}
-className="text-nRed w-5 h-5 float-right px-1 mx-1 mt-1 text-xs font-bold text-center text-white bg-gray-50 rounded-lg border border-red-200"
->
-x
-</button>
-</div>
-))}
-{/* button for add procedures */}
-<button
-className="text-nGreen w-24 h-7.5 float-left py-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
-onClick={() => handleProcedureAdd()}
->
-ADD
-</button>
-</div>
+          {/* div for procedures */}
+          <div className="flex flex-1 flex-col gap-2 mt-2 w-full py-4">
+            <label className=" font-semibold">Procedure</label>
+            {procedure.map((data, u) => (
+              <div className="flow-root">
+                {/* textarea for procedures */}
+                <textarea
+                  key="u"
+                  id="message"
+                  rows="4"
+                  className="float-left block w-full h-auto text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 "
+                  placeholder="Procedure"
+                  value={data}
+                  onChange={(e) => handleProcedureChange(e, u)}
+                />
+                {/* button for x procedures */}
+                <button
+                  onClick={() => handleProcedureDelete(u)}
+                  className="text-nRed w-5 h-5 float-right px-1 mx-1 mt-1 text-xs font-bold text-center text-white bg-gray-50 rounded-lg border border-red-200"
+                >
+                  x
+                </button>
+              </div>
+            ))}
+            {/* button for add procedures */}
+            <button
+              className="text-nGreen w-24 h-7.5 float-left py-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+              onClick={() => handleProcedureAdd()}
+            >
+              ADD
+            </button>
+          </div>
 
-<div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
-<div>
-<p className="mb-2 font-semibold text:lg sm:text-xl">
-Choose Recipe Category
-</p>
-<select
-onChange={(e) => {
-setCategory(e.target.value);
-}}
-className="outline-none w-4/5 text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer"
->
-<option value="others" className="sm:text-bg bg-white">
-Select Category
-</option>
-{categories.map((item) => (
-<option
-className="text-base border-0 outline-none capitalize bg-gray-100 text-black "
-value={item.name}
->
-{item.name}
-</option>
-))}
-</select>
-</div>
-<div className="flex justify-end items-end mt-5">
-{fields && (
-<p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
-Please add all fields.
-</p>
-)}
-<button
-type="button"
-onClick={savePin}
-className="transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-nGreen text-white hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nOrange duration-300"
->
-Upload Recipe
-</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-);
+          <div className="flex flex-1 flex-col gap-6 lg:pl-5 mt-5 w-full">
+            <div>
+              <p className="mb-2 font-semibold text:lg sm:text-xl">
+                Choose Recipe Category
+              </p>
+              <select
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+                className="outline-none w-4/5 text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer"
+              >
+                <option value="others" className="sm:text-bg bg-white">
+                  Select Category
+                </option>
+                {categories.map((item) => (
+                  <option
+                    className="text-base border-0 outline-none capitalize bg-gray-100 text-black "
+                    value={item.name}
+                  >
+                    {item.name}
+                  </option> 
+                ))}
+              </select>
+            </div>
+            <div className="flex justify-end items-end mt-5">
+              {fields && (
+                <p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
+                  Please add all fields.
+                </p>
+              )}
+              <button
+                type="button"
+                onClick={savePin}
+                className="transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-nGreen text-white hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nOrange duration-300"
+              >
+                Upload Recipe
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
+
 
 export default CreatePin;
 

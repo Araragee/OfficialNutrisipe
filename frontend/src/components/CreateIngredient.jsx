@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import ReadIngredient from "./ReadIngredient";
 
 const CreateIngredient = ({ user }) => {
- 
+
 
   const [foodItem, setFoodItem] = useState("");
   const [altName, setAltName] = useState("");
@@ -66,7 +66,7 @@ const CreateIngredient = ({ user }) => {
         setuploadSuccessAlert(false);
       }, 8000);
     } else {
-        setuploadFailedAlert(true);
+      setuploadFailedAlert(true);
 
       setTimeout(() => {
         setuploadFailedAlert(false);
@@ -78,12 +78,17 @@ const CreateIngredient = ({ user }) => {
     return (
       //UPLOAD INGREDIENT BUTTON
 
-      <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5 ">
+      <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5 2xl:w-full ">
         <div className="font-bold text-3xl pb-4">
           {" "}
           ADD AN INGREDIENT TO DATABASE
         </div>
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+
+        <div class="flex flex-wrap -mx-3 mb-2 ">
+    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+    Ingredient Name
+      </label>
           <input
             type="text"
             value={foodItem}
@@ -92,8 +97,12 @@ const CreateIngredient = ({ user }) => {
             className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
           />
         </div>
+        
 
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+        Alternate Name
+      </label>
           <input
             type="text"
             value={altName}
@@ -103,7 +112,10 @@ const CreateIngredient = ({ user }) => {
           />
         </div>
 
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+        Edible Portion
+      </label>
           <input
             type="text"
             value={ediblePortion}
@@ -112,8 +124,12 @@ const CreateIngredient = ({ user }) => {
             className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
           />
         </div>
-
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-2">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+        Energy
+      </label>
           <input
             type="text"
             value={energy}
@@ -123,7 +139,10 @@ const CreateIngredient = ({ user }) => {
           />
         </div>
 
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+        Protein
+      </label>
           <input
             type="text"
             value={prot}
@@ -133,7 +152,10 @@ const CreateIngredient = ({ user }) => {
           />
         </div>
 
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+        Fat
+      </label>
           <input
             type="text"
             value={fat}
@@ -142,8 +164,12 @@ const CreateIngredient = ({ user }) => {
             className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
           />
         </div>
-
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-2">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+        carbohydrate
+      </label>
           <input
             type="text"
             value={carb}
@@ -153,7 +179,10 @@ const CreateIngredient = ({ user }) => {
           />
         </div>
 
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+       calcium
+      </label>
           <input
             type="text"
             value={calcium}
@@ -163,7 +192,10 @@ const CreateIngredient = ({ user }) => {
           />
         </div>
 
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+        phosporus
+      </label>
           <input
             type="text"
             value={phos}
@@ -172,8 +204,12 @@ const CreateIngredient = ({ user }) => {
             className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
           />
         </div>
-
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+      </div>
+      <div class="flex flex-wrap -mx-3 mb-2">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+        iron
+      </label>
           <input
             type="text"
             value={iron}
@@ -183,7 +219,10 @@ const CreateIngredient = ({ user }) => {
           />
         </div>
 
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+        vitamin A
+      </label>
           <input
             type="text"
             value={vitA}
@@ -193,7 +232,10 @@ const CreateIngredient = ({ user }) => {
           />
         </div>
 
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+        thiamine
+      </label>
           <input
             type="text"
             value={thia}
@@ -202,8 +244,12 @@ const CreateIngredient = ({ user }) => {
             className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
           />
         </div>
-
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-2">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+        riboflavin
+      </label>
           <input
             type="text"
             value={ribo}
@@ -213,7 +259,10 @@ const CreateIngredient = ({ user }) => {
           />
         </div>
 
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+          niacin
+      </label>
           <input
             type="text"
             value={nia}
@@ -223,7 +272,10 @@ const CreateIngredient = ({ user }) => {
           />
         </div>
 
-        <div className="flex flex-1 flex-col gap-6 lg:pl-5 ">
+        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+        vitamin C
+      </label>
           <input
             type="text"
             value={vitC}
@@ -233,7 +285,7 @@ const CreateIngredient = ({ user }) => {
           />
         </div>
 
-
+      </div>
         {uploadSuccessAlert && (
           <p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
             Ingredient Successfully addedd to the database.
