@@ -190,6 +190,7 @@ const CreatePin = ({ user }) => {
         currentValue
       ) {
         return {
+          ediblePortionWeight: previousValue.ediblePortionWeight + currentValue.ediblePortionWeight,
           energy: previousValue.energy + currentValue.energy,
           prot: previousValue.prot + currentValue.prot,
           fat: previousValue.fat + currentValue.fat,
@@ -205,9 +206,26 @@ const CreatePin = ({ user }) => {
         };
       });
 
-      setNutrientTable(add);
+      // DIVISION FOR YIELD AMOUNT
+        var addFinal = {
+          ediblePortionWeight: add.ediblePortionWeight / yieldAmount,
+          energy: add.energy / yieldAmount,
+          prot: add.prot / yieldAmount,
+          fat: add.fat / yieldAmount,
+          carb: add.carb / yieldAmount,
+          calcium: add.calcium / yieldAmount,
+          phos: add.phos / yieldAmount,
+          iron: add.iron / yieldAmount,
+          vitA: add.vitA / yieldAmount,
+          thia: add.thia / yieldAmount,
+          ribo: add.ribo / yieldAmount,
+          nia: add.nia / yieldAmount,
+          vitC: add.vitC / yieldAmount,
+        }
+      
+      setNutrientTable(addFinal);
     }
-  }, [finalRecipeObject]);
+  }, [finalRecipeObject, yieldAmount]);
 
   const deleteFinalRecipeObjectHandler = (i) => {
     let newDataArr = [...finalRecipeObject];
@@ -387,13 +405,13 @@ const CreatePin = ({ user }) => {
               className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
             />
           </div>
-
+          <p className="font-semibold mt-6">Yield Amount </p>
           <div className="flex flex-1 flex-col gap-6  mt-2 w-auto">
             <input
               type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Give your recipe a title"
+              value={yieldAmount}
+              onChange={(e) => setYieldAmount(e.target.value)}
+              placeholder="Yield Amount"
               className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
             />
           </div>
@@ -629,6 +647,18 @@ const CreatePin = ({ user }) => {
                       <tbody className="w-full">
                         <tr className="text-center">
 
+                          <td className="flex justify-start  uppercase">Serving Size:</td>
+                          <td>{(nutrientTable.ediblePortionWeight).toFixed(0)}g</td>
+                        </tr>
+
+                        <tr className="text-center">
+
+                          <td className="flex justify-start  uppercase">Yield Amount:</td>
+                          <td>{yieldAmount}</td>
+                        </tr>
+
+                        <tr className="text-center">
+
                           <td className="flex justify-start  uppercase">energy</td>
                           <td>{(nutrientTable.energy).toFixed(0)}g</td>
                         </tr>
@@ -717,7 +747,7 @@ const CreatePin = ({ user }) => {
               </div>
             </div>
           )}
-          {!ModalOpen && (
+          {!ModalOpen && finalRecipeObject.length != 0 && yieldAmount != 0 && (
             <button
               className="mt-5 text-white w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-nOrange  rounded-full border border-blue-300"
               onClick={ModalHandlerOpen}

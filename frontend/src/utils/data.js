@@ -439,7 +439,7 @@ export const allIngredientsQuery = `*[_type == 'ingredientData']{
 
 
 export const searchIngredientQuery = (searchIngredientTerm) => {
-  const query = `*[_type == 'ingredientData'  && foodItem match '${searchIngredientTerm}*' ]{
+  const query = `*[_type == 'ingredientData'  && foodItem || altName match '${searchIngredientTerm}*' ]{
     foodItem,
     altName,
     ediblePortion,
@@ -462,7 +462,7 @@ export const searchIngredientQuery = (searchIngredientTerm) => {
 
 
 export const searchChosenIngredientQuery = (chosenIngredient) => {
-  const query = `*[_type == 'ingredientData'  && foodItem match '${chosenIngredient}*' ]{
+  const query = `*[_type == 'ingredientData'  && foodItem match '${chosenIngredient}*' || altName match '${chosenIngredient}*' ]{
     foodItem,
     altName,
     ediblePortion,
