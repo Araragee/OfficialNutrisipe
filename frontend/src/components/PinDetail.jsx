@@ -251,7 +251,7 @@ const PinDetail = ({ user }) => {
 
                       <li className="float-left py-4 capitalize flex flex-nowrap">{info.ingredientName}</li>
                       <li className="float-middle mx-3 pt-4 flex flex-nowrap ">{info.purchasedWeight}g</li>
-                      <li className="float-middle pt-4 flex flex-nowrap">{info.metric}</li>
+                      
 
                     </div>
                   );
@@ -286,6 +286,18 @@ const PinDetail = ({ user }) => {
 
 
                       <tbody className="w-96">
+                        <tr className="text-center">
+
+                          <td className="flex justify-start  uppercase">Serving Size:</td>
+                          <td>{(pinDetail?.nutritionPost?.ediblePortionWeight).toFixed(0)}g</td>
+                        </tr>
+
+                        <tr className="text-center">
+
+                          <td className="flex justify-start  uppercase">Yield Amount:</td>
+                          <td>{pinDetail?.nutritionPost?.yieldAmount}</td>
+                        </tr>
+                        
                         <tr className="text-center">
 
                           <td className="flex justify-start font-extrabold  ">Energy</td>

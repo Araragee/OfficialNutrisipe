@@ -42,12 +42,15 @@ const CreatePin = ({ user }) => {
   const [ingredientDropDown, setIngredientDropDown] = useState([]);
   const [amount, setAmount] = useState("");
   const [finalRecipeObject, setFinalRecipeObject] = useState([]);
+  const [finalNonRecipeObject, setFinalNonRecipeObject] = useState([]);
   const [nutrientTable, setNutrientTable] = useState([]);
 
   const ModalHandlerOpen = () => {
     setModalOpen(true);
-    console.log(finalRecipeObject);
-    console.log(nutrientTable)
+    // console.log(finalRecipeObject);
+    // console.log(nutrientTable)
+    const listadd = finalRecipeObject.concat(finalNonRecipeObject);
+    console.log(listadd)
   };
   const ModalHandlerClose = () => {
     setModalOpen(false);
@@ -106,24 +109,12 @@ const CreatePin = ({ user }) => {
     if (nonChosenIngredient && nonChosenAmount) {
       const doc = {
         ingredientName: "* " + nonChosenIngredient,
-        ediblePortionWeight: nonChosenAmount,
+        ediblePortionWeight: 0,
         purchasedWeight: nonChosenAmount,
-        energy: 0,
-        prot: 0,
-        fat: 0,
-        carb: 0,
-        calcium: 0,
-        phos: 0,
-        iron: 0,
-        vitA: 0,
-        thia: 0,
-        ribo: 0,
-        nia: 0,
-        vitC:  0,
       };
 
-      const newArray = [...finalRecipeObject, doc];
-      setFinalRecipeObject(newArray);
+      const newArray = [...finalNonRecipeObject, doc];
+      setFinalNonRecipeObject(newArray);
 
       setNonChosenIngredient("");
       setNonChosenAmount("");
@@ -209,6 +200,7 @@ const CreatePin = ({ user }) => {
       // DIVISION FOR YIELD AMOUNT
         var addFinal = {
           ediblePortionWeight: add.ediblePortionWeight / yieldAmount,
+          yieldAmount: yieldAmount,
           energy: add.energy / yieldAmount,
           prot: add.prot / yieldAmount,
           fat: add.fat / yieldAmount,
@@ -231,6 +223,12 @@ const CreatePin = ({ user }) => {
     let newDataArr = [...finalRecipeObject];
     newDataArr.splice(i, 1);
     setFinalRecipeObject(newDataArr);
+  };
+
+  const deleteFinalNonRecipeObjectHandler = (i) => {
+    let newDataArr = [...finalNonRecipeObject];
+    newDataArr.splice(i, 1);
+    setFinalNonRecipeObject(newDataArr);
   };
 
   // handle procedure
@@ -283,6 +281,8 @@ const CreatePin = ({ user }) => {
   };
 
   const savePin = () => {
+    const listadd = finalRecipeObject.concat(finalNonRecipeObject)
+
     if (
       title &&
       about &&
@@ -310,7 +310,7 @@ const CreatePin = ({ user }) => {
           _ref: user._id,
         },
         category,
-        ingredientListPost: finalRecipeObject,
+        ingredientListPost: listadd,
         nutritionPost: nutrientTable,
       };
       client.create(doc).then(() => {
@@ -625,6 +625,41 @@ const CreatePin = ({ user }) => {
                   </button>
                 </div>
               );
+            })}{finalNonRecipeObject.map((info, i) => {
+              return (
+                <div key={i} className="float-root  flex full">
+                  <div className=" float-left  py-4 ">
+                    <div
+
+                      className="capitalize flex flex-nowrap ml-2.5"
+                    >
+                      {info.ingredientName}
+                    </div>
+                  </div>
+                  <div className="float-middle py-4 ">
+                    <div
+
+                      className=" flex flex-nowrap ml-2.5"
+                    >
+                      {info.ediblePortionWeight + "g"}
+                    </div>
+                  </div>
+                  <div className="float-middle py-4 ">
+                    <div
+
+                      className=" flex flex-nowrap ml-2.5"
+                    >
+                      {info.purchasedWeight + "g"}
+                    </div>
+                  </div>
+                  <button
+                    className=" pt-1 text-nRed mx-4  text-xs font-bold text-center  p-1 "
+                    onClick={() => deleteFinalNonRecipeObjectHandler(i)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              );
             })}{" "}
           </div>
 
@@ -654,7 +689,7 @@ const CreatePin = ({ user }) => {
                         <tr className="text-center">
 
                           <td className="flex justify-start  uppercase">Yield Amount:</td>
-                          <td>{yieldAmount}</td>
+                          <td>{nutrientTable.yieldAmount}</td>
                         </tr>
 
                         <tr className="text-center">
