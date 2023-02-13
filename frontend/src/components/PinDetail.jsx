@@ -146,86 +146,86 @@ const PinDetail = ({ user }) => {
     <>
       {pinDetail && (
         <div
-        className=" flex xl:flex-row flex-col m-auto bg-white w-full border rounded-lg float-root"
-      >
+          className=" flex xl:flex-row flex-col m-auto bg-white w-full border rounded-lg float-root"
+        >
 
-        <div className="justify-center align-center items-center md:items-start flex-initial w-full float-left">
-          <img
-            className="rounded-t-3xl rounded-b-lg px-10 py-10  "
-            src={pinDetail?.image && urlFor(pinDetail?.image).url()}
-            alt="user-post"
-          />
-        </div>
-        <div className="w-full p-5  float-right">
-          <div className="w-full  float-root ">
-            <div className="w-48 float-left">
-              <Link
-                to={`/user-profile/${pinDetail?.postedBy._id}`}
-                className="flex gap-2 mt-5 items-center bg-white rounded-lg"
-              >
-                <img
-                  src={pinDetail?.postedBy.image}
-                  className="w-10 h-10 rounded-full"
-                  alt="user-profile"
-                />
-                <p className="font-semibold capitalize">
-                  {pinDetail.postedBy?.userName}
-                </p>
-              </Link>
-            </div>
-            <div className="float-right pt-2 ">
-              {alreadySaved?.length !== 0 ? (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    Unsave(pinDetail._id);
-                  }}
-                  className=" mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
-                >
-                  <AiFillHeart />
-                </button>
-              ) : (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    savePin(pinDetail._id);
-                  }}
-                  type="button"
-                  className="mt-5 bg-gray-400 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
-                >
-                  <AiOutlineHeart />
-                </button>
-              )}
-
-              {pinDetail.postedBy?._id === user.sub ? (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deletePin(pinDetail._id);
-                    navigate("/home");
-                  }}
-                  className="bg-white p-2 rounded-full  items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
-                >
-                  <AiTwotoneDelete />
-                </button>
-              ) : user?.isAdmin == true ? (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deletePin(pinDetail._id);
-                    navigate("/home");
-                  }}
-                  className="bg-white p-2 rounded-full  items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
-                >
-                  <AiTwotoneDelete />
-                </button>
-              ) : null
-              }
-            </div>
+          <div className="justify-center align-center items-center md:items-start flex-initial w-full float-left">
+            <img
+              className="rounded-t-3xl rounded-b-lg px-10 py-10  "
+              src={pinDetail?.image && urlFor(pinDetail?.image).url()}
+              alt="user-post"
+            />
           </div>
+          <div className="w-full p-5  float-right">
+            <div className="w-full  float-root ">
+              <div className="w-48 float-left">
+                <Link
+                  to={`/user-profile/${pinDetail?.postedBy._id}`}
+                  className="flex gap-2 mt-5 items-center bg-white rounded-lg"
+                >
+                  <img
+                    src={pinDetail?.postedBy.image}
+                    className="w-10 h-10 rounded-full"
+                    alt="user-profile"
+                  />
+                  <p className="font-semibold capitalize">
+                    {pinDetail.postedBy?.userName}
+                  </p>
+                </Link>
+              </div>
+              <div className="float-right pt-2 ">
+                {alreadySaved?.length !== 0 ? (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      Unsave(pinDetail._id);
+                    }}
+                    className=" mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                  >
+                    <AiFillHeart />
+                  </button>
+                ) : (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      savePin(pinDetail._id);
+                    }}
+                    type="button"
+                    className="mt-5 bg-gray-400 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                  >
+                    <AiOutlineHeart />
+                  </button>
+                )}
+
+                {pinDetail.postedBy?._id === user.sub ? (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deletePin(pinDetail._id);
+                      navigate("/home");
+                    }}
+                    className="bg-white p-2 rounded-full  items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
+                  >
+                    <AiTwotoneDelete />
+                  </button>
+                ) : user?.isAdmin == true ? (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deletePin(pinDetail._id);
+                      navigate("/home");
+                    }}
+                    className="bg-white p-2 rounded-full  items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
+                  >
+                    <AiTwotoneDelete />
+                  </button>
+                ) : null
+                }
+              </div>
+            </div>
             <div className="align-right pt-16">
               <div>
                 <h1 className="text-4xl font-bold break-words  uppercase">
@@ -239,24 +239,47 @@ const PinDetail = ({ user }) => {
               <div className="flex justify-left items-left flex-col border bg-gray-100">
 
 
-                <p
-                  className="font-bold ml-2.5 ">
-                  {" "}Ingredients:{" "}
-                </p>
-
-                {pinDetail?.ingredientListPost.map((info) => {
-                  return (
-                    <div key={info?._key} className="float-root flex ml-2.5 ">
 
 
-                      <li className="float-left py-4 capitalize flex flex-nowrap">{info.ingredientName}</li>
-                      <li className="float-middle mx-3 pt-4 flex flex-nowrap ">{info.purchasedWeight}g</li>
-                      
+                <div className="container">
+                  <table className="border-separate border-spacing-4 table-auto">
 
-                    </div>
-                  );
-                })}
+                    <thead className="  uppercase font-bold ">
+                      <tr className="text-center" >
+                        <th className="text-left">
+                          ingredients
+                        </th>
 
+
+
+                        <th className="pl-9">
+                          amount
+                        </th>
+                      </tr>
+                    </thead>
+
+
+                    {pinDetail?.ingredientListPost.map((info) => {
+                      return (
+                        <tbody>
+                          <tr key={info?._key} >
+
+                            <td className="text-left">
+                              {info.ingredientName}
+                            </td>
+
+                            <td className="text-center pl-9">
+                              {info.purchasedWeight}
+                            </td>
+
+
+                          </tr>
+                        </tbody>
+                      );
+                    })}
+
+                  </table>
+                </div>
 
                 <p className="font-semibold mb-1 ml-2.5 ">
                   {" "}
@@ -288,17 +311,17 @@ const PinDetail = ({ user }) => {
                       <tbody className="w-96">
                         <tr className="text-center">
 
-                          <td className="flex justify-start  uppercase">Serving Size:</td>
+                          <td className="flex justify-start  uppercase font-extrabold">Serving Size:</td>
                           <td>{(pinDetail?.nutritionPost?.ediblePortionWeight).toFixed(0)}g</td>
                         </tr>
 
                         <tr className="text-center">
 
-                          <td className="flex justify-start  uppercase">Yield Amount:</td>
+                          <td className="flex justify-start  uppercase font-extrabold">number of serving:</td>
                           <td>{pinDetail?.nutritionPost?.yieldAmount}</td>
                         </tr>
-                        
-                        <tr className="text-center">
+
+                        <tr className="text-center border-t-2 border-black ">
 
                           <td className="flex justify-start font-extrabold  ">Energy</td>
                           <td>{(pinDetail?.nutritionPost?.energy).toFixed(0)}kcal</td>
