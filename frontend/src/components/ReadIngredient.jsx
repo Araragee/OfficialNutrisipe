@@ -64,8 +64,8 @@ const ReadIngredient = ({ uploadSuccessAlert, setuploadSuccessAlert }) => {
 
 
         <div className="container">
-          <table className='w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5'></table>
-          <thead lassName="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <table className="w-full  sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr className="bg-nOrange ">
               <th
 
@@ -236,7 +236,7 @@ const ReadIngredient = ({ uploadSuccessAlert, setuploadSuccessAlert }) => {
 
 
 
-
+          </table>
         </div>
 
 

@@ -26,7 +26,7 @@ const CreatePin = ({ user }) => {
   const [wrongImageType, setWrongImageType] = useState(false);
   const [procedure, setProcedure] = useState([]);
   const [ModalOpen, setModalOpen] = useState(false);
-  const [yieldAmount, setYieldAmount] = useState(0);
+  const [yieldAmount, setYieldAmount] = useState("");
 
   //INDICATOR FOR NON INGREDIENT MODAL
   const [nonIngredient, setNonIngredient] = useState(false);
@@ -198,23 +198,23 @@ const CreatePin = ({ user }) => {
       });
 
       // DIVISION FOR YIELD AMOUNT
-        var addFinal = {
-          ediblePortionWeight: add.ediblePortionWeight / yieldAmount,
-          yieldAmount: yieldAmount,
-          energy: add.energy / yieldAmount,
-          prot: add.prot / yieldAmount,
-          fat: add.fat / yieldAmount,
-          carb: add.carb / yieldAmount,
-          calcium: add.calcium / yieldAmount,
-          phos: add.phos / yieldAmount,
-          iron: add.iron / yieldAmount,
-          vitA: add.vitA / yieldAmount,
-          thia: add.thia / yieldAmount,
-          ribo: add.ribo / yieldAmount,
-          nia: add.nia / yieldAmount,
-          vitC: add.vitC / yieldAmount,
-        }
-      
+      var addFinal = {
+        ediblePortionWeight: add.ediblePortionWeight / yieldAmount,
+        yieldAmount: yieldAmount,
+        energy: add.energy / yieldAmount,
+        prot: add.prot / yieldAmount,
+        fat: add.fat / yieldAmount,
+        carb: add.carb / yieldAmount,
+        calcium: add.calcium / yieldAmount,
+        phos: add.phos / yieldAmount,
+        iron: add.iron / yieldAmount,
+        vitA: add.vitA / yieldAmount,
+        thia: add.thia / yieldAmount,
+        ribo: add.ribo / yieldAmount,
+        nia: add.nia / yieldAmount,
+        vitC: add.vitC / yieldAmount,
+      }
+
       setNutrientTable(addFinal);
     }
   }, [finalRecipeObject, yieldAmount]);
@@ -405,19 +405,25 @@ const CreatePin = ({ user }) => {
               className="outline-none text-base sm:text-lg border-b-2 border-gray-200 "
             />
           </div>
-          <p className="font-semibold mt-6">Yield Amount </p>
-          <div className="flex flex-1 flex-col gap-6  mt-2 w-auto">
+
+
+          <p className="font-semibold mt-6">Add Ingredient to the list: </p>
+
+          <label class="block uppercase tracking-wide text-gray-700 text-xs font-semibold pt-4">
+            number of serving
+          </label>
+          <div className="flex flex-nowrap  pb-4 ">
             <input
-              type="text"
+              type="number"
+              step="1"
+              min="0"
               value={yieldAmount}
               onChange={(e) => setYieldAmount(e.target.value)}
               placeholder="Yield Amount"
-              className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              className=" block p-2 w-36 h-9 bg-white outline-none border rounded-lg "   
             />
           </div>
-
-          <p className="font-semibold mt-6">Add Ingredient to the list: </p>
-          <div className="h-56 grid  content-evenly w-auto float-root flex items-stretch ">
+          <div className="h-auto grid  content-evenly w-auto float-root flex items-stretch ">
             {/* NUTRIENT MODULE */}
             {ingredientFields && (
               <p className="text-nGreen mr-5 text-medium transition-all duration-150 ease-in ">
@@ -425,6 +431,12 @@ const CreatePin = ({ user }) => {
               </p>
             )}
             <div className="float-left py-4 bg-gray-200 rounded pl-3 pr-3">
+
+
+
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-semibold ">
+                Search
+              </label>
               <div className="flex flex-nowrap flex-1 flex-col gap-6 w-auto ">
                 <input
                   type="text"
@@ -468,7 +480,10 @@ const CreatePin = ({ user }) => {
               </div>
               {/* amount */}
               {ingredientDropDown.length == 0 && (
-                <div className="float-left py-4 pl-2 ">
+                <div className="float-left py-4  ">
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-semibold ">
+                    Amount
+                  </label>
                   <div className=" flex flex-nowrap ">
                     {/* <div class="flex flex-nowrap"> */}
                     <input
@@ -688,11 +703,11 @@ const CreatePin = ({ user }) => {
 
                         <tr className="text-center">
 
-                          <td className="flex justify-start  uppercase">Yield Amount:</td>
+                          <td className="flex justify-start  uppercase">number of serving:</td>
                           <td>{nutrientTable.yieldAmount}</td>
                         </tr>
 
-                        <tr className="text-center">
+                        <tr className="text-center border-t-2 border-black">
 
                           <td className="flex justify-start  uppercase">energy</td>
                           <td>{(nutrientTable.energy).toFixed(0)}g</td>
@@ -773,7 +788,7 @@ const CreatePin = ({ user }) => {
 
                 <div className="mt-3 mb-4">
                   <button
-                    className="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
+                    className="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-nGreen  text-white hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nOrange duration-300"
                     onClick={ModalHandlerClose}
                   >
                     close
@@ -844,7 +859,7 @@ const CreatePin = ({ user }) => {
                     value={item.name}
                   >
                     {item.name}
-                  </option> 
+                  </option>
                 ))}
               </select>
             </div>
