@@ -1,12 +1,18 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { IconContext } from 'react-icons';
-import { IoMdAdd, IoMdSearch } from 'react-icons/io';
+import { IoMdAdd, IoMdSearch, IoIosNotifications } from 'react-icons/io';
 import { BiFoodMenu } from 'react-icons/bi';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Navbar = ({ searchTerm, setSearchTerm, user }) => {
+const Navbar = ({ searchTerm, setSearchTerm, user, socket }) => {
   const navigate = useNavigate();
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
 
   if (user) {
     return (
@@ -26,24 +32,35 @@ const Navbar = ({ searchTerm, setSearchTerm, user }) => {
             className="p-2 w-full bg-white outline-none"
           />
         </div>
-        <div className="flex gap-3 ">
-          <Link to={`user-profile/${user?._id}`} className="hidden md:block">
-            <img src={user.image} alt="user-pic" className="w-14 h-12 rounded-lg " />
+<div className="flex gap-3 ">
+  <div className="relative flex gap-2">
+    <button className="text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" alt="Click this to view user profile" aria-label="Click this to view user profile" style={{ backgroundColor: '#008083' }} onClick={toggleDropdown}>
+      <img src={user.image} alt="user-pic" className="w-14 h-12 rounded-lg" />
+    </button>
+    <div className="relative">
+      <button className="text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" alt="Click this to create recipe" aria-label="Proceed to create recipe when clicked" style={{ backgroundColor: '#008083' }}>
+        <IoIosNotifications />
+      </button>
+      {showDropdown && (
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+          <Link to="/create-pin" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white" alt="Click this to create recipe" aria-label="Proceed to create recipe when clicked">
+            <IoMdAdd className="inline-block mr-2" />
+            Add Recipe
           </Link>
-          {/* add recipe */}
-          <Link to="/create-pin" className="text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" alt="Click this to create recipe" aria-label="Proceed to create recipe when clicked" style={{ backgroundColor: '#008083' }}>
-            <IoMdAdd />
-          </Link>
-          {user.isAdmin
-            && (
-              // admin
-              <Link to="/create-ingredient" className="bg-black text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" aria-label="Input ingredient here" alt="Input Ingredient here">
-                <IconContext.Provider value={{ color: '#FF9F1C', className: 'global-class-name', background: '#008083' }}>
-                  <BiFoodMenu />
-                </IconContext.Provider>
-              </Link>
-            )}
+          {user.isAdmin && (
+            <Link to="/create-ingredient" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white" aria-label="Input ingredient here" alt="Input Ingredient here">
+              <IconContext.Provider value={{ color: '#FF9F1C', className: 'global-class-name', background: '#008083' }}>
+                <BiFoodMenu className="inline-block mr-2"/>
+                Add Ingredient
+              </IconContext.Provider>
+            </Link>
+          )}
         </div>
+      )}
+    </div>
+  </div>
+</div>
+
       </div>
     );
   }

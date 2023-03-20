@@ -6,20 +6,11 @@ import { AiTwotoneDelete } from 'react-icons/ai';
 import { client, urlFor } from '../client';
 
 const Pin = ({ pin }) => {
+  const navigate = useNavigate();
   const [postHovered, setPostHovered] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
-  const navigate = useNavigate();
-  const { postedBy, image, _id } = pin;
+  const { postedBy, image, _id} = pin;
 
-  // delete a post
-  const deletePin = (id) => {
-    client
-      .delete(id)
-      .then(() => {
-        window.location.reload(false);
-      });
-      
-  };
   const user = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
 
   let alreadySaved = pin?.save?.filter((item) => item?.postedBy?._id === user?.sub);
@@ -43,12 +34,21 @@ const Pin = ({ pin }) => {
         }])
         .commit()
         .then(() => {
-          window.location.reload(false);
           setSavingPost(false);
         });
     }
   };
+  
 
+  // delete a post
+  const deletePin = (id) => {
+    client
+      .delete(id)
+      .then(() => {
+        window.location.reload(false);
+      });
+      
+  };
   // unsave a post
   const Unsave = (id) => {
     const ToRemove = [`save[userId=="${user?.sub}"]`];

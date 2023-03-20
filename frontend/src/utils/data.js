@@ -108,7 +108,7 @@ const fakeDataIng = [
 ]
 
 
-export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
+export const feedQuery = `*[_type == "pin" && !isHidden] | order(_createdAt desc) {
   image{
     asset->{
       url
@@ -209,7 +209,8 @@ export const pinDetailQuery = (pinId) => {
         userName,
         image
       },
-    }
+    },
+    isHidden,
   }`;
   return query;
 };
