@@ -71,5 +71,11 @@ export default {
       name: "created_at",
       type: "datetime",
     },
+    {
+      name: 'isHidden',
+      title: 'Is Hidden',
+      type: 'boolean',
+      default: false,
+    },
   ],
 };

@@ -14,7 +14,7 @@ const Feed = () => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
   const [text, setText] = useState('All Recipes');
-  const [activeBtn, setActiveBtn] = useState();
+  const [activeBtn, setActiveBtn] = useState('All Recipes');
   const { userId } = useParams();
   const { categoryId } = useParams();
 
@@ -80,7 +80,7 @@ const Feed = () => {
               type="button"
               onClick={(e) => {
                 setText(e.target.textContent);
-                setActiveBtn('Following FYP');
+                setActiveBtn('For you');
               }}
               className={`${activeBtn === 'For you' ? activeBtnStyles : notActiveBtnStyles}`}
             >

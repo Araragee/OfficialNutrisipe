@@ -32,6 +32,10 @@ const PinDetail = ({ user }) => {
       ? JSON.parse(localStorage.getItem("user"))
       : localStorage.clear();
 
+      const isLoggedInUser = User && User.sub === pinDetail?.postedBy?._id;
+      const isHidden = pinDetail?.isHidden;
+
+      
   let alreadySaved = pinDetail?.save?.filter(
     (item) => item?.postedBy?._id === User?.sub
   );
@@ -84,6 +88,9 @@ const PinDetail = ({ user }) => {
     }
   };
 
+  console.log(User)
+  console.log(pinDetail?.postedBy?._id)
+
   // unsave a post
   const Unsave = (id) => {
     const ToRemove = [`save[userId=="${User.sub}"]`];
@@ -111,6 +118,25 @@ const PinDetail = ({ user }) => {
     // window.location.reload();
   };
 
+  const hidePin = (id) => {
+    client
+      .patch(id)
+      .set({ isHidden: true })
+      .commit()
+      .then(() => {
+        window.location.reload(false);
+      });
+  };
+  const unhidePin = (id) => {
+    client
+      .patch(id)
+      .set({ isHidden: false })
+      .commit()
+      .then(() => {
+        window.location.reload(false);
+      });
+  };
+  
   useEffect(() => {
     fetchPinDetails();
   }, [pinId]);
@@ -210,7 +236,7 @@ const PinDetail = ({ user }) => {
                   >
                     <AiTwotoneDelete />
                   </button>
-                ) : user?.isAdmin == true ? (
+                ) : user?.isAdmin === true ? (
                   <button
                     type="button"
                     onClick={(e) => {
@@ -224,6 +250,18 @@ const PinDetail = ({ user }) => {
                   </button>
                 ) : null
                 }
+
+<>
+    {isLoggedInUser && (
+      <>
+        {isHidden ? (
+          <button onClick={() => unhidePin(pinDetail._id)}>Unhide</button>
+        ) : (
+          <button onClick={() => hidePin(pinDetail._id)}>Hide</button>
+        )}
+      </>
+    )}
+  </>
               </div>
             </div>
             <div className="align-right pt-16">

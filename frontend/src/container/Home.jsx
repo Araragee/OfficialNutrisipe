@@ -2,20 +2,21 @@ import React, { useState, useRef, useEffect } from 'react'
 import { HiMenu } from 'react-icons/hi';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { Link, Route, Routes } from 'react-router-dom';
-
 import { Sidebar, UserProfile, Followers, Following } from '../components';
 import Pins from './Pins';
 import { client } from '../client';
 import logoss from '../assets/logo2s.png';
-
 import { userQuery } from '../utils/data';
+
 
 const Home = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [user, setUser] = useState();
   const scrollRef = useRef(null);
 
+
   const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
+
 
   useEffect(() => {
     const query = userQuery(userInfo?.sub);
