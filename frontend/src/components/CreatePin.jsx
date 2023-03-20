@@ -312,6 +312,8 @@ const CreatePin = ({ user }) => {
         category,
         ingredientListPost: listadd,
         nutritionPost: nutrientTable,
+        isHidden: false
+
       };
       client.create(doc).then(() => {
         navigate("/");
