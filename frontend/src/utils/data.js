@@ -12,29 +12,29 @@ import veg from '../assets/categories/veg.jpg';
 export const metrics = [
   {
     name: 'Tbsp',
-    
+
   },
   {
     name: 'Kg',
-   
+
   },
   {
     name: 'Grams',
-    
+
   },
   {
     name: 'Protein',
-    
+
   },
   {
     name: 'Fruits',
-  
+
   },
   {
     name: 'Fish and Seafoods',
-    
+
   },
-  
+
 ];
 
 export const categories = [
@@ -133,9 +133,9 @@ export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
         },
       },
     } `;
-    
-    export const userFollowingPost = (userId) => {
-      const query = `*[_type == "pin" && userId in *[_type == "user" && id == '${userId}'].following[].userId] | order(_createdAt desc) {
+
+export const userFollowingPost = (userId) => {
+  const query = `*[_type == "pin" && userId in *[_type == "user" && id == '${userId}'].following[].userId] | order(_createdAt desc) {
         image{
           asset->{
             url
@@ -160,15 +160,15 @@ export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
               },
             },
           }`;
-      return query;
-    };
-    export const adminUsers = (userId) => {
-     const query = `*[_type == "user" && isAdmin == true && id =='${userId}'] {
+  return query;
+};
+export const adminUsers = (userId) => {
+  const query = `*[_type == "user" && isAdmin == true && id =='${userId}'] {
         _id
       }`;
-      return query;
-    }
-    export const allUser = `*[_type == 'user']
+  return query;
+}
+export const allUser = `*[_type == 'user']
     {
       _id,
       image,
@@ -283,7 +283,7 @@ export const userSearch = (searchTerm) => {
   }`;
   return query;
 };
- 
+
 
 
 export const userCreatedPinsQuery = (userId) => {
@@ -376,8 +376,8 @@ export const ingredientBaseValue = (pinDetail) => {
   }`;
   return query;
 };
-  export const fetchIngredientValue = (pinDetail) => {
-    const query = `*[ingAdminName == '${pinDetail?.ingredient}'].baseSize[]
+export const fetchIngredientValue = (pinDetail) => {
+  const query = `*[ingAdminName == '${pinDetail?.ingredient}'].baseSize[]
     {
       calcium,
       calories,
@@ -394,7 +394,7 @@ export const ingredientBaseValue = (pinDetail) => {
       vitaminA,
       vitaminC,
     }`;
-    return query;
+  return query;
 };
 
 
@@ -439,7 +439,7 @@ export const allIngredientsQuery = `*[_type == 'ingredientData']{
 
 
 export const searchIngredientQuery = (searchIngredientTerm) => {
-  const query = `*[_type == 'ingredientData'  && foodItem || altName match '${searchIngredientTerm}*' ]{
+  const query = `*[_type == 'ingredientData'  && foodItem match '${searchIngredientTerm}*' || altName match '${searchIngredientTerm}*' ]{
     foodItem,
     altName,
     ediblePortion,
