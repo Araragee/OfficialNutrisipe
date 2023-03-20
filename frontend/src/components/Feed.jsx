@@ -13,8 +13,8 @@ const Feed = () => {
   const [pins, setPins] = useState();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
-  const [text, setText] = useState('All Recipes');
-  const [activeBtn, setActiveBtn] = useState('All Recipes');
+  const [text, setText] = useState('All');
+  const [activeBtn, setActiveBtn] = useState('All');
   const { userId } = useParams();
   const { categoryId } = useParams();
 
@@ -37,7 +37,7 @@ const Feed = () => {
         setLoading(false);
       });
     };
-    if (text === 'All Recipes') {
+    if (text === 'All') {
       setLoading(true);
       client.fetch(feedQuery).then((data) => {
         setPins(data);
@@ -69,22 +69,22 @@ const Feed = () => {
               type="button"
               onClick={(e) => {
                 setText(e.target.textContent);
-                setActiveBtn('All Recipes');
+                setActiveBtn('All');
               }}
-              className={`${activeBtn === 'All Recipes' ? activeBtnStyles : notActiveBtnStyles}`}
+              className={`${activeBtn === 'All' ? activeBtnStyles : notActiveBtnStyles}`}
               
             >
-              All Recipes
+              All
             </button>
             <button
               type="button"
               onClick={(e) => {
                 setText(e.target.textContent);
-                setActiveBtn('For you');
+                setActiveBtn('Following');
               }}
-              className={`${activeBtn === 'For you' ? activeBtnStyles : notActiveBtnStyles}`}
+              className={`${activeBtn === 'Following' ? activeBtnStyles : notActiveBtnStyles}`}
             >
-              For you
+              Following
             </button>
           </div>
       {pins && (
