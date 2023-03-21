@@ -2,21 +2,19 @@ import React, { useState, useRef, useEffect } from 'react'
 import { HiMenu } from 'react-icons/hi';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { Link, Route, Routes } from 'react-router-dom';
-import { Sidebar, UserProfile, Followers, Following } from '../components';
+import { Sidebar, UserProfile} from '../components';
 import Pins from './Pins';
 import { client } from '../client';
 import logoss from '../assets/logo2s.png';
 import { userQuery } from '../utils/data';
 
 
+
 const Home = () => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [user, setUser] = useState();
   const scrollRef = useRef(null);
-
-
   const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
-
 
   useEffect(() => {
     const query = userQuery(userInfo?.sub);
@@ -49,15 +47,13 @@ const Home = () => {
           <div className="absolute w-full flex justify-end items-center p-2">
             <AiFillCloseCircle fontSize={30} className="cursor-pointer" onClick={() => setToggleSidebar(false)} />
           </div>
-          <Sidebar closeToggle={setToggleSidebar} user={user && user} />
+          <Sidebar closeToggle={setToggleSidebar} user={user && user}/>
         </div>
         )}
       </div>
       <div className="pb-2 flex-1 h-screen overflow-y-scroll" ref={scrollRef}>
         <Routes>
           <Route path="/user-profile/:userId" element={<UserProfile />} />
-          <Route path="/user-profile/:userId/followers" element={<Followers />} />
-          <Route path="/user-profile/:userId/following" element={<Following />} /> 
           <Route path="/*" element={<Pins user={user && user} />} />
         </Routes>
       </div>

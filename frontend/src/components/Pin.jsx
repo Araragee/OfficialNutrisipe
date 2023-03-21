@@ -5,31 +5,30 @@ import { v4 as uuidv4 } from 'uuid';
 import { AiTwotoneDelete } from 'react-icons/ai';
 import { client, urlFor } from '../client';
 
-const Pin = ({ pin }) => {
+const Pin = ({ pin, socket, user }) => {
   const navigate = useNavigate();
   const [postHovered, setPostHovered] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
   const { postedBy, image, _id} = pin;
 
-  const user = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
+  const User = localStorage.getItem('User') !== 'undefined' ? JSON.parse(localStorage.getItem('User')) : localStorage.clear();
 
-  let alreadySaved = pin?.save?.filter((item) => item?.postedBy?._id === user?.sub);
+  let alreadySaved = pin?.save?.filter((item) => item?.postedBy?._id === User?.sub);
 
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
 
   const savePin = (id) => {
     if (alreadySaved?.length === 0) {
       setSavingPost(true);
-
       client
         .patch(id)
         .setIfMissing({ save: [] })
         .insert('after', 'save[-1]', [{
           _key: uuidv4(),
-          userId: user?.sub,
+          userId: User?.sub,
           postedBy: {
             _type: 'postedBy',
-            _ref: user?.sub,
+            _ref: User?.sub,
           },
         }])
         .commit()
@@ -51,7 +50,7 @@ const Pin = ({ pin }) => {
   };
   // unsave a post
   const Unsave = (id) => {
-    const ToRemove = [`save[userId=="${user?.sub}"]`];
+    const ToRemove = [`save[userId=="${User?.sub}"]`];
     client
       .patch(id)
       .unset(ToRemove)
@@ -71,7 +70,7 @@ const Pin = ({ pin }) => {
       >
 
         {image && (
-        <img className="rounded-lg w-full " src={(urlFor(image).width(250).url())} alt="user-post" />)}
+        <img className="rounded-lg w-full " src={(urlFor(image).width(250).url())} alt="User-post" />)}
         {postHovered && (
           <div
             className="absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50"
@@ -103,7 +102,7 @@ const Pin = ({ pin }) => {
                 </button>
               )}
 
-              {postedBy?._id === user?.sub && (
+              {postedBy?._id === User?.sub && (
                 <button
                   type="button"
                   onClick={(e) => {
@@ -119,11 +118,11 @@ const Pin = ({ pin }) => {
           </div>
         )}
       </div>
-      <Link to={`/user-profile/${postedBy?._id}`} className="flex gap-2 mt-2 items-center">
+      <Link to={`/User-profile/${postedBy?._id}`} className="flex gap-2 mt-2 items-center">
         <img
           className="w-8 h-8 rounded-full object-cover"
           src={postedBy?.image}
-          alt="user-profile"
+          alt="User-profile"
         />
         <p className="font-semibold capitalize">{postedBy?.userName}</p>
       </Link>
