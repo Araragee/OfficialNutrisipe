@@ -22,11 +22,13 @@ const getUser = (username) => {
 
 io.on("connection", (socket) => {
 
+  console.log("Someone Connected")
   socket.on("newUser", (username) => {
       addNewUser(username, socket.id);
   })
 
   socket.on("disconnect", ()=> {
+    console.log("Someone Disconnected")
     removeUser(socket.Id);
   });
 });

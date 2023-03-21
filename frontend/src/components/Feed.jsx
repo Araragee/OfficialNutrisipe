@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchUser } from '../utils/fetchUser';
 import { client } from '../client';
 import { feedQuery, searchQuery, userQuery, userFollowingPost } from '../utils/data';
 import MasonryLayout from './MasonryLayout';

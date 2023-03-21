@@ -17,15 +17,18 @@ import {
 } from "../utils/data";
 import Spinner from "./Spinner";
 
-const PinDetail = ({ user }) => {
+const PinDetail = ({ user, socket }) => {
+  const navigate = useNavigate();
   const { pinId } = useParams();
   const [pins, setPins] = useState();
   const [pinDetail, setPinDetail] = useState();
   const [comment, setComment] = useState("");
   const [addingComment, setAddingComment] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
-
-  const navigate = useNavigate();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
 
   const User =
     localStorage.getItem("user") !== "undefined"
@@ -35,7 +38,7 @@ const PinDetail = ({ user }) => {
       const isLoggedInUser = User && User.sub === pinDetail?.postedBy?._id;
       const isHidden = pinDetail?.isHidden;
 
-      
+
   let alreadySaved = pinDetail?.save?.filter(
     (item) => item?.postedBy?._id === User?.sub
   );
@@ -87,9 +90,6 @@ const PinDetail = ({ user }) => {
         });
     }
   };
-
-  console.log(User)
-  console.log(pinDetail?.postedBy?._id)
 
   // unsave a post
   const Unsave = (id) => {
@@ -199,7 +199,8 @@ const PinDetail = ({ user }) => {
                   </p>
                 </Link>
               </div>
-              <div className="float-right pt-2 ">
+
+              <div className="float-right pt-2">
                 {alreadySaved?.length !== 0 ? (
                   <button
                     type="button"
@@ -207,7 +208,7 @@ const PinDetail = ({ user }) => {
                       e.stopPropagation();
                       Unsave(pinDetail._id);
                     }}
-                    className=" mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                    class= "mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                   >
                     <AiFillHeart />
                   </button>
@@ -218,7 +219,7 @@ const PinDetail = ({ user }) => {
                       savePin(pinDetail._id);
                     }}
                     type="button"
-                    className="mt-5 bg-gray-400 opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                    class= "mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                   >
                     <AiOutlineHeart />
                   </button>
@@ -232,7 +233,7 @@ const PinDetail = ({ user }) => {
                       deletePin(pinDetail._id);
                       navigate("/home");
                     }}
-                    className="bg-white p-2 rounded-full  items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
+                    class= "mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                   >
                     <AiTwotoneDelete />
                   </button>
@@ -244,26 +245,43 @@ const PinDetail = ({ user }) => {
                       deletePin(pinDetail._id);
                       navigate("/home");
                     }}
-                    className="bg-white p-2 rounded-full  items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
+                    class= "mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                   >
                     <AiTwotoneDelete />
                   </button>
                 ) : null
                 }
-
-<>
-    {isLoggedInUser && (
-      <>
-        {isHidden ? (
-          <button onClick={() => unhidePin(pinDetail._id)}>Unhide</button>
-        ) : (
-          <button onClick={() => hidePin(pinDetail._id)}>Hide</button>
-        )}
-      </>
-    )}
-  </>
+                {user?.isAdmin === true ? (null) : 
+              pinDetail.postedBy?._id !== User.sub ? (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.location.href ='mailto:nutrisipe@gmail.com?subject=Report Recipe';
+                }}
+                className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
+              >
+                <BsExclamationCircle />
+              </button>
+            ) : null
+              }
+                  <>
+                      {isLoggedInUser && (
+                        <>
+                          {isHidden ? (
+                            <button class= "mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none" onClick={() => unhidePin(pinDetail._id)}>Unhide</button>
+                          ) : (
+                            <button class= "mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none" onClick={() => hidePin(pinDetail._id)}>Hide</button>
+                          )}
+                        </>
+                      )}
+                    </>
               </div>
+
+              
             </div>
+
+
             <div className="align-right pt-16">
               <div>
                 <h1 className="text-4xl font-bold break-words  uppercase">
@@ -275,10 +293,6 @@ const PinDetail = ({ user }) => {
               </p>
               {/* border for ingre */}
               <div className="flex justify-left items-left flex-col border bg-gray-100">
-
-
-
-
                 <div className="container">
                   <table className="border-separate border-spacing-4 table-auto">
 
@@ -287,8 +301,6 @@ const PinDetail = ({ user }) => {
                         <th className="text-left">
                           ingredients
                         </th>
-
-
 
                         <th className="pl-9">
                           amount
