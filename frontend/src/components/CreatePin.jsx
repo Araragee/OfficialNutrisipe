@@ -334,7 +334,7 @@ const CreatePin = ({ user }) => {
         <div className="bg-secondaryColor p-3 flex flex-0.7 w-full">
           <div className=" flex justify-center items-center flex-col border-2 border-dotted border-blue-400 p-3 w-full h-420">
             {loading && <Spinner />}
-            {wrongImageType && <p>It&apos;s wrong file type.</p>}
+            {wrongImageType && <p>Invalid File Type</p>}
             {!imageAsset ? (
               // eslint-disable-next-line jsx-a11y/label-has-associated-control
               <label>
@@ -868,7 +868,7 @@ const CreatePin = ({ user }) => {
             <div className="flex justify-end items-end mt-5">
               {fields && (
                 <p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
-                  Please add all fields.
+                  Please fill all fields.
                 </p>
               )}
               <button
