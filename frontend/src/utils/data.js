@@ -132,6 +132,7 @@ export const feedQuery = `*[_type == "pin" && !isHidden] | order(_createdAt desc
           image
         },
       },
+      isHidden,
     } `;
 
 export const userFollowingPost = (userId) => {
@@ -239,6 +240,7 @@ export const pinDetailMorePinQuery = (pin) => {
         image
       },
     },
+    isHidden,
   }`;
   return query;
 };
@@ -311,6 +313,7 @@ export const userCreatedPinsQuery = (userId) => {
         image
       },
     },
+    isHidden,
   }`;
   return query;
 };

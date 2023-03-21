@@ -312,6 +312,7 @@ const CreatePin = ({ user }) => {
         category,
         ingredientListPost: listadd,
         nutritionPost: nutrientTable,
+        isHidden: false
       };
       client.create(doc).then(() => {
         navigate("/");
@@ -319,7 +320,6 @@ const CreatePin = ({ user }) => {
       });
     } else {
       setFields(true);
-
       setTimeout(() => {
         setFields(false);
       }, 2000);
