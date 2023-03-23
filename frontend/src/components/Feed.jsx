@@ -18,7 +18,6 @@ const Feed = () => {
   const { categoryId } = useParams();
 
   const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
-
   useEffect(() => {
     const query = userQuery(userInfo?.sub);
     client.fetch(query).then((data) => {
@@ -45,7 +44,7 @@ const Feed = () => {
     } 
     else {
       setLoading(true);
-        const followingpost = userFollowingPost(user.id);
+        const followingpost = userFollowingPost(userInfo?.sub);
         client.fetch(followingpost)
         .then((data) => {
          setPins(data);

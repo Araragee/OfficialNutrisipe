@@ -17,6 +17,7 @@ const Home = () => {
   const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
   const [socket, setSocket] = useState(null);
 
+
   
   useEffect(() => {
     const query = userQuery(userInfo?.sub);
@@ -29,13 +30,13 @@ const Home = () => {
     scrollRef.current.scrollTo(0, 0);
   });
  
-  useEffect(() => {
-    setSocket(io("http://localhost:5000"))
-  }, [])
+  // useEffect(() => {
+  //   setSocket(io("http://localhost:5000"))
+  // }, [])
 
-  useEffect(() => {
-    socket?.emit("newUser", user);
-  }, [socket, user]);
+  // useEffect(() => {
+  //   socket?.emit("newUser", user);
+  // }, [socket, user]);
   
   return (
     <div className="flex bg-gray-50 md:flex-row flex-col h-screen transition-height duration-75 ease-out">
