@@ -16,8 +16,10 @@ import {
   fetchIngredientValue,
 } from "../utils/data";
 import Spinner from "./Spinner";
+import {io} from "socket.io-client"
 
-const PinDetail = ({ user, socket }) => {
+
+const PinDetail = ({ user }) => {
   const navigate = useNavigate();
   const { pinId } = useParams();
   const [pins, setPins] = useState();
@@ -26,6 +28,9 @@ const PinDetail = ({ user, socket }) => {
   const [addingComment, setAddingComment] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const socket = io("http://localhost:5000");
+
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
@@ -44,6 +49,16 @@ const PinDetail = ({ user, socket }) => {
   );
 
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
+
+
+  const handleNotification = (type) => {
+    type === 1 && setLiked(true);
+    socket.emit("sendNotification", {
+      senderName:  user,
+      receiverName: pinDetail?.postedBy.userName,
+      type, 
+    });
+  };
 
   const fetchPinDetails = () => {
     const query = pinDetailQuery(pinId);
@@ -86,6 +101,7 @@ const PinDetail = ({ user, socket }) => {
         .commit()
         .then(() => {
           setSavingPost(false);
+          handleNotification(1);
           fetchPinDetails();
         });
     }
@@ -160,10 +176,16 @@ const PinDetail = ({ user, socket }) => {
           fetchPinDetails();
           setComment("");
           setAddingComment(false);
+          handleNotification(2);
         });
     }
   };
-
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log("Socket connection established");
+    });
+  }, []);
+  
   if (!pinDetail) {
     return <Spinner message="Loading Recipe" />;
   }
@@ -217,6 +239,7 @@ const PinDetail = ({ user, socket }) => {
                     onClick={(e) => {
                       e.stopPropagation();
                       savePin(pinDetail._id);
+                      
                     }}
                     type="button"
                     class= "mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
@@ -277,8 +300,6 @@ const PinDetail = ({ user, socket }) => {
                       )}
                     </>
               </div>
-
-              
             </div>
 
 

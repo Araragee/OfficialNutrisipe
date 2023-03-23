@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { IoIosArrowForward } from 'react-icons/io';
 import { RiHomeFill, RiUserFollowLine } from 'react-icons/ri';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/logo2s.png';
 import { categories } from '../utils/data';
+import io from 'socket.io-client';
 
 const isNotActiveStyle = 'flex items-center px-5 gap-3 text-gray-500 hover:text-nOrange transition-all duration-200 ease-in-out capitalize';
 const isActiveStyle = 'flex items-center px-5 gap-3 font-extrabold border-r-2 border-black  transition-all duration-200 ease-in-out capitalize';
 
 const Sidebar = ({ closeToggle, user }) => {
-  
+const [notifications, setNotifications] = useState([])
+
   const handleCloseSidebar = () => {
     if (closeToggle) closeToggle(false);
   };
 
+  
   return (
     <div className="flex flex-col justify-between bg-white h-full overflow-y-scroll min-w-210 hide-scrollbar">
       <div className="flex flex-col">
