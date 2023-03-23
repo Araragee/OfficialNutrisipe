@@ -605,7 +605,7 @@ const CreatePin = ({ user }) => {
 
           <div className="flex justify-left items-left flex-col  w-full ">
             <p className="font-semibold"> Ingredient List: </p>
-            {finalRecipeObject.map((info, i) => {
+            {/* {finalRecipeObject.map((info, i) => {
               return (
                 <div key={i} className="float-root  flex full">
                   <div className=" float-left  py-4 ">
@@ -638,9 +638,10 @@ const CreatePin = ({ user }) => {
                   >
                     Delete
                   </button>
-                </div>
-              );
-            })}{finalNonRecipeObject.map((info, i) => {
+                </div> */}
+
+
+            {/* {finalNonRecipeObject.map((info, i) => {
               return (
                 <div key={i} className="float-root  flex full">
                   <div className=" float-left  py-4 ">
@@ -675,7 +676,83 @@ const CreatePin = ({ user }) => {
                   </button>
                 </div>
               );
-            })}{" "}
+            })} */}
+            
+            <div class="flex flex-col">
+  <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+      <div class="overflow-hidden">
+        <table class="min-w-full">
+        <thead class="bg-white border-b">
+            <tr>
+              <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
+                Ingredients
+              </th>
+              <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
+               Edible Weight
+              </th>
+              <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
+               As Purchased
+              </th>
+              <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
+                
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+		{finalRecipeObject.map((info, i) => {
+    return (
+            <tr  key={i} class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{info.ingredientName}</td>
+              <td class="text-sm text-gray-900 font-simibold px-6 py-4 whitespace-nowrap">
+                {info.ediblePortionWeight + "g"}
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                 {info.purchasedWeight + "g"}
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                 <button
+          className=" pt-1 text-nRed mx-4  text-xs font-bold text-center  p-1 "
+          onClick={() => deleteFinalRecipeObjectHandler(i)}
+        >
+          Delete
+        </button>
+              </td>
+            </tr>
+                
+              );
+            })}
+
+		 {finalNonRecipeObject.map((info, i) => {
+              return (
+	<tr  key={i} class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{info.ingredientName}</td>
+              <td class="text-sm text-gray-900 font-simibold px-6 py-4 whitespace-nowrap">
+                 {info.ediblePortionWeight + "g"}
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                 {info.purchasedWeight + "g"}
+              </td>
+              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                 <button
+          className=" pt-1 text-nRed mx-4  text-xs font-bold text-center  p-1 "
+          onClick={() => deleteFinalRecipeObjectHandler(i)}
+        >
+          Delete
+        </button>
+              </td>
+            </tr>
+	 );
+            })}
+
+</tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+            
+            {" "}
           </div>
 
           {ModalOpen && (
@@ -690,91 +767,91 @@ const CreatePin = ({ user }) => {
                   </div>
 
                   <div className="flex justify-between font-bold border-b-8 border-black"></div>
-                  <div className="flex justify-between items-end font-extrabold">
+                  <div className="flex justify-between items-end ">
                     <table className='w-full'>
 
 
                       <tbody className="w-full">
                         <tr className="text-center">
 
-                          <td className="flex justify-start  uppercase">Serving Size:</td>
+                          <td className="flex justify-start  uppercase font-extrabold">Serving Size:</td>
                           <td>{(nutrientTable.ediblePortionWeight).toFixed(0)}g</td>
                         </tr>
 
                         <tr className="text-center">
 
-                          <td className="flex justify-start  uppercase">number of serving:</td>
+                          <td className="flex justify-start  uppercase font-extrabold">number of serving:</td>
                           <td>{nutrientTable.yieldAmount}</td>
                         </tr>
 
                         <tr className="text-center border-t-2 border-black">
 
-                          <td className="flex justify-start  uppercase">energy</td>
-                          <td>{(nutrientTable.energy).toFixed(0)}g</td>
+                          <td className="flex justify-start   font-extrabold">Energy</td>
+                          <td>{(nutrientTable.energy).toFixed(0)}kcal</td>
                         </tr>
 
                         <tr className="text-center">
 
-                          <td className="flex justify-start  uppercase">protein</td>
+                          <td className="flex justify-start  font-extrabold">Protein</td>
                           <td>{(nutrientTable.prot).toFixed(1)}g</td>
                         </tr>
                         <tr className="text-center">
 
-                          <td className="flex justify-star  uppercase">fat</td>
+                          <td className="flex justify-star   font-extrabold">Fat</td>
                           <td>{(nutrientTable.fat).toFixed(1)}g</td>
                         </tr>
 
                         <tr className="text-center ">
 
-                          <td className="flex justify-start  uppercase">carbohydrate</td>
+                          <td className="flex justify-start   font-extrabold">Carbohydrate</td>
                           <td>{(nutrientTable.carb).toFixed(1)}g</td>
                         </tr>
 
                         <tr className="text-center border-t-4 border-black">
 
-                          <td className="flex justify-start">calcium</td>
-                          <td>{(nutrientTable.calcium).toFixed(1)}g</td>
+                          <td className="flex justify-start font-bold">Calcium</td>
+                          <td>{(nutrientTable.calcium).toFixed(1)}mg</td>
                         </tr>
 
                         <tr className="text-center">
 
-                          <td className="flex justify-start">phosporus</td>
-                          <td>{(nutrientTable.phos).toFixed(1)}g</td>
+                          <td className="flex justify-start font-bold">Phosporus</td>
+                          <td>{(nutrientTable.phos).toFixed(1)}mg</td>
                         </tr>
 
                         <tr className="text-center">
 
-                          <td className="flex justify-start">iron</td>
-                          <td>{(nutrientTable.iron).toFixed(1)}g</td>
+                          <td className="flex justify-start font-bold">Iron</td>
+                          <td>{(nutrientTable.iron).toFixed(1)}mg</td>
                         </tr>
 
                         <tr className="text-center">
 
-                          <td className="flex justify-start">vitamin A</td>
-                          <td>{(nutrientTable.vitA).toFixed(1)}g</td>
+                          <td className="flex justify-start font-bold">Vitamin A</td>
+                          <td>{(nutrientTable.vitA).toFixed(1)}mcg</td>
                         </tr>
 
                         <tr className="text-center">
 
-                          <td className="flex justify-start">thiamine</td>
-                          <td>{(nutrientTable.thia).toFixed(1)}g</td>
+                          <td className="flex justify-start font-bold">Thiamine</td>
+                          <td>{(nutrientTable.thia).toFixed(1)}mg</td>
                         </tr>
                         <tr className="text-center">
 
-                          <td className="flex justify-start">riboflavin</td>
-                          <td>{(nutrientTable.ribo).toFixed(1)}g</td>
-                        </tr>
-
-                        <tr className="text-center">
-
-                          <td className="flex justify-start">niacin</td>
-                          <td>{(nutrientTable.nia).toFixed(1)}g</td>
+                          <td className="flex justify-start font-bold">Riboflavin</td>
+                          <td>{(nutrientTable.ribo).toFixed(1)}mg</td>
                         </tr>
 
                         <tr className="text-center">
 
-                          <td className="flex justify-start">vitamin C</td>
-                          <td >{(nutrientTable.vitC).toFixed(1)}g</td>
+                          <td className="flex justify-start font-bold">Niacin</td>
+                          <td>{(nutrientTable.nia).toFixed(1)}mg NE</td>
+                        </tr>
+
+                        <tr className="text-center">
+
+                          <td className="flex justify-start font-bold">Vitamin C</td>
+                          <td >{(nutrientTable.vitC).toFixed(1)}mg</td>
                         </tr>
 
                       </tbody>

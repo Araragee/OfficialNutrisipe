@@ -37,10 +37,10 @@ const Navbar = ({ searchTerm, setSearchTerm, user, socket }) => {
     <button className="text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" alt="Click this to view user profile" aria-label="Click this to view user profile" style={{ backgroundColor: '#008083' }} onClick={toggleDropdown}>
       <img src={user.image} alt="user-pic" className="w-14 h-12 rounded-lg" />
     </button>
-    <div className="relative">
-      <button className="text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" alt="Click this to create recipe" aria-label="Proceed to create recipe when clicked" style={{ backgroundColor: '#008083' }}>
+    <div className="relative pt-10">
+      {/* <button className="text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" alt="Click this to create recipe" aria-label="Proceed to create recipe when clicked" style={{ backgroundColor: '#008083' }}>
         <IoIosNotifications />
-      </button>
+      </button> */}
       {showDropdown && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
           <Link to="/create-pin" className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white" alt="Click this to create recipe" aria-label="Proceed to create recipe when clicked">

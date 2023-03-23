@@ -2,7 +2,7 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { AiTwotoneDelete, AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { AiTwotoneDelete, AiOutlineHeart, AiFillHeart, AiOutlineEye, AiFillEyeInvisible} from "react-icons/ai";
 import { BsExclamationCircle } from "react-icons/bs"
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -197,7 +197,47 @@ const PinDetail = ({ user }) => {
         <div
           className=" flex xl:flex-row flex-col m-auto bg-white w-full border rounded-lg float-root"
         >
+           {user?.isAdmin === true ? (null) : 
+              pinDetail.postedBy?._id !== User.sub ? (
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.location.href ='mailto:nutrisipe@gmail.com?subject=Report Recipe';
+                }}
+                className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none" style={{ color: '#dc2626'}}
+              >
+                <BsExclamationCircle />
+              </button>
+            ) : null
+              }
 
+{pinDetail.postedBy?._id === user.sub ? (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deletePin(pinDetail._id);
+                      navigate("/home");
+                    }}
+                    className= "bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none" style={{ color: '#dc2626'}}
+                  >
+                    <AiTwotoneDelete />
+                  </button>
+                ) : user?.isAdmin === true ? (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deletePin(pinDetail._id);
+                      navigate("/home");
+                    }}
+                    className= "bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none" style={{ color: '#dc2626'}}
+                  >
+                    <AiTwotoneDelete />
+                  </button>
+                ) : null
+                }
           <div className="justify-center align-center items-center md:items-start flex-initial w-full float-left">
             <img
               className="rounded-t-3xl rounded-b-lg px-10 py-10  "
@@ -249,53 +289,17 @@ const PinDetail = ({ user }) => {
                   </button>
                 )}
 
-                {pinDetail.postedBy?._id === user.sub ? (
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      deletePin(pinDetail._id);
-                      navigate("/home");
-                    }}
-                    class= "mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
-                  >
-                    <AiTwotoneDelete />
-                  </button>
-                ) : user?.isAdmin === true ? (
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      deletePin(pinDetail._id);
-                      navigate("/home");
-                    }}
-                    class= "mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
-                  >
-                    <AiTwotoneDelete />
-                  </button>
-                ) : null
-                }
-                {user?.isAdmin === true ? (null) : 
-              pinDetail.postedBy?._id !== User.sub ? (
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.location.href ='mailto:nutrisipe@gmail.com?subject=Report Recipe';
-                }}
-                className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none"
-              >
-                <BsExclamationCircle />
-              </button>
-            ) : null
-              }
+               
+               
                   <>
                       {isLoggedInUser && (
                         <>
                           {isHidden ? (
-                            <button class= "mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none" onClick={() => unhidePin(pinDetail._id)}>Unhide</button>
+                            <button  className="pl-2" onClick={() => unhidePin(pinDetail._id)}>
+                              < AiFillEyeInvisible /> </button>
                           ) : (
-                            <button class= "mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none" onClick={() => hidePin(pinDetail._id)}>Hide</button>
+                            <button className="pl-2" onClick={() => hidePin(pinDetail._id)}>
+                            < AiOutlineEye /></button>
                           )}
                         </>
                       )}
@@ -437,7 +441,7 @@ const PinDetail = ({ user }) => {
                         <tr className="text-center">
 
                           <td className="flex justify-start font-bold">Vitamin A</td>
-                          <td>{(pinDetail?.nutritionPost?.vitA).toFixed(1)}mkg</td>
+                          <td>{(pinDetail?.nutritionPost?.vitA).toFixed(1)}mcg</td>
                         </tr>
 
                         <tr className="text-center">
@@ -528,13 +532,13 @@ const PinDetail = ({ user }) => {
                     ))}
                   </div>
                   <div className="flex flex-wrap mt-6 gap-3 w-full sm:w-full pt-6 ">
-                    <Link to={`/user-profile/${user._id}`}>
+                    {/* <Link to={`/user-profile/${user._id}`}>
                       <img
                         src={user.image}
                         className=" fixed w-10 h-10 rounded-full cursor-pointer"
                         alt="user-profile"
                       />
-                    </Link>
+                    </Link> */}
                     <input
                       className=" flex-1 border-gray-100 w-full outline-none border-2 p-2 rounded-2xl focus:border-gray-300"
                       type="text"
