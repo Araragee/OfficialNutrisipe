@@ -7,13 +7,13 @@ const Pins = ({ user }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [socket, setSocket] =useState(null);
 
-  useEffect (() => {
-    setSocket(io("http://localhost:5000"));
-  }, [])
+  // useEffect (() => {
+  //   setSocket(io("http://localhost:5000"));
+  // }, [])
   
-  useEffect (() => {
-    socket?.emit("newUser", )
-  }, [socket, user])
+  // useEffect (() => {
+  //   socket?.emit("newUser", )
+  // }, [socket, user])
   
   console.log(user)
   return (
