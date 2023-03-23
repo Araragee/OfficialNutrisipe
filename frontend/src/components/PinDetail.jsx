@@ -415,7 +415,7 @@ const PinDetail = ({ user, socket }) => {
                         <tr className="text-center">
 
                           <td className="flex justify-start font-bold">Vitamin A</td>
-                          <td>{(pinDetail?.nutritionPost?.vitA).toFixed(1)}mkg</td>
+                          <td>{(pinDetail?.nutritionPost?.vitA).toFixed(1)}mcg</td>
                         </tr>
 
                         <tr className="text-center">
