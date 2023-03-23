@@ -87,7 +87,6 @@ const Pin = ({ pin }) => {
                   onClick={(e) => {
                     e.stopPropagation();
                     Unsave(_id);
-                    
                   }}
                   className="bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                 >
