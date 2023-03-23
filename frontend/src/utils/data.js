@@ -136,7 +136,7 @@ export const feedQuery = `*[_type == "pin" && !isHidden] | order(_createdAt desc
     } `;
 
 export const userFollowingPost = (userId) => {
-  const query = `*[_type == "pin" && userId in *[_type == "user" && id == '${userId}'].following[].userId] | order(_createdAt desc) {
+  const query = `*[_type == "pin" && userId in *[_type == "user" && id == '${userId}'].following[].userId] && !isHidden | order(_createdAt desc) {
         image{
           asset->{
             url
@@ -160,6 +160,7 @@ export const userFollowingPost = (userId) => {
                 image
               },
             },
+            isHidden,
           }`;
   return query;
 };
@@ -246,7 +247,7 @@ export const pinDetailMorePinQuery = (pin) => {
 };
 
 export const searchQuery = (searchTerm) => {
-  const query = `*[_type == "pin" && title match '${searchTerm}*' || category match '${searchTerm}*' || about match '${searchTerm}*' || ingredient match '${searchTerm}*' || postedBy->userName match '${searchTerm}*' ]{
+  const query = `*[_type == "pin" && title match '${searchTerm}*' || category match '${searchTerm}*' || about match '${searchTerm}*' || ingredient match '${searchTerm}*' || postedBy->userName match '${searchTerm}*' && !isHidden]{
     image{
       asset->{
         url
@@ -269,6 +270,7 @@ export const searchQuery = (searchTerm) => {
         image
       },
     },
+    isHidden,
   }`;
   return query;
 };
@@ -291,6 +293,34 @@ export const userSearch = (searchTerm) => {
 
 export const userCreatedPinsQuery = (userId) => {
   const query = `*[ _type == 'pin' && userId == '${userId}'] | order(_createdAt desc){
+    image{
+      asset->{
+        url
+      }
+    },
+    _id,
+    procedure[],
+    ingredientListPost,
+    nutritionPost,
+    postedBy->{
+      _id,
+      userName,
+      image
+    },
+    save[]{
+      _key,
+      postedBy->{
+        _id,
+        userName,
+        image
+      },
+    },
+    isHidden,
+  }`;
+  return query;
+};
+export const userHiddenCreatedPinsQuery = (userId) => {
+  const query = `*[ _type == 'pin' && userId == '${userId}' && !isHidden] | order(_createdAt desc){
     image{
       asset->{
         url
@@ -342,6 +372,7 @@ export const userSavedPinsQuery = (userId) => {
         image
       },
     },
+    isHidden,
   }`;
   return query;
 };

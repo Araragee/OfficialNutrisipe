@@ -5,7 +5,7 @@ import { AiOutlineLogout } from 'react-icons/ai';
 import { useParams, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { googleLogout } from '@react-oauth/google';
-import { userCreatedPinsQuery, userQuery, userSavedPinsQuery, userfollowers, userfollowing, userFollowingPost } from '../utils/data';
+import { userCreatedPinsQuery, userQuery, userSavedPinsQuery, userfollowers, userfollowing, userFollowingPost, userHiddenCreatedPinsQuery} from '../utils/data';
 import { client } from '../client';
 import MasonryLayout from './MasonryLayout';
 import Spinner from './Spinner';
@@ -121,10 +121,20 @@ const UserProfile = () => {
   useEffect(() => {
     if (text === 'Created') {
       const createdPinsQuery = userCreatedPinsQuery(userId);
-      client.fetch(createdPinsQuery)
+      const hiddenCreatedPinsQuery = userHiddenCreatedPinsQuery(userId);
+
+      if (userId === users.sub) {
+        client.fetch(createdPinsQuery)
       .then((data) => {
        setPins(data);
       });
+      }
+      else {
+        client.fetch(hiddenCreatedPinsQuery)
+        .then((data) => {
+         setPins(data);
+        });
+      }
     } 
     else {
       const savedPinsQuery = userSavedPinsQuery(userId);
