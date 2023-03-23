@@ -136,7 +136,7 @@ export const feedQuery = `*[_type == "pin" && !isHidden] | order(_createdAt desc
     } `;
 
 export const userFollowingPost = (userId) => {
-  const query = `*[_type == "pin" && userId in *[_type == "user" && id == '${userId}'].following[].userId] && !isHidden | order(_createdAt desc) {
+  const query = `*[_type == "pin" && userId in *[_type == "user" && id == '${userId}'].following[].userId && isHidden == false]| order(_createdAt desc) {
         image{
           asset->{
             url
@@ -164,6 +164,7 @@ export const userFollowingPost = (userId) => {
           }`;
   return query;
 };
+
 export const adminUsers = (userId) => {
   const query = `*[_type == "user" && isAdmin == true && id =='${userId}'] {
         _id
@@ -247,7 +248,7 @@ export const pinDetailMorePinQuery = (pin) => {
 };
 
 export const searchQuery = (searchTerm) => {
-  const query = `*[_type == "pin" && title match '${searchTerm}*' || category match '${searchTerm}*' || about match '${searchTerm}*' || ingredient match '${searchTerm}*' || postedBy->userName match '${searchTerm}*' && !isHidden]{
+  const query = `*[_type == "pin" && (title match '${searchTerm}*' || category match '${searchTerm}*' || about match '${searchTerm}*' || ingredient match '${searchTerm}*' || postedBy->userName match '${searchTerm}*') && isHidden != true]{
     image{
       asset->{
         url
@@ -274,6 +275,7 @@ export const searchQuery = (searchTerm) => {
   }`;
   return query;
 };
+
 
 export const userQuery = (userId) => {
   const query = `*[_type == "user" && _id == '${userId}']`;
