@@ -943,7 +943,7 @@ const CreatePin = ({ user }) => {
             <div className="flex justify-end items-end mt-5">
               {fields && (
                 <p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
-                  Please add all fields.
+                  Please input all fields.
                 </p>
               )}
               <button
