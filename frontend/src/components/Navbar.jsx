@@ -34,8 +34,12 @@ const Navbar = ({ searchTerm, setSearchTerm, user, socket }) => {
         </div>
 <div className="flex gap-3 ">
   <div className="relative flex gap-2">
-    <button className="text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" alt="Click this to view user profile" aria-label="Click this to view user profile" style={{ backgroundColor: '#008083' }} onClick={toggleDropdown}>
-      <img src={user.image} alt="user-pic" className="w-14 h-12 rounded-lg" />
+    
+  {/* <button className="text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" alt="Click this to view user profile" aria-label="Click this to view user profile" style={{ backgroundColor: '#008083' }} onClick={toggleDropdown}>
+      <img src={user.image} alt="user-pic" className="w-14 h-12 rounded-lg" />   */}
+
+    <button className="bg-nGreen text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" alt="Click this to view user profile" aria-label="Click this to view user profile"  onClick={toggleDropdown}>
+    <IoMdAdd/>
     </button>
     <div className="relative pt-10">
       {/* <button className="text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center" alt="Click this to create recipe" aria-label="Proceed to create recipe when clicked" style={{ backgroundColor: '#008083' }}>
