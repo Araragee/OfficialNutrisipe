@@ -17,18 +17,18 @@ export default {
       name: 'ingredientListPost',
       title: 'IngredientListPost',
       type: 'array',
-      of: [{type: 'ingredientList'}]
+      of: [{ type: 'ingredientList' }]
     },
-    // {
-    //   name: 'nutritionPost',
-    //   title: 'NutritionPost',
-    //   type: 'baseSize',
-    // },
+    {
+      name: 'nutritionPost',
+      title: 'NutritionPost',
+      type: 'nutritionPost',
+    },
     {
       name: 'procedure',
       title: 'Procedure',
       type: 'array',
-      of: [{type: 'string'}]
+      of: [{ type: 'string' }]
     },
     {
       name: 'category',
@@ -53,7 +53,7 @@ export default {
       title: 'PostedBy',
       type: 'postedBy',
     },
-    
+
     {
       name: 'save',
       title: 'Save',
