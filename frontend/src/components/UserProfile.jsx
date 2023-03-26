@@ -151,7 +151,7 @@ const UserProfile = () => {
   }, [userId]);
 
   if (!user) {
-    return <Spinner message="Loading Profile...." />;
+    return <Spinner message="Loading Profile..." />;
   }
 
   const alerts = () => {
