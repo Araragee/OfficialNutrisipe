@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { Link, useNavigate,  } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { AiTwotoneDelete } from 'react-icons/ai';
+import { AiTwotoneDelete, AiOutlineHeart, AiFillHeart, } from 'react-icons/ai';
 import { client, urlFor } from '../client';
 import { io } from "socket.io-client"
 
@@ -59,6 +59,7 @@ const Pin = ({ pin }) => {
       .unset(ToRemove)
       .commit()
       .then(() => {
+        setSavingPost(false);
         window.location.reload(false);
       });
   };
@@ -90,7 +91,7 @@ const Pin = ({ pin }) => {
                   }}
                   className="bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                 >
-                  Unsave
+                  <AiFillHeart />
                 </button>
               ) : (
                 <button
@@ -101,7 +102,7 @@ const Pin = ({ pin }) => {
                   type="button"
                   className="bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                 >
-                  {savingPost ? 'Saving' : 'Save'}
+                  {savingPost ? 'Saving' : <AiOutlineHeart />}
                 </button>
               )}
 

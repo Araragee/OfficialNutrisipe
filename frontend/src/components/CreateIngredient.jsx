@@ -117,7 +117,7 @@ const CreateIngredient = ({ user }) => {
         Edible Portion
       </label>
           <input
-            type="text"
+            type="number"
             value={ediblePortion}
             onChange={(e) => setEdiblePortion(e.target.value)}
             placeholder="Edible Portion"
@@ -131,7 +131,7 @@ const CreateIngredient = ({ user }) => {
         Energy
       </label>
           <input
-            type="text"
+            type="number"
             value={energy}
             onChange={(e) => setEnergy(e.target.value)}
             placeholder="Energy"
@@ -144,7 +144,7 @@ const CreateIngredient = ({ user }) => {
         Protein
       </label>
           <input
-            type="text"
+            type="number"
             value={prot}
             onChange={(e) => setProt(e.target.value)}
             placeholder="Protein"
@@ -157,7 +157,7 @@ const CreateIngredient = ({ user }) => {
         Fat
       </label>
           <input
-            type="text"
+            type="number"
             value={fat}
             onChange={(e) => setFat(e.target.value)}
             placeholder="Fat"
@@ -171,7 +171,7 @@ const CreateIngredient = ({ user }) => {
         carbohydrate
       </label>
           <input
-            type="text"
+            type="number"
             value={carb}
             onChange={(e) => setCarb(e.target.value)}
             placeholder="Carb"
@@ -184,7 +184,7 @@ const CreateIngredient = ({ user }) => {
        calcium
       </label>
           <input
-            type="text"
+            type="number"
             value={calcium}
             onChange={(e) => setCalcium(e.target.value)}
             placeholder="Calcium"
@@ -197,7 +197,7 @@ const CreateIngredient = ({ user }) => {
         phosporus
       </label>
           <input
-            type="text"
+            type="number"
             value={phos}
             onChange={(e) => setPhos(e.target.value)}
             placeholder="Phosporus"
@@ -211,7 +211,7 @@ const CreateIngredient = ({ user }) => {
         iron
       </label>
           <input
-            type="text"
+            type="number"
             value={iron}
             onChange={(e) => setIron(e.target.value)}
             placeholder="Iron"
@@ -224,7 +224,7 @@ const CreateIngredient = ({ user }) => {
         vitamin A
       </label>
           <input
-            type="text"
+            type="number"
             value={vitA}
             onChange={(e) => setVitA(e.target.value)}
             placeholder="Vitamin A"
@@ -237,7 +237,7 @@ const CreateIngredient = ({ user }) => {
         thiamine
       </label>
           <input
-            type="text"
+            type="number"
             value={thia}
             onChange={(e) => setThia(e.target.value)}
             placeholder="Thiamine"
@@ -251,7 +251,7 @@ const CreateIngredient = ({ user }) => {
         riboflavin
       </label>
           <input
-            type="text"
+            type="number"
             value={ribo}
             onChange={(e) => setRibo(e.target.value)}
             placeholder="Ribo"
@@ -264,7 +264,7 @@ const CreateIngredient = ({ user }) => {
           niacin
       </label>
           <input
-            type="text"
+            type="number"
             value={nia}
             onChange={(e) => setNia(e.target.value)}
             placeholder="Nia"
@@ -277,7 +277,7 @@ const CreateIngredient = ({ user }) => {
         vitamin C
       </label>
           <input
-            type="text"
+            type="number"
             value={vitC}
             onChange={(e) => setVitC(e.target.value)}
             placeholder="Vitamin C"

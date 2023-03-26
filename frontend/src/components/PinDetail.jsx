@@ -345,7 +345,7 @@ const PinDetail = ({ user }) => {
                             </td>
 
                             <td className="text-center pl-9">
-                              {info.purchasedWeight}
+                              {info.purchasedWeight}g
                             </td>
 
 
@@ -362,6 +362,7 @@ const PinDetail = ({ user }) => {
                   Procedure:{" "}
                 </p>
                 {pinDetail.procedure.map((item, i) => (
+                 
                   <ol
                     className="ml-2.5 list-disc pl-4"
                     key={i}
@@ -370,6 +371,7 @@ const PinDetail = ({ user }) => {
                       {item}
                     </li>
                   </ol>
+                  
                 ))}
               </div>
 
@@ -548,7 +550,7 @@ const PinDetail = ({ user }) => {
                     />
                     <button
                       type="button"
-                      className="bg-nOrange text-white rounded-full w-24 px-6 py-2 font-semibold text-base outline-none"
+                      className="bg-nOrange opacity-70 hover:opacity-100 text-white rounded-full w-24 px-6 py-2 font-semibold text-base outline-none"
                       onClick={addComment}
                     >
                       {addingComment ? "Posting..." : "Post"}

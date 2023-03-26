@@ -27,15 +27,16 @@ const [notifications, setNotifications] = useState([])
         >
           <img src={logo} alt="logo" className="w-full" />
         </Link>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 ">
 
           <NavLink
             to="/"
-            className={({ isActive }) => (isActive ? isActiveStyle : isNotActiveStyle)}
+            className={({ isActive }) => (isActive ? isActiveStyle : isNotActiveStyle )}
             onClick={handleCloseSidebar}
-            style={{ color: '#008083', fontWeight: '600' }}
+            style={{ color: '#008083', fontWeight: '600', opacity:'0.7', hoveropacity:'1' }}
+           
           >
-            <RiHomeFill />
+            <RiHomeFill className='opacity-70 hover:opacity-100'/>
             Home
           </NavLink>
 
