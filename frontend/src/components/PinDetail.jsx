@@ -188,7 +188,7 @@ const PinDetail = ({ user }) => {
   // }, []);
   
   if (!pinDetail) {
-    return <Spinner message="Loading Recipe" />;
+    return <Spinner message="Loading Recipe..." />;
   }
 
   return (
@@ -570,7 +570,7 @@ const PinDetail = ({ user }) => {
       {pins ? (
         <MasonryLayout pins={pins} />
       ) : (
-        <Spinner message="Loading more pins" />
+        <Spinner message="Loading more recipes..." />
       )}
     </>
   );
