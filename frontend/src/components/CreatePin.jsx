@@ -289,7 +289,8 @@ const CreatePin = ({ user }) => {
       procedure &&
       imageAsset?._id &&
       category &&
-      finalRecipeObject
+      finalRecipeObject &&
+      finalRecipeObject.length != 0
     ) {
       const doc = {
         _type: "pin",
@@ -407,7 +408,7 @@ const CreatePin = ({ user }) => {
           </div>
 
 
-        
+
 
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-semibold pt-4">
             number of serving
@@ -420,7 +421,7 @@ const CreatePin = ({ user }) => {
               value={yieldAmount}
               onChange={(e) => setYieldAmount(e.target.value)}
               placeholder="Yield Amount"
-              className=" block p-2 w-36 h-9 bg-white outline-none border rounded-lg "   
+              className=" block p-2 w-36 h-9 bg-white outline-none border rounded-lg "
             />
           </div>
           <div className="h-auto grid  content-evenly w-auto float-root flex items-stretch ">
@@ -431,12 +432,12 @@ const CreatePin = ({ user }) => {
               </p>
             )}
 
-       
+
             <div className="float-left py-4 bg-gray-200 rounded pl-3 pr-3">
-            <p className="font-semibold ">Add Ingredient to the list: </p>
+              <p className="font-semibold ">Add Ingredient to the list: </p>
 
 
-              <label  class="block uppercase tracking-wide text-gray-700 text-xs font-semibold mt-4">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-semibold mt-4">
                 Search
               </label>
               <div className="flex flex-nowrap flex-1 flex-col gap-6 w-auto ">
@@ -463,26 +464,26 @@ const CreatePin = ({ user }) => {
                   )}
 
                 {/* DISPLAY WHEN LOADING SEARCH INGREDIENTS */}
-                {loadingIngredient && <div className="text-xs "> <Spinner message="Loading Ingredients"/></div>}
+                {loadingIngredient && <div className="text-xs "> <Spinner message="Loading Ingredients" /></div>}
 
                 {/* DROPDOWN BAR FOR INGREDIENT SEARCH */}
-                 {!ModalOpen!= 0 && chosenIngredient != 0 && (
+                {!ModalOpen != 0 && chosenIngredient != 0 && (
 
-                <div className="border bg-gray-100 min-h-100 overflow-y-auto h-24 w-auto ">
-                  {ingredientDropDown?.map((item) => (
-                    <div
-                      className="opacity-70 hover:opacity-100"
-                      onClick={() => {
-                        ChooseIngredientHandler(item);
-                        dropdownClickHandlerClose();
-                      }}
-                      key={item?._key}
-                    >
-                      {item?.foodItem} 
-                      
-                    </div>
-                  ))}
-                </div>
+                  <div className="border bg-gray-100 min-h-100 overflow-y-auto h-24 w-auto ">
+                    {ingredientDropDown?.map((item) => (
+                      <div
+                        className="opacity-70 hover:opacity-100"
+                        onClick={() => {
+                          ChooseIngredientHandler(item);
+                          dropdownClickHandlerClose();
+                        }}
+                        key={item?._key}
+                      >
+                        {item?.foodItem}
+
+                      </div>
+                    ))}
+                  </div>
                 )}
               </div>
               {/* amount */}
@@ -684,82 +685,82 @@ const CreatePin = ({ user }) => {
                 </div>
               );
             })} */}
-            
+
             <div class="flex flex-col">
-  <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-    <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-      <div class="overflow-hidden">
-        <table class="min-w-full">
-        <thead class="bg-white border-b">
-            <tr>
-              <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
-                Ingredients
-              </th>
-              <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
-               As Purchased
-              </th>
-              <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
-               Edible Weight
-              </th>
-              <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
-                
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-		{finalRecipeObject.map((info, i) => {
-    return (
-            <tr  key={i} class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{info.ingredientName}</td>
-              
-              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                 {info.purchasedWeight + "g"}
-              </td>
-              <td class="text-sm text-gray-900 font-simibold px-6 py-4 whitespace-nowrap">
-                {info.ediblePortionWeight + "g"}
-              </td>
-              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                 <button
-          className=" pt-1 text-nRed mx-4  text-xs font-bold text-center  p-1 "
-          onClick={() => deleteFinalRecipeObjectHandler(i)}
-        >
-          Delete
-        </button>
-              </td>
-            </tr>
-                
-              );
-            })}
+              <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                  <div class="overflow-hidden">
+                    <table class="min-w-full">
+                      <thead class="bg-white border-b">
+                        <tr>
+                          <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
+                            Ingredients
+                          </th>
+                          <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
+                            As Purchased
+                          </th>
+                          <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
+                            Edible Weight
+                          </th>
+                          <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
 
-		 {finalNonRecipeObject.map((info, i) => {
-              return (
-	<tr  key={i} class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{info.ingredientName}</td>
-              <td class="text-sm text-gray-900 font-simibold px-6 py-4 whitespace-nowrap">
-                 {info.ediblePortionWeight + "g"}
-              </td>
-              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                 {info.purchasedWeight + "g"}
-              </td>
-              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                 <button
-          className=" pt-1 text-nRed mx-4  text-xs font-bold text-center  p-1 "
-          onClick={() => deleteFinalRecipeObjectHandler(i)}
-        >
-          Delete
-        </button>
-              </td>
-            </tr>
-	 );
-            })}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {finalRecipeObject.map((info, i) => {
+                          return (
+                            <tr key={i} class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                              <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{info.ingredientName}</td>
 
-</tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-            
+                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                {info.purchasedWeight + "g"}
+                              </td>
+                              <td class="text-sm text-gray-900 font-simibold px-6 py-4 whitespace-nowrap">
+                                {info.ediblePortionWeight.toFixed(1) + "g"}
+                              </td>
+                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                <button
+                                  className=" pt-1 text-nRed mx-4  text-xs font-bold text-center  p-1 "
+                                  onClick={() => deleteFinalRecipeObjectHandler(i)}
+                                >
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+
+                          );
+                        })}
+
+                        {finalNonRecipeObject.map((info, i) => {
+                          return (
+                            <tr key={i} class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                              <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{info.ingredientName}</td>
+                              <td class="text-sm text-gray-900 font-simibold px-6 py-4 whitespace-nowrap">
+                                {info.ediblePortionWeight + "g"}
+                              </td>
+                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                {info.purchasedWeight + "g"}
+                              </td>
+                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                <button
+                                  className=" pt-1 text-nRed mx-4  text-xs font-bold text-center  p-1 "
+                                  onClick={() => deleteFinalRecipeObjectHandler(i)}
+                                >
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {" "}
           </div>
 
@@ -942,9 +943,9 @@ const CreatePin = ({ user }) => {
                   <option
                     className="text-base border-0 outline-none capitalize  bg-gray-100 text-black "
                     value={item.name}
-                   
+
                   >
-                    {item.name } 
+                    {item.name}
                   </option>
                 ))}
               </select>

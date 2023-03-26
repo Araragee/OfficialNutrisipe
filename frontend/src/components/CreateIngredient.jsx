@@ -72,6 +72,24 @@ const CreateIngredient = ({ user }) => {
         setuploadFailedAlert(false);
       }, 8000);
     }
+
+    setFoodItem("");
+    setAltName("");
+    setEdiblePortion("");
+    setEnergy("");
+    setProt("");
+    setFat("");
+    setCarb("");
+    setCalcium("");
+    setPhos("");
+    setIron("");
+    setVitA("");
+    setThia("");
+    setRibo("");
+    setNia("");
+    setVitC("");
+
+
   };
 
   if (user?.isAdmin) {
@@ -85,207 +103,207 @@ const CreateIngredient = ({ user }) => {
         </div>
 
         <div class="flex flex-wrap -mx-3 mb-2 ">
-    <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-    Ingredient Name
-      </label>
-          <input
-            type="text"
-            value={foodItem}
-            onChange={(e) => setFoodItem(e.target.value)}
-            placeholder="Ingredient Name"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
-        </div>
-        
+          <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              Ingredient Name
+            </label>
+            <input
+              type="text"
+              value={foodItem}
+              onChange={(e) => setFoodItem(e.target.value)}
+              placeholder="Ingredient Name"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
 
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-        Alternate Name
-      </label>
-          <input
-            type="text"
-            value={altName}
-            onChange={(e) => setAltName(e.target.value)}
-            placeholder="Alternate Name"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
-        </div>
 
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-        Edible Portion
-      </label>
-          <input
-            type="number"
-            value={ediblePortion}
-            onChange={(e) => setEdiblePortion(e.target.value)}
-            placeholder="Edible Portion"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
-        </div>
-      </div>
-      <div class="flex flex-wrap -mx-3 mb-2">
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-        Energy
-      </label>
-          <input
-            type="number"
-            value={energy}
-            onChange={(e) => setEnergy(e.target.value)}
-            placeholder="Energy"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
-        </div>
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              Alternate Name
+            </label>
+            <input
+              type="text"
+              value={altName}
+              onChange={(e) => setAltName(e.target.value)}
+              placeholder="Alternate Name"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
 
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-        Protein
-      </label>
-          <input
-            type="number"
-            value={prot}
-            onChange={(e) => setProt(e.target.value)}
-            placeholder="Protein"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
-        </div>
-
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-        Fat
-      </label>
-          <input
-            type="number"
-            value={fat}
-            onChange={(e) => setFat(e.target.value)}
-            placeholder="Fat"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
-        </div>
-      </div>
-      <div class="flex flex-wrap -mx-3 mb-2">
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-        carbohydrate
-      </label>
-          <input
-            type="number"
-            value={carb}
-            onChange={(e) => setCarb(e.target.value)}
-            placeholder="Carb"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
-        </div>
-
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-       calcium
-      </label>
-          <input
-            type="number"
-            value={calcium}
-            onChange={(e) => setCalcium(e.target.value)}
-            placeholder="Calcium"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
-        </div>
-
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-        phosporus
-      </label>
-          <input
-            type="number"
-            value={phos}
-            onChange={(e) => setPhos(e.target.value)}
-            placeholder="Phosporus"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
-        </div>
-      </div>
-      <div class="flex flex-wrap -mx-3 mb-2">
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-        iron
-      </label>
-          <input
-            type="number"
-            value={iron}
-            onChange={(e) => setIron(e.target.value)}
-            placeholder="Iron"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
-        </div>
-
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-        vitamin A
-      </label>
-          <input
-            type="number"
-            value={vitA}
-            onChange={(e) => setVitA(e.target.value)}
-            placeholder="Vitamin A"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
-        </div>
-
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-        thiamine
-      </label>
-          <input
-            type="number"
-            value={thia}
-            onChange={(e) => setThia(e.target.value)}
-            placeholder="Thiamine"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
-        </div>
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              Edible Portion
+            </label>
+            <input
+              type="number"
+              value={ediblePortion}
+              onChange={(e) => setEdiblePortion(e.target.value)}
+              placeholder="Edible Portion"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
         </div>
         <div class="flex flex-wrap -mx-3 mb-2">
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-        riboflavin
-      </label>
-          <input
-            type="number"
-            value={ribo}
-            onChange={(e) => setRibo(e.target.value)}
-            placeholder="Ribo"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
-        </div>
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              Energy
+            </label>
+            <input
+              type="number"
+              value={energy}
+              onChange={(e) => setEnergy(e.target.value)}
+              placeholder="Energy"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
 
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-          niacin
-      </label>
-          <input
-            type="number"
-            value={nia}
-            onChange={(e) => setNia(e.target.value)}
-            placeholder="Nia"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
-        </div>
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              Protein
+            </label>
+            <input
+              type="number"
+              value={prot}
+              onChange={(e) => setProt(e.target.value)}
+              placeholder="Protein"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
 
-        <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-        vitamin C
-      </label>
-          <input
-            type="number"
-            value={vitC}
-            onChange={(e) => setVitC(e.target.value)}
-            placeholder="Vitamin C"
-            className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
-          />
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              Fat
+            </label>
+            <input
+              type="number"
+              value={fat}
+              onChange={(e) => setFat(e.target.value)}
+              placeholder="Fat"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
         </div>
+        <div class="flex flex-wrap -mx-3 mb-2">
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              carbohydrate
+            </label>
+            <input
+              type="number"
+              value={carb}
+              onChange={(e) => setCarb(e.target.value)}
+              placeholder="Carb"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
 
-      </div>
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              calcium
+            </label>
+            <input
+              type="number"
+              value={calcium}
+              onChange={(e) => setCalcium(e.target.value)}
+              placeholder="Calcium"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
+
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              phosporus
+            </label>
+            <input
+              type="number"
+              value={phos}
+              onChange={(e) => setPhos(e.target.value)}
+              placeholder="Phosporus"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-2">
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              iron
+            </label>
+            <input
+              type="number"
+              value={iron}
+              onChange={(e) => setIron(e.target.value)}
+              placeholder="Iron"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
+
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              vitamin A
+            </label>
+            <input
+              type="number"
+              value={vitA}
+              onChange={(e) => setVitA(e.target.value)}
+              placeholder="Vitamin A"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
+
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              thiamine
+            </label>
+            <input
+              type="number"
+              value={thia}
+              onChange={(e) => setThia(e.target.value)}
+              placeholder="Thiamine"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-2">
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              riboflavin
+            </label>
+            <input
+              type="number"
+              value={ribo}
+              onChange={(e) => setRibo(e.target.value)}
+              placeholder="Ribo"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
+
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              niacin
+            </label>
+            <input
+              type="number"
+              value={nia}
+              onChange={(e) => setNia(e.target.value)}
+              placeholder="Nia"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
+
+          <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+              vitamin C
+            </label>
+            <input
+              type="number"
+              value={vitC}
+              onChange={(e) => setVitC(e.target.value)}
+              placeholder="Vitamin C"
+              className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+            />
+          </div>
+
+        </div>
         {uploadSuccessAlert && (
           <p className="text-nGreen mr-5 text-xl transition-all duration-150 ease-in ">
             Ingredient Successfully addedd to the database.
