@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { allIngredientsQuery, searchIngredientQuery } from "../utils/data";
 import { client } from "../client";
-import { AiTwotoneDelete } from 'react-icons/ai';
+import { AiTwotoneDelete,AiOutlineClose } from 'react-icons/ai';
 
 const ReadIngredient = ({ uploadSuccessAlert, setuploadSuccessAlert }) => {
   const [ingredientList, setIngredientList] = useState();
   const [searchIngredientTerm, setSearchIngredientTerm] = useState("");
   const [refresher, setRefresher] = useState(0)
+  const [ModalOpen, setModalOpen] = useState(false);
   const ingredientFetchHandler = () => {
     client.fetch(allIngredientsQuery).then((data) => {
       setIngredientList(data);
     });
   };
 
+  const ModalHandlerClose = () => {
+    setModalOpen(false);
+  };
+  const ModalHandlerOpen = () => {
+    setModalOpen(true);
+  };
 
   //SEARCH BAR QUERY GETTER
   useEffect(() => {
@@ -46,28 +53,38 @@ const ReadIngredient = ({ uploadSuccessAlert, setuploadSuccessAlert }) => {
 
   return (
     //SEARCH BAR
-    <div className="border-t-8 border-black pt-1 text-sm w-full">
-      <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
+    <div >
+      {ModalOpen && (
+      <div className=" fixed inset-0 bg-white bg-opacity-100 backdrop-blur-sm 
+      items-center overflow-y-auto overflow-x-auto h-full ">
+         <button
+            className="ml-2 transition ease-in-out delay-150 items- w-24 border item-end mt-6 border-blue-300 rounded-full bg-nGreen  text-white hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nOrange duration-300"
+            onClick={ModalHandlerClose}
+            
+          >
+            <AiOutlineClose />
+          </button>
 
-        <div className='font-bold text-3xl pb-4'> SEARCH INGREDIENT IN DATABASE</div>
-        <div className="border-t-3 border-black pt-1 text-sm "></div>
+        <div className="flex font-bold text-3xl pb-4 justify-center items-center "> SEARCH INGREDIENT TO DATABASE</div>
+        
         <input
           type="text"
           onChange={(e) => setSearchIngredientTerm(e.target.value)}
           placeholder="Search an Ingredient"
           value={searchIngredientTerm}
-          className="outline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+          className="outline-none text-xl sm:text-3l w-full font-bold border-b-2 justify-center items-center border-gray-200 p-2"
         />
 
         {/* DISPLAY INGREDIENTS */}
 
 
 
-        <div className="container">
-          <table className="w-full  sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr className="bg-nOrange ">
-                <th
+        <div  className=" inset-0 bg-white bg-opacity-100 backdrop-blur-sm 
+      items-center overflow-y-auto overflow-x-auto h-full w-auto ">
+          <table className="w-full min-w-screen max-w-screen sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr className="bg-nOrange ">
+              <th
 
                   className="text-sm font-semibold text-gray-900 px-6 py-4 "
                 >
@@ -241,6 +258,15 @@ const ReadIngredient = ({ uploadSuccessAlert, setuploadSuccessAlert }) => {
 
 
       </div>
+      )}
+      {!ModalOpen && (
+            <button
+              className="mt-5 text-white w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-nOrange opacity-70 hover:opacity-100 rounded-full border border-blue-300"
+              onClick={ModalHandlerOpen}
+            >
+              See Nutrients
+            </button>
+          )}
     </div>
 
 
