@@ -56,7 +56,7 @@ const Feed = () => {
   const ideaName = categoryId || 'new';
   if (loading) {
     return (
-      <Spinner message={`We are adding ${ideaName} recipes to your feed!`} />
+      <Spinner message={`We are adding ${ideaName} recipes to your feed...`} />
     );
   }
   return (

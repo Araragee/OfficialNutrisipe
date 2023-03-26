@@ -151,7 +151,7 @@ const UserProfile = () => {
   }, [userId]);
 
   if (!user) {
-    return <Spinner message="Loading Profile...." />;
+    return <Spinner message="Loading Profile..." />;
   }
 
   const alerts = () => {
@@ -189,7 +189,7 @@ const UserProfile = () => {
                  navigate('/login');
                }}
              >
-               <AiOutlineLogout color="red" fontSize={21} />
+               <AiOutlineLogout color="red" className="  opacity-70 hover:opacity-100" fontSize={21} />
              </button>
               )}
             </div>

@@ -289,7 +289,8 @@ const CreatePin = ({ user }) => {
       procedure &&
       imageAsset?._id &&
       category &&
-      finalRecipeObject
+      finalRecipeObject &&
+      finalRecipeObject.length != 0
     ) {
       const doc = {
         _type: "pin",
@@ -328,8 +329,8 @@ const CreatePin = ({ user }) => {
 
   return (
     <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
-      <div className=" flex lg:flex-row flex-col justify-center items-center bg-white lg:p-5 p-3 lg:w-4/5  w-full">
-        <div className="bg-secondaryColor p-3 flex flex-0.7 w-full">
+      <div className=" flex lg:flex-row flex-col justify-center items-start bg-white lg:p-5 p-3 lg:w-4/5  w-full">
+        <div className="bg-secondaryColor p-3 flex flex-0.7 w-full mt-32">
           <div className=" flex justify-center items-center flex-col border-2 border-dotted border-blue-400 p-3 w-full h-420">
             {loading && <Spinner />}
             {wrongImageType && <p>It&apos;s wrong file type.</p>}
@@ -407,7 +408,7 @@ const CreatePin = ({ user }) => {
           </div>
 
 
-          <p className="font-semibold mt-6">Add Ingredient to the list: </p>
+
 
           <label class="block uppercase tracking-wide text-gray-700 text-xs font-semibold pt-4">
             number of serving
@@ -420,7 +421,7 @@ const CreatePin = ({ user }) => {
               value={yieldAmount}
               onChange={(e) => setYieldAmount(e.target.value)}
               placeholder="Yield Amount"
-              className=" block p-2 w-36 h-9 bg-white outline-none border rounded-lg "   
+              className=" block p-2 w-36 h-9 bg-white outline-none border rounded-lg "
             />
           </div>
           <div className="h-auto grid  content-evenly w-auto float-root flex items-stretch ">
@@ -430,11 +431,13 @@ const CreatePin = ({ user }) => {
                 Please add all ingredient fields.
               </p>
             )}
+
+
             <div className="float-left py-4 bg-gray-200 rounded pl-3 pr-3">
+              <p className="font-semibold ">Add Ingredient to the list: </p>
 
 
-
-              <label class="block uppercase tracking-wide text-gray-700 text-xs font-semibold ">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-semibold mt-4">
                 Search
               </label>
               <div className="flex flex-nowrap flex-1 flex-col gap-6 w-auto ">
@@ -461,28 +464,33 @@ const CreatePin = ({ user }) => {
                   )}
 
                 {/* DISPLAY WHEN LOADING SEARCH INGREDIENTS */}
-                {loadingIngredient && <div className="text-xs">LOADING</div>}
+                {loadingIngredient && <div className="text-xs "> <Spinner message="Loading Ingredients" /></div>}
 
                 {/* DROPDOWN BAR FOR INGREDIENT SEARCH */}
-                <div className="border bg-gray-100">
+                 
+
+                <div className="border bg-gray-100 min-h-100 overflow-y-auto max-h-24 w-auto ">
                   {ingredientDropDown?.map((item) => (
                     <div
+                      className="opacity-70 hover:opacity-100"
                       onClick={() => {
                         ChooseIngredientHandler(item);
                         dropdownClickHandlerClose();
                       }}
                       key={item?._key}
                     >
-                      {item?.foodItem}
+                      {item?.foodItem} 
+                      
                     </div>
                   ))}
                 </div>
+                
               </div>
               {/* amount */}
               {ingredientDropDown.length == 0 && (
                 <div className="float-left py-4  ">
-                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-semibold ">
-                    Amount
+                  <label class="block  tracking-wide text-gray-700 text-xs font-semibold ">
+                    Amount (g)
                   </label>
                   <div className=" flex flex-nowrap ">
                     {/* <div class="flex flex-nowrap"> */}
@@ -491,7 +499,7 @@ const CreatePin = ({ user }) => {
                       step="1"
                       min="0"
                       onChange={(e) => setAmount(e.target.value)}
-                      placeholder="Amount"
+                      placeholder="Grams"
                       value={amount}
                       className="  block p-2 w-24 h-9 bg-white outline-none border rounded-lg "
                     />
@@ -502,7 +510,7 @@ const CreatePin = ({ user }) => {
 
 
                         <button
-                          className="text-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+                          className="text-nGreen hover:text-white hover:bg-nGreen  w-24 h-6 float-left py-1  mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border "
                           onClick={() => handleIngredientList()}
                         >
                           ADD
@@ -518,7 +526,7 @@ const CreatePin = ({ user }) => {
                 {!nonIngredient && (
                   <button
                     onClick={() => nonIngredientHandler()}
-                    className="text-nGreen underline underline-offset-1"
+                    className="text-nGreen underline underline-offset-1 opacity-70 hover:opacity-100"
                   >
                     Ingredient not in database? Add without nutrition data.
                   </button>
@@ -573,7 +581,7 @@ const CreatePin = ({ user }) => {
                           <div>
                             <div class="flex flex-nowrap pl-8">
                               <button
-                                className="text-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+                                className="text-nGreen hover:text-white hover:bg-nGreen w-24 h-6 float-left py-1 ml-6 mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-nGreen"
                                 onClick={() => nonIngredientConfirm()}
                               >
                                 ADD
@@ -591,7 +599,7 @@ const CreatePin = ({ user }) => {
                     </a>
                     <div className="mt-3 pb-4">
                       <button
-                        className="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed duration-300"
+                        className="ml-2 transition ease-in-out delay-150 w-24 border border-blue-300 rounded-full bg-gray-200  text-gray-400 hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nRed "
                         onClick={() => nonIngredientHandlerClose()}
                       >
                         close
@@ -677,81 +685,82 @@ const CreatePin = ({ user }) => {
                 </div>
               );
             })} */}
-            
+
             <div class="flex flex-col">
-  <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-    <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-      <div class="overflow-hidden">
-        <table class="min-w-full">
-        <thead class="bg-white border-b">
-            <tr>
-              <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
-                Ingredients
-              </th>
-              <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
-               Edible Weight
-              </th>
-              <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
-               As Purchased
-              </th>
-              <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
-                
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-		{finalRecipeObject.map((info, i) => {
-    return (
-            <tr  key={i} class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{info.ingredientName}</td>
-              <td class="text-sm text-gray-900 font-simibold px-6 py-4 whitespace-nowrap">
-                {info.ediblePortionWeight + "g"}
-              </td>
-              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                 {info.purchasedWeight + "g"}
-              </td>
-              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                 <button
-          className=" pt-1 text-nRed mx-4  text-xs font-bold text-center  p-1 "
-          onClick={() => deleteFinalRecipeObjectHandler(i)}
-        >
-          Delete
-        </button>
-              </td>
-            </tr>
-                
-              );
-            })}
+              <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
+                  <div class="overflow-hidden">
+                    <table class="min-w-full">
+                      <thead class="bg-white border-b">
+                        <tr>
+                          <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
+                            Ingredients
+                          </th>
+                          <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
+                            As Purchased
+                          </th>
+                          <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
+                            Edible Weight
+                          </th>
+                          <th scope="col" class="text-sm font-semibold text-gray-900 px-6 py-4 text-left">
 
-		 {finalNonRecipeObject.map((info, i) => {
-              return (
-	<tr  key={i} class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{info.ingredientName}</td>
-              <td class="text-sm text-gray-900 font-simibold px-6 py-4 whitespace-nowrap">
-                 {info.ediblePortionWeight + "g"}
-              </td>
-              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                 {info.purchasedWeight + "g"}
-              </td>
-              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                 <button
-          className=" pt-1 text-nRed mx-4  text-xs font-bold text-center  p-1 "
-          onClick={() => deleteFinalRecipeObjectHandler(i)}
-        >
-          Delete
-        </button>
-              </td>
-            </tr>
-	 );
-            })}
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {finalRecipeObject.map((info, i) => {
+                          return (
+                            <tr key={i} class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                              <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{info.ingredientName}</td>
 
-</tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-            
+                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                {info.purchasedWeight + "g"}
+                              </td>
+                              <td class="text-sm text-gray-900 font-simibold px-6 py-4 whitespace-nowrap">
+                                {info.ediblePortionWeight.toFixed(1) + "g"}
+                              </td>
+                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                <button
+                                  className=" pt-1 text-nRed mx-4  text-xs font-bold text-center  p-1 "
+                                  onClick={() => deleteFinalRecipeObjectHandler(i)}
+                                >
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+
+                          );
+                        })}
+
+                        {finalNonRecipeObject.map((info, i) => {
+                          return (
+                            <tr key={i} class="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+                              <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{info.ingredientName}</td>
+                              <td class="text-sm text-gray-900 font-simibold px-6 py-4 whitespace-nowrap">
+                                {info.ediblePortionWeight + "g"}
+                              </td>
+                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                {info.purchasedWeight + "g"}
+                              </td>
+                              <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                <button
+                                  className=" pt-1 text-nRed mx-4  text-xs font-bold text-center  p-1 "
+                                  onClick={() => deleteFinalRecipeObjectHandler(i)}
+                                >
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {" "}
           </div>
 
@@ -876,7 +885,7 @@ const CreatePin = ({ user }) => {
           )}
           {!ModalOpen && finalRecipeObject.length != 0 && yieldAmount != 0 && (
             <button
-              className="mt-5 text-white w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-nOrange  rounded-full border border-blue-300"
+              className="mt-5 text-white w-24 h-7.5 float-left py-1 px-1  text-xs font-bold text-center text-white bg-nOrange opacity-70 hover:opacity-100 rounded-full border border-blue-300"
               onClick={ModalHandlerOpen}
             >
               See Nutrients
@@ -909,7 +918,7 @@ const CreatePin = ({ user }) => {
             ))}
             {/* button for add procedures */}
             <button
-              className="text-nGreen w-24 h-7.5 float-left py-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-blue-300"
+              className="text-nGreen hover:text-white hover:bg-nGreen w-24 h-7.5 float-left py-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-nGreen opacity-70 hover:opacity-100"
               onClick={() => handleProcedureAdd()}
             >
               ADD
@@ -927,13 +936,14 @@ const CreatePin = ({ user }) => {
                 }}
                 className="outline-none w-4/5 text-base border-b-2 border-gray-200 p-2 rounded-md cursor-pointer"
               >
-                <option value="others" className="sm:text-bg bg-white">
+                <option value="others" className="sm:text-bg bg-white ">
                   Select Category
                 </option>
                 {categories.map((item) => (
                   <option
-                    className="text-base border-0 outline-none capitalize bg-gray-100 text-black "
+                    className="text-base border-0 outline-none capitalize  bg-gray-100 text-black "
                     value={item.name}
+
                   >
                     {item.name}
                   </option>
@@ -949,7 +959,7 @@ const CreatePin = ({ user }) => {
               <button
                 type="button"
                 onClick={savePin}
-                className="transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-nGreen text-white hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nOrange duration-300"
+                className="transition ease-in-out delay-150 w-36 border border-blue-300 rounded-full bg-nGreen text-white hover:text-white hover:-translate-y-1 hover:scale-110 opacity-70 hover:opacity-100 "
               >
                 Upload Recipe
               </button>
