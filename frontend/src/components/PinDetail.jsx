@@ -513,7 +513,7 @@ const PinDetail = ({ user }) => {
                           </div>
                         </Link>
                         <div className="flex flex-col mt-6">
-                          {comment?.postedBy?._id === user._id ? (
+                          {comment?.postedBy?._id === user._id || user.isAdmin  ? (
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();

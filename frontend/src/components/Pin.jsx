@@ -11,6 +11,7 @@ const Pin = ({ pin }) => {
   const [postHovered, setPostHovered] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
   const { postedBy, image, _id} = pin;
+  const [saved, setSaved] =  useState(false);
 
 
   const user = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
@@ -37,6 +38,7 @@ const Pin = ({ pin }) => {
         .commit()
         .then(() => {
           setSavingPost(false);
+          setSaved(true)
         })
     }
   };
@@ -60,6 +62,7 @@ const Pin = ({ pin }) => {
       .commit()
       .then(() => {
         window.location.reload(false);
+        setSaved(false)
       });
   };
 
@@ -101,7 +104,7 @@ const Pin = ({ pin }) => {
                   type="button"
                   className="bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                 >
-                  {savingPost ? 'Saving' : 'Save'}
+                  {saved ? 'Saved ': savingPost ? 'Saving' :'Save'}
                 </button>
               )}
 
