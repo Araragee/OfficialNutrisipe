@@ -54,7 +54,8 @@ module.exports = {
         nGreen:'#008083',
         nRed:'#dc2626',
         nOrange: '#FF9F1C',
-        nTeal:'#0d9488'
+        nTeal:'#0d9488',
+        nGreen2: '#059396'
       },
       keyframes: {
         'slide-in': {
