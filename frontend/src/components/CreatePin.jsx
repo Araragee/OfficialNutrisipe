@@ -329,8 +329,8 @@ const CreatePin = ({ user }) => {
 
   return (
     <div className="flex flex-col justify-center items-center mt-5 lg:h-4/5">
-      <div className=" flex lg:flex-row flex-col justify-center items-center bg-white lg:p-5 p-3 lg:w-4/5  w-full">
-        <div className="bg-secondaryColor p-3 flex flex-0.7 w-full">
+      <div className=" flex lg:flex-row flex-col justify-center items-start bg-white lg:p-5 p-3 lg:w-4/5  w-full">
+        <div className="bg-secondaryColor p-3 flex flex-0.7 w-full mt-32">
           <div className=" flex justify-center items-center flex-col border-2 border-dotted border-blue-400 p-3 w-full h-420">
             {loading && <Spinner />}
             {wrongImageType && <p>It&apos;s wrong file type.</p>}
@@ -467,24 +467,24 @@ const CreatePin = ({ user }) => {
                 {loadingIngredient && <div className="text-xs "> <Spinner message="Loading Ingredients" /></div>}
 
                 {/* DROPDOWN BAR FOR INGREDIENT SEARCH */}
-                {!ModalOpen != 0 && chosenIngredient != 0 && (
+                 
 
-                  <div className="border bg-gray-100 min-h-100 overflow-y-auto h-24 w-auto ">
-                    {ingredientDropDown?.map((item) => (
-                      <div
-                        className="opacity-70 hover:opacity-100"
-                        onClick={() => {
-                          ChooseIngredientHandler(item);
-                          dropdownClickHandlerClose();
-                        }}
-                        key={item?._key}
-                      >
-                        {item?.foodItem}
-
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <div className="border bg-gray-100 min-h-100 overflow-y-auto max-h-24 w-auto ">
+                  {ingredientDropDown?.map((item) => (
+                    <div
+                      className="opacity-70 hover:opacity-100"
+                      onClick={() => {
+                        ChooseIngredientHandler(item);
+                        dropdownClickHandlerClose();
+                      }}
+                      key={item?._key}
+                    >
+                      {item?.foodItem} 
+                      
+                    </div>
+                  ))}
+                </div>
+                
               </div>
               {/* amount */}
               {ingredientDropDown.length == 0 && (
