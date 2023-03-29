@@ -1,47 +1,84 @@
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line no-unused-vars
-import { Link, useNavigate,  } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { AiTwotoneDelete, AiOutlineHeart, AiFillHeart, } from 'react-icons/ai';
 import { client, urlFor } from '../client';
-import { io } from "socket.io-client"
+import {pinDetailQuery} from "../utils/data";
 
 const Pin = ({ pin }) => {
   const navigate = useNavigate();
   const [postHovered, setPostHovered] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
   const { postedBy, image, _id} = pin;
-  const [saved, setSaved] =  useState(false);
-
-
+  const [pinDetail, setPinDetail] = useState();
+  let [saved, setSaved] = useState(false);
+  const [saveStatus, setSaveStatus] = useState()
   const user = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
 
   let alreadySaved = pin?.save?.filter((item) => item?.postedBy?._id === user?.sub);
-
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
+  
+  
 
+  const fetchPins = () => {
+    const query = pinDetailQuery(pin._id);
+    if (query) {
+      client.fetch(`${query}`).then((data) => {
+        setPinDetail(data);
+        alreadySaved?.length > 0 ? setSaved(true) : setSaved(false)
+        if(saved===true){
+          setSaveStatus(<AiOutlineHeart />);
+        }
+        else {
+          setSaveStatus(<AiFillHeart />);
+        }
+      });
+    }};
 
-  const savePin = (id) => {
-    if (alreadySaved?.length === 0) {
-      setSavingPost(true);
-      client
-        .patch(id)
-        .setIfMissing({ save: [] })
-        .insert('after', 'save[-1]', [{
+  useEffect(() => {
+    fetchPins();
+  }, []);
+
+const savePin = (id) => {
+  if (alreadySaved?.length === 0 || saved===false) {
+    setSavingPost(true);
+    client
+      .patch(id)
+      .setIfMissing({ save: [] })
+      .insert('after', 'save[-1]', [
+        {
           _key: uuidv4(),
           userId: user?.sub,
           postedBy: {
             _type: 'postedBy',
             _ref: user?.sub,
           },
-        }])
-        .commit()
-        .then(() => {
-          setSavingPost(false);
-          setSaved(true)
-        })
-    }
-  };
+        },
+      ])
+      .commit()
+      .then(() => {
+        setSavingPost(false);
+        fetchPins();
+        console.log("saved")
+      });
+  } else {
+    const ToRemove = [`save[userId=="${user?.sub}"]`];
+    setSavingPost(true);
+    client
+      .patch(id)
+      .unset(ToRemove)
+      .commit()
+      .then(() => {
+        setSavingPost(false);
+        setSaveStatus(<AiOutlineHeart />);
+        fetchPins();
+        console.log("unsaved")
+      });
+  }
+};
+
+  
   
   // delete a post
   const deletePin = (id) => {
@@ -53,18 +90,6 @@ const Pin = ({ pin }) => {
       
   };
   // unsave a post
-  const Unsave = (id) => {
-    const ToRemove = [`save[userId=="${user?.sub}"]`];
-    client
-      .patch(id)
-      .unset(ToRemove)
-      .commit()
-      .then(() => {
-        setSavingPost(false);
-        window.location.reload(false);
-        setSaved(false)
-      });
-  };
 
   return (
     <div className="m-2">
@@ -89,11 +114,11 @@ const Pin = ({ pin }) => {
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    Unsave(_id);
+                    savePin(_id);
                   }}
                   className="bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                 >
-                  <AiFillHeart />
+                  {saveStatus}
                 </button>
               ) : (
                 <button
@@ -104,7 +129,7 @@ const Pin = ({ pin }) => {
                   type="button"
                   className="bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                 >
-                  {savingPost ? 'Saving' : <AiOutlineHeart />}
+                   {saveStatus}
                 </button>
               )}
 

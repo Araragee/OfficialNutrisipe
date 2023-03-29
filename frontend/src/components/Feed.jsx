@@ -18,6 +18,7 @@ const Feed = () => {
   const { categoryId } = useParams();
 
   const userInfo = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
+ 
   useEffect(() => {
     const query = userQuery(userInfo?.sub);
     client.fetch(query).then((data) => {
@@ -25,33 +26,21 @@ const Feed = () => {
     });
   }, [userInfo?.sub]);
 
-
   useEffect(() => {
+    setLoading(true);
+    let query;
     if (categoryId) {
-      setLoading(true);
-      const query = searchQuery(categoryId);
-      client.fetch(query).then((data) => {
-        setPins(data);
-        setLoading(false);
-      });
-    };
-    if (text === 'All') {
-      setLoading(true);
-      client.fetch(feedQuery).then((data) => {
-        setPins(data);
-        setLoading(false);
-      });
-    } 
-    else {
-      setLoading(true);
-        const followingpost = userFollowingPost(userInfo?.sub);
-        client.fetch(followingpost)
-        .then((data) => {
-         setPins(data);
-         setLoading(false);
-        });
+      query = searchQuery(categoryId);
+    } else if (text === 'All') {
+      query = feedQuery;
+    } else {
+      query = userFollowingPost(userInfo?.sub);
     }
-  }, [text, userId, categoryId ]);
+    client.fetch(query).then((data) => {
+      setPins(data);
+      setLoading(false);
+    });
+  }, [text, userId, categoryId, userInfo?.sub]);
 
   const ideaName = categoryId || 'new';
   if (loading) {
@@ -70,7 +59,6 @@ const Feed = () => {
                 setActiveBtn('All');
               }}
               className={`${activeBtn === 'All' ? activeBtnStyles : notActiveBtnStyles}`}
-              
             >
               All
             </button>

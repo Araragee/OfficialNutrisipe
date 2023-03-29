@@ -25,30 +25,30 @@ const Followers = () => {
 
   useEffect(() => {
     fetchfollowers();
-  }, [userId]);
+  }, [userId,]);
   
-  const unfollow = (id) => {
-    client
-      .patch(id)
-      .unset([`following[userId=="${user.sub}"]`])
-      .commit()
-      .catch((error) => {
-        console.error(`Error while removing current user from followers: ${error.message}`);
-      })
-      .then(() => {
-        client
-          .patch(user.sub)
-          .unset([`followers[userId=="${id}"]`])
-          .commit()
-          .catch((error) => {
-            console.error(`Error while removing unfollowed user from following: ${error.message}`);
-          })
-          .then(() => {
-            console.log('Unfollowed user removed from followers and following');
-            fetchfollowers();
-          });
-      });
-  };
+  // const unfollow = (id) => {
+  //   client
+  //     .patch(id)
+  //     .unset([`following[userId=="${user.sub}"]`])
+  //     .commit()
+  //     .catch((error) => {
+  //       console.error(`Error while removing current user from followers: ${error.message}`);
+  //     })
+  //     .then(() => {
+  //       client
+  //         .patch(user.sub)
+  //         .unset([`followers[userId=="${id}"]`])
+  //         .commit()
+  //         .catch((error) => {
+  //           console.error(`Error while removing unfollowed user from following: ${error.message}`);
+  //         })
+  //         .then(() => {
+  //           console.log('Unfollowed user removed from followers and following');
+  //           fetchfollowers();
+  //         });
+  //     });
+  // };
 
 
   if(loading) return <Spinner message="Loading followers..." />
@@ -62,19 +62,26 @@ const Followers = () => {
       <div className='md:flex md:flex-row '>
         {followers?.followers?.map((index, i) => (
             <div className="flex gap-2 ml-2 lg:w-1/6 md:w-full mt-5 items-center bg-white rounded-lg" key={i}>
-              <Link to={`/user-profile/${index.postedBy?._id}`}>
               <img
                 src={index?.postedBy?.image}
                 alt="user-profile"
                 className='pointer-events-none w-10 h-10 rounded-full cursor-pointer md:w-30 md:h-30 lg:w-10 ' 
               />
-              </Link>
-              <Link to={`/user-profile/${index.postedBy?._id}`}>
                 <div className='flex flex-col'>
                   <p className='font-bold'>{index.postedBy?.userName}</p>
                 </div>
+
+              <Link to={`/user-profile/${index.postedBy?._id}`}>
+                <div className='flex flex-col '>
+                  <button>
+                    Visit
+                  </button>
+                </div>
               </Link>
-              {userId === user?.sub && (
+              
+              {//remove follower
+              
+              /* {userId === user?.sub && (
                 <button 
                   onClick={(e) => {
                       e.stopPropagation();
@@ -84,7 +91,7 @@ const Followers = () => {
                 >
                   Remove 
                 </button>
-              )}
+              )} */}
             </div>
         ))}
       </div>

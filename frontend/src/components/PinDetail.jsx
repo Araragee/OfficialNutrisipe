@@ -31,11 +31,10 @@ const PinDetail = ({ user }) => {
 
   // const socket = io("http://localhost:5000");
 
+  console.log(pinId)
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
-
-console.log(pinDetail)
 
   const User =
     localStorage.getItem("user") !== "undefined"
@@ -52,7 +51,6 @@ console.log(pinDetail)
 
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
 
-
   // const handleNotification = (type) => {
   //   type === 1 && setLiked(true);
   //   socket.emit("sendNotification", {
@@ -68,6 +66,7 @@ console.log(pinDetail)
     if (query) {
       client.fetch(`${query}`).then((data) => {
         setPinDetail(data[0]);
+        console.log(data)
         if (data[0]) {
           const query1 = pinDetailMorePinQuery(data[0]);
           client.fetch(query1).then((res) => {
@@ -77,7 +76,7 @@ console.log(pinDetail)
       });
     }
   };
-
+ 
   const deletePin = (id) => {
     client.delete(id).then(() => {
       navigate("/");
@@ -182,6 +181,7 @@ console.log(pinDetail)
         });
     }
   };
+
   // useEffect(() => {
   //   socket.on("connect", () => {
   //     console.log("Socket connection established");
@@ -204,7 +204,10 @@ console.log(pinDetail)
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  window.location.href ='mailto:nutrisipe@gmail.com?subject=Report Recipe';
+                  const url = window.location.href;
+                  const subject = encodeURIComponent('Report Recipe');
+                  const body = encodeURIComponent(`Please review and take appropriate action on this recipe: ${url}`);
+                  window.location.href = `mailto:nutrisipe@gmail.com?subject=${subject}&body=${body}`;
                 }}
                 className="bg-white p-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none" style={{ color: '#dc2626'}}
               >
