@@ -56,16 +56,16 @@ const ReadIngredient = ({ uploadSuccessAlert, setuploadSuccessAlert }) => {
     <div >
       {ModalOpen && (
       <div className=" fixed inset-0 bg-white bg-opacity-100 backdrop-blur-sm 
-      items-center overflow-y-auto overflow-x-auto h-full ">
+      items-center overflow-y-auto overflow-x-auto h-full w-full">
          <button
-            className="ml-2 transition ease-in-out delay-150 items- w-24 border item-end mt-6 border-blue-300 rounded-full bg-nGreen  text-white hover:text-white hover:-translate-y-1 hover:scale-110 hover:bg-nOrange duration-300"
+            className="ml-2 transition ease-in-out delay-150 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 mt-2 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
             onClick={ModalHandlerClose}
             
           >
             <AiOutlineClose />
           </button>
 
-        <div className="flex font-bold text-3xl pb-4 justify-center items-center "> SEARCH INGREDIENT TO DATABASE</div>
+        <div className="flex font-bold text-3xl pb-4 justify-center items-center mx-2 "> SEARCH INGREDIENT TO DATABASE</div>
         
         <input
           type="text"
@@ -79,8 +79,7 @@ const ReadIngredient = ({ uploadSuccessAlert, setuploadSuccessAlert }) => {
 
 
 
-        <div  className=" inset-0 bg-white bg-opacity-100 backdrop-blur-sm 
-      items-center overflow-y-auto overflow-x-auto h-full w-auto ">
+        <div  className=" inset-0 bg-white bg-opacity-100 backdrop-blur-sm items-center overflow-y-auto overflow-x-auto h-full w-auto ">
           <table className="w-full min-w-screen max-w-screen sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr className="bg-nOrange ">
@@ -98,7 +97,7 @@ const ReadIngredient = ({ uploadSuccessAlert, setuploadSuccessAlert }) => {
                 </th>
                 <th
 
-                  className="text-sm font-semibold text-gray-900 px-6 py-4"
+                  className="text-sm font-semibold text-gray-900 px-6 py-4 "
                 >
                   Edible Portion
                 </th>
@@ -196,7 +195,7 @@ const ReadIngredient = ({ uploadSuccessAlert, setuploadSuccessAlert }) => {
                   <td className="ext-sm font-medium text-gray-900 px-6 py-4">
                     {item.altName}
                   </td>
-                  <td className=" text-sm font-medium text-gray-900 px-6 py-4">
+                  <td className=" text-sm font-medium text-gray-900 px-6 py-4" >
                     {item.ediblePortion}
                   </td>
                   <td className=" text-sm font-medium text-gray-900 px-6 py-4">
