@@ -43,7 +43,6 @@ const Pin = ({ pin }) => {
     }
   };
   
-
   // delete a post
   const deletePin = (id) => {
     client

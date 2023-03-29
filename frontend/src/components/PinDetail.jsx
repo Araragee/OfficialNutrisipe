@@ -28,13 +28,14 @@ const PinDetail = ({ user }) => {
   const [addingComment, setAddingComment] = useState(false);
   const [savingPost, setSavingPost] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
-  const [liked, setLiked] = useState(false);
 
   // const socket = io("http://localhost:5000");
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
   };
+
+console.log(pinDetail)
 
   const User =
     localStorage.getItem("user") !== "undefined"
@@ -188,7 +189,7 @@ const PinDetail = ({ user }) => {
   // }, []);
   
   if (!pinDetail) {
-    return <Spinner message="Loading Recipe..." />;
+    return <Spinner message="Loading Recipe" />;
   }
 
   return (
@@ -238,9 +239,9 @@ const PinDetail = ({ user }) => {
                   </button>
                 ) : null
                 }
-          <div className="justify-center align-center items-center md:items-start flex w-full float-left pr-4">
+          <div className="justify-center align-center items-center md:items-start flex-initial w-full float-left">
             <img
-              className="rounded-t-3xl rounded-b-lg  py-10 flex-row "
+              className="rounded-t-3xl rounded-b-lg px-10 py-10  "
               src={pinDetail?.image && urlFor(pinDetail?.image).url()}
               alt="user-post"
             />
@@ -345,7 +346,7 @@ const PinDetail = ({ user }) => {
                             </td>
 
                             <td className="text-center pl-9">
-                              {info.purchasedWeight}g
+                              {info.purchasedWeight}
                             </td>
 
 
@@ -362,7 +363,6 @@ const PinDetail = ({ user }) => {
                   Procedure:{" "}
                 </p>
                 {pinDetail.procedure.map((item, i) => (
-                 
                   <ol
                     className="ml-2.5 list-disc pl-4"
                     key={i}
@@ -371,12 +371,11 @@ const PinDetail = ({ user }) => {
                       {item}
                     </li>
                   </ol>
-                  
                 ))}
               </div>
 
               <div className="flow-root">
-                <div className="p-1 mt-3 border-2 border-black font-sans w-80 ml-4 float-right">
+                <div className="p-1 mt-3 border-2 border-black font-sans w-80 float-right">
                   <div className="text-4xl font-extrabold leading-none">
                     Nutrition Facts
                   </div>
@@ -483,7 +482,7 @@ const PinDetail = ({ user }) => {
                 <div className="w-full">
 
                   <h2 className="mt-5 text-2xl"> Comments </h2>
-                  <div className="min-h-100 overflow-y-auto h-96 w-auto">
+                  <div className="min-h-100 overflow-y-auto h-40 w-auto">
                     {pinDetail?.comments?.map((comment, i) => (
                       <div
                         className="flex  gap-2 mt-5 items-center bg-white w-full rounded-lg  "
@@ -550,7 +549,7 @@ const PinDetail = ({ user }) => {
                     />
                     <button
                       type="button"
-                      className="bg-nOrange opacity-70 hover:opacity-100 text-white rounded-full w-24 px-6 py-2 font-semibold text-base outline-none"
+                      className="bg-nOrange text-white rounded-full w-24 px-6 py-2 font-semibold text-base outline-none"
                       onClick={addComment}
                     >
                       {addingComment ? "Posting..." : "Post"}
@@ -572,7 +571,7 @@ const PinDetail = ({ user }) => {
       {pins ? (
         <MasonryLayout pins={pins} />
       ) : (
-        <Spinner message="Loading more recipes..." />
+        <Spinner message="Loading more pins" />
       )}
     </>
   );
