@@ -422,6 +422,7 @@ const CreatePin = ({ user }) => {
               onChange={(e) => setYieldAmount(e.target.value)}
               placeholder="Yield Amount"
               className=" block p-2 w-36 h-9 bg-white outline-none border rounded-lg "
+              onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
             />
           </div>
           <div className="h-auto grid  content-evenly w-auto float-root flex items-stretch ">
@@ -502,6 +503,7 @@ const CreatePin = ({ user }) => {
                       placeholder="Grams"
                       value={amount}
                       className="  block p-2 w-24 h-9 bg-white outline-none border rounded-lg "
+                      onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
                     />
                     {/* </div> */}
                     <div>
@@ -577,6 +579,7 @@ const CreatePin = ({ user }) => {
                             placeholder="Amount"
                             value={nonChosenAmount}
                             className="  block p-2 w-24 h-9 bg-white outline-none border rounded-lg "
+                            onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
                           />
                           <div>
                             <div class="flex flex-nowrap pl-8">
