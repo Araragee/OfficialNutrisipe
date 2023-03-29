@@ -108,6 +108,7 @@ const CreateIngredient = ({ user }) => {
               Ingredient Name
             </label>
             <input
+            required 
               type="text"
               value={foodItem}
               onChange={(e) => setFoodItem(e.target.value)}
@@ -127,6 +128,7 @@ const CreateIngredient = ({ user }) => {
               onChange={(e) => setAltName(e.target.value)}
               placeholder="Alternate Name"
               className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              
             />
           </div>
 
@@ -135,11 +137,14 @@ const CreateIngredient = ({ user }) => {
               Edible Portion
             </label>
             <input
+              required
               type="number"
+              min="0"
               value={ediblePortion}
               onChange={(e) => setEdiblePortion(e.target.value)}
               placeholder="Edible Portion"
               className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
             />
           </div>
         </div>
@@ -150,10 +155,12 @@ const CreateIngredient = ({ user }) => {
             </label>
             <input
               type="number"
+              min="0"
               value={energy}
               onChange={(e) => setEnergy(e.target.value)}
               placeholder="Energy"
               className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
             />
           </div>
 
@@ -163,10 +170,12 @@ const CreateIngredient = ({ user }) => {
             </label>
             <input
               type="number"
+              min="0"
               value={prot}
               onChange={(e) => setProt(e.target.value)}
               placeholder="Protein"
               className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
             />
           </div>
 
@@ -176,10 +185,12 @@ const CreateIngredient = ({ user }) => {
             </label>
             <input
               type="number"
+              min="0"
               value={fat}
               onChange={(e) => setFat(e.target.value)}
               placeholder="Fat"
               className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
             />
           </div>
         </div>
@@ -190,10 +201,12 @@ const CreateIngredient = ({ user }) => {
             </label>
             <input
               type="number"
+              min="0"
               value={carb}
               onChange={(e) => setCarb(e.target.value)}
               placeholder="Carb"
               className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
             />
           </div>
 
@@ -203,10 +216,12 @@ const CreateIngredient = ({ user }) => {
             </label>
             <input
               type="number"
+              min="0"
               value={calcium}
               onChange={(e) => setCalcium(e.target.value)}
               placeholder="Calcium"
               className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
             />
           </div>
 
@@ -216,10 +231,12 @@ const CreateIngredient = ({ user }) => {
             </label>
             <input
               type="number"
+              min="0"
               value={phos}
               onChange={(e) => setPhos(e.target.value)}
               placeholder="Phosporus"
               className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
             />
           </div>
         </div>
@@ -230,10 +247,12 @@ const CreateIngredient = ({ user }) => {
             </label>
             <input
               type="number"
+              min="0"
               value={iron}
               onChange={(e) => setIron(e.target.value)}
               placeholder="Iron"
               className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
             />
           </div>
 
@@ -243,10 +262,12 @@ const CreateIngredient = ({ user }) => {
             </label>
             <input
               type="number"
+              min="0"
               value={vitA}
               onChange={(e) => setVitA(e.target.value)}
               placeholder="Vitamin A"
               className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
             />
           </div>
 
@@ -256,10 +277,12 @@ const CreateIngredient = ({ user }) => {
             </label>
             <input
               type="number"
+              min="0"
               value={thia}
               onChange={(e) => setThia(e.target.value)}
               placeholder="Thiamine"
               className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
             />
           </div>
         </div>
@@ -270,10 +293,12 @@ const CreateIngredient = ({ user }) => {
             </label>
             <input
               type="number"
+              min="0"
               value={ribo}
               onChange={(e) => setRibo(e.target.value)}
               placeholder="Ribo"
               className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
             />
           </div>
 
@@ -283,10 +308,12 @@ const CreateIngredient = ({ user }) => {
             </label>
             <input
               type="number"
+              min="0"
               value={nia}
               onChange={(e) => setNia(e.target.value)}
               placeholder="Nia"
               className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
             />
           </div>
 
@@ -296,10 +323,12 @@ const CreateIngredient = ({ user }) => {
             </label>
             <input
               type="number"
+              min="0"
               value={vitC}
               onChange={(e) => setVitC(e.target.value)}
               placeholder="Vitamin C"
               className="ooutline-none text-xl sm:text-3l font-bold border-b-2 border-gray-200 p-2"
+              onKeyDown={ (evt) => evt.key === 'e' && evt.preventDefault() }
             />
           </div>
 
