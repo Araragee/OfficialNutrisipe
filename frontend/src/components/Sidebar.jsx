@@ -48,7 +48,7 @@ const [notifications, setNotifications] = useState([])
               onClick={handleCloseSidebar}
               key={category.name}
             >
-              <img src={category.image} className="w-8 h-8 rounded-full shadow-sm text-green-300" />
+              <img src={category.image} className="w-8 h-8 rounded-full shadow-sm text-green-300" alt="Category" />
               {category.name}
             </NavLink>
           ))}

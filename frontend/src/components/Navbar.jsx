@@ -35,7 +35,7 @@ const Navbar = ({ searchTerm, setSearchTerm, user, socket }) => {
 <div className="flex gap-3 ">
   <div className="relative flex gap-2">
     
-    <button className="bg-nGreen opacity-70 hover:opacity-100 text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center"   onClick={toggleDropdown}>
+    <button className="bg-nGreen opacity-70 hover:opacity-100 text-white rounded-lg w-12 h-12 md:w-14 md:h-12 flex justify-center items-center"   aria-label="Add Button" onClick={toggleDropdown}>
     <IoMdAdd/>
     </button>
     <div className="relative pt-10">
