@@ -27,31 +27,20 @@ const Feed = () => {
 
 
   useEffect(() => {
+    setLoading(true);
+    let query;
     if (categoryId) {
-      setLoading(true);
-      const query = searchQuery(categoryId);
-      client.fetch(query).then((data) => {
-        setPins(data);
-        setLoading(false);
-      });
-    };
-    if (text === 'All') {
-      setLoading(true);
-      client.fetch(feedQuery).then((data) => {
-        setPins(data);
-        setLoading(false);
-      });
-    } 
-    else {
-      setLoading(true);
-        const followingpost = userFollowingPost(userInfo?.sub);
-        client.fetch(followingpost)
-        .then((data) => {
-         setPins(data);
-         setLoading(false);
-        });
+      query = searchQuery(categoryId);
+    } else if (text === 'All') {
+      query = feedQuery;
+    } else {
+      query = userFollowingPost(userInfo?.sub);
     }
-  }, [text, userId, categoryId ]);
+    client.fetch(query).then((data) => {
+      setPins(data);
+      setLoading(false);
+    });
+  }, [text, userId, categoryId, userInfo?.sub]);
 
   const ideaName = categoryId || 'new';
   if (loading) {
