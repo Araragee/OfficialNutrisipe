@@ -74,17 +74,7 @@ const Followers = () => {
                   <p className='font-bold'>{index.postedBy?.userName}</p>
                 </div>
               </Link>
-              {userId === user?.sub && (
-                <button 
-                  onClick={(e) => {
-                      e.stopPropagation();
-                      unfollow(`${index.postedBy?._id}`);
-                  }}
-                  className='font-bold text-red-500 ml-28 md:ml-0 md:text-sm'
-                >
-                  Remove 
-                </button>
-              )}
+             
             </div>
         ))}
       </div>
