@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // eslint-disable-next-line no-unused-vars
-import { Link, useNavigate,  } from 'react-router-dom';
+import { Link, useNavigate, } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import { AiTwotoneDelete, AiOutlineHeart, AiFillHeart, } from 'react-icons/ai';
 import { client, urlFor } from '../client';
@@ -9,8 +9,9 @@ import { io } from "socket.io-client"
 const Pin = ({ pin }) => {
   const navigate = useNavigate();
   const [postHovered, setPostHovered] = useState(false);
-  const [savingPost, setSavingPost] = useState(false);
-  const { postedBy, image, _id} = pin;
+  const [savingPost, setSavingPost] = useState();
+  const { postedBy, image, _id } = pin;
+  const [buttonState, setButtonState] = useState();
 
 
   const user = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
@@ -19,28 +20,39 @@ const Pin = ({ pin }) => {
 
   alreadySaved = alreadySaved?.length > 0 ? alreadySaved : [];
 
+  useEffect(() => {
+
+    alreadySaved?.length !== 0 ? setSavingPost(true) : setSavingPost(false);
+
+
+  }, []);
+
+
+
+
 
   const savePin = (id) => {
-    if (alreadySaved?.length === 0) {
-      setSavingPost(true);
-      client
-        .patch(id)
-        .setIfMissing({ save: [] })
-        .insert('after', 'save[-1]', [{
-          _key: uuidv4(),
-          userId: user?.sub,
-          postedBy: {
-            _type: 'postedBy',
-            _ref: user?.sub,
-          },
-        }])
-        .commit()
-        .then(() => {
-          setSavingPost(false);
-        })
-    }
+    // if (alreadySaved?.length === 0) {
+    client
+      .patch(id)
+      .setIfMissing({ save: [] })
+      .insert('after', 'save[-1]', [{
+        _key: uuidv4(),
+        userId: user?.sub,
+        postedBy: {
+          _type: 'postedBy',
+          _ref: user?.sub,
+        },
+      }])
+      .commit()
+      .then(() => {
+        setSavingPost(true);
+        console.log("SAVING POST IS TRUE")
+        console.log(alreadySaved?.length)
+      })
+    // }
   };
-  
+
 
   // delete a post
   const deletePin = (id) => {
@@ -49,7 +61,7 @@ const Pin = ({ pin }) => {
       .then(() => {
         window.location.reload(false);
       });
-      
+
   };
   // unsave a post
   const Unsave = (id) => {
@@ -60,7 +72,8 @@ const Pin = ({ pin }) => {
       .commit()
       .then(() => {
         setSavingPost(false);
-        window.location.reload(false);
+        console.log("SAVING POST IS FALSE")
+        console.log(alreadySaved?.length)
       });
   };
 
@@ -74,7 +87,7 @@ const Pin = ({ pin }) => {
       >
 
         {image && (
-        <img className="rounded-lg w-full " src={(urlFor(image).width(250).url())} alt="user-post" />)}
+          <img className="rounded-lg w-full " src={(urlFor(image).width(250).url())} alt="user-post" />)}
         {postHovered && (
           <div
             className="absolute top-0 w-full h-full flex flex-col justify-between p-1 pr-2 pt-2 pb-2 z-50"
@@ -82,7 +95,7 @@ const Pin = ({ pin }) => {
           >
             <div className="flex items-center justify-between">
 
-              {alreadySaved?.length !== 0 ? (
+              {savingPost ? (
                 <button
                   type="button"
                   onClick={(e) => {
@@ -102,7 +115,7 @@ const Pin = ({ pin }) => {
                   type="button"
                   className="bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                 >
-                  {savingPost ? 'Saving' : <AiOutlineHeart />}
+                  <AiOutlineHeart />
                 </button>
               )}
 
