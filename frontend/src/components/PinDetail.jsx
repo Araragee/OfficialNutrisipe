@@ -2,7 +2,7 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { AiTwotoneDelete, AiOutlineHeart, AiFillHeart, AiOutlineEye, AiFillEyeInvisible} from "react-icons/ai";
+import { AiTwotoneDelete, AiOutlineHeart, AiFillHeart, AiOutlineEye, AiFillEyeInvisible } from "react-icons/ai";
 import { BsExclamationCircle } from "react-icons/bs"
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -41,8 +41,8 @@ const PinDetail = ({ user }) => {
       ? JSON.parse(localStorage.getItem("user"))
       : localStorage.clear();
 
-      const isLoggedInUser = User && User.sub === pinDetail?.postedBy?._id;
-      const isHidden = pinDetail?.isHidden;
+  const isLoggedInUser = User && User.sub === pinDetail?.postedBy?._id;
+  const isHidden = pinDetail?.isHidden;
 
 
   let alreadySaved = pinDetail?.save?.filter(
@@ -153,7 +153,7 @@ const PinDetail = ({ user }) => {
         window.location.reload(false);
       });
   };
-  
+
   useEffect(() => {
     fetchPinDetails();
   }, [pinId]);
@@ -186,59 +186,62 @@ const PinDetail = ({ user }) => {
   //     console.log("Socket connection established");
   //   });
   // }, []);
-  
+
   if (!pinDetail) {
     return <Spinner message="Loading Recipe..." />;
   }
 
   return (
     <>
-       {pinDetail && (
+      {pinDetail && (
         <div
           className=" flex xl:flex-row flex-col m-auto bg-white w-full border rounded-lg float-root"
         >
-           {user?.isAdmin === true ? (null) : 
-              pinDetail.postedBy?._id !== User.sub ? (
+          {user?.isAdmin === true ? (null) :
+            pinDetail.postedBy?._id !== User.sub ? (
               <button
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  window.location.href ='mailto:nutrisipe@gmail.com?subject=Report Recipe';
+                  const url = window.location.href;
+                  const subject = encodeURIComponent('Report Recipe');
+                  const body = encodeURIComponent(`Please review and take appropriate action on this recipe: ${url}`);
+                  window.location.href = `mailto:nutrisipe@gmail.com?subject=${subject}&body=${body}`;
                 }}
-                className="bg-white pl-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none" style={{ color: '#dc2626'}}
+                className="bg-white pl-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none" style={{ color: '#dc2626' }}
               >
                 <BsExclamationCircle />
               </button>
             ) : null
-              }
+          }
 
-{pinDetail.postedBy?._id === user.sub ? (
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      deletePin(pinDetail._id);
-                      navigate("/home");
-                    }}
-                    className= "bg-white pl-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none" style={{ color: '#dc2626'}}
-                  >
-                    <AiTwotoneDelete />
-                  </button>
-                ) : user?.isAdmin === true ? (
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      deletePin(pinDetail._id);
-                      navigate("/home");
-                    }}
-                    className= "bg-white pl-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none" style={{ color: '#dc2626'}}
-                  >
-                    <AiTwotoneDelete />
-                  </button>
-                ) : null
-                }
-           <div className="justify-center align-center items-center md:items-start flex w-full float-left px-4">
+          {pinDetail.postedBy?._id === user.sub ? (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                deletePin(pinDetail._id);
+                navigate("/home");
+              }}
+              className="bg-white pl-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none" style={{ color: '#dc2626' }}
+            >
+              <AiTwotoneDelete />
+            </button>
+          ) : user?.isAdmin === true ? (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                deletePin(pinDetail._id);
+                navigate("/home");
+              }}
+              className="bg-white pl-2 rounded-full w-8 h-8 flex items-center justify-center text-dark opacity-75 hover:opacity-100 outline-none" style={{ color: '#dc2626' }}
+            >
+              <AiTwotoneDelete />
+            </button>
+          ) : null
+          }
+          <div className="justify-center align-center items-center md:items-start flex w-full float-left px-4">
             <img
               className="rounded-t-3xl rounded-b-lg  py-10 flex-row "
               src={pinDetail?.image && urlFor(pinDetail?.image).url()}
@@ -272,7 +275,7 @@ const PinDetail = ({ user }) => {
                       e.stopPropagation();
                       Unsave(pinDetail._id);
                     }}
-                    class= "mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                    class="mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                   >
                     <AiFillHeart />
                   </button>
@@ -281,30 +284,30 @@ const PinDetail = ({ user }) => {
                     onClick={(e) => {
                       e.stopPropagation();
                       savePin(pinDetail._id);
-                      
+
                     }}
                     type="button"
-                    class= "mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
+                    class="mt-5 bg-nOrange opacity-70 hover:opacity-100 text-white font-bold px-5 py-1 text-base rounded-3xl hover:shadow-md outline-none"
                   >
                     <AiOutlineHeart />
                   </button>
                 )}
 
-               
-               
-                  <>
-                      {isLoggedInUser && (
-                        <>
-                          {isHidden ? (
-                            <button  className="pl-2" onClick={() => unhidePin(pinDetail._id)}>
-                              < AiFillEyeInvisible /> </button>
-                          ) : (
-                            <button className="pl-2" onClick={() => hidePin(pinDetail._id)}>
-                            < AiOutlineEye /></button>
-                          )}
-                        </>
+
+
+                <>
+                  {isLoggedInUser && (
+                    <>
+                      {isHidden ? (
+                        <button className="pl-2" onClick={() => unhidePin(pinDetail._id)}>
+                          < AiFillEyeInvisible /> </button>
+                      ) : (
+                        <button className="pl-2" onClick={() => hidePin(pinDetail._id)}>
+                          < AiOutlineEye /></button>
                       )}
                     </>
+                  )}
+                </>
               </div>
             </div>
 
@@ -319,8 +322,8 @@ const PinDetail = ({ user }) => {
                 {pinDetail.about}
               </p>
               {/* border for ingre */}
-             {/* border for ingre */}
-             <div className="flex justify-left items-left flex-col border bg-gray-100 px-4 pb-4">
+              {/* border for ingre */}
+              <div className="flex justify-left items-left flex-col border bg-gray-100 px-4 pb-4">
                 <div className="container">
                   <table className="border-separate border-spacing-4 table-auto">
 
@@ -364,7 +367,7 @@ const PinDetail = ({ user }) => {
                   Procedure:{" "}
                 </p>
                 {pinDetail.procedure.map((item, i) => (
-                 
+
                   <ol
                     className="ml-2.5 list-disc pl-4"
                     key={i}
@@ -373,11 +376,11 @@ const PinDetail = ({ user }) => {
                       {item}
                     </li>
                   </ol>
-                  
+
                 ))}
 
 
-<div className="p-1 mt-3 border-2 border-black font-sans w-full ">
+                <div className="p-1 mt-3 border-2 border-black font-sans w-full ">
                   <div className="text-4xl font-extrabold leading-none">
                     Nutrition Facts
                   </div>
@@ -612,7 +615,7 @@ const PinDetail = ({ user }) => {
                                   className="pointer-events-none  w-10 h-10 rounded-full align-top cursor-pointer  "
                                 />
                               </div>
-                              </div>
+                            </div>
 
                             <div className="font-bold  float-left mt-4">
                               <div className="flex flex-nowrap ml-2">
@@ -628,7 +631,7 @@ const PinDetail = ({ user }) => {
                           </div>
                         </Link>
                         <div className="flex flex-col mt-12  items-center justify-center		">
-                        {comment?.postedBy?._id === user._id || user.isAdmin  ? (
+                          {comment?.postedBy?._id === user._id || user.isAdmin ? (
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
