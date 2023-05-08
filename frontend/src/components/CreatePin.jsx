@@ -465,7 +465,7 @@ const CreatePin = ({ user }) => {
                   )}
 
                 {/* DISPLAY WHEN LOADING SEARCH INGREDIENTS */}
-                {loadingIngredient && <div className="text-xs "> <Spinner message="Loading Ingredients" /></div>}
+                {loadingIngredient && <div className="text-xs "> <Spinner message="Searching Ingredients" /></div>}
 
                 {/* DROPDOWN BAR FOR INGREDIENT SEARCH */}
                  
@@ -772,7 +772,7 @@ const CreatePin = ({ user }) => {
               className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex flex-col 
             justify-center items-center  "
             >
-              <div className="fixed bg-gray-100 rounded-md h-auto w-96 ">
+              <div className="fixed bg-gray-100 rounded-md h-auto w-auto ">
                 <div className="p-1 border-2 border-black font-sans w-full">
                   <div className="text-4xl font-extrabold leading-none">
                     Nutrition Facts
@@ -790,15 +790,20 @@ const CreatePin = ({ user }) => {
                           <td>{(nutrientTable.ediblePortionWeight).toFixed(0)}g</td>
                         </tr>
 
-                        <tr className="text-center">
+                        <tr className="text-start">
 
-                          <td className="flex justify-start  uppercase font-extrabold">number of serving:</td>
-                          <td>{nutrientTable.yieldAmount}</td>
+                          <td className="flex justify-start  font-extrabold">Number of Serving:</td>
+                          <td className="text-center">{nutrientTable.yieldAmount}</td>
                         </tr>
+                        
 
                         <tr className="text-center border-t-2 border-black">
+                          <td className="flex justify-start  font-extrabold"></td>
+                          <td>Amount per serving</td>
+                        </tr>
 
-                          <td className="flex justify-start   font-extrabold">Energy</td>
+                        <tr className="text-center">
+                          <td className="flex justify-start  font-extrabold">Energy</td>
                           <td>{(nutrientTable.energy).toFixed(0)}kcal</td>
                         </tr>
 

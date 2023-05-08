@@ -8,6 +8,7 @@ import fruits from '../assets/categories/Fruits.jpg';
 import meat from '../assets/categories/meat.jpg';
 import protein from '../assets/categories/Protein.jpg';
 import veg from '../assets/categories/veg.jpg';
+import chicken from '../assets/categories/chicken.png';
 
 export const metrics = [
   {
@@ -64,8 +65,12 @@ export const categories = [
     image: fish,
   },
   {
-    name: 'Meat and Poultry',
+    name: 'Meat',
     image: meat,
+  },
+  {
+    name: 'Poultry ',
+    image: chicken,
   },
   {
     name: 'others',

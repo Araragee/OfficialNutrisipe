@@ -397,13 +397,18 @@ const PinDetail = ({ user }) => {
                           <td>{(pinDetail?.nutritionPost?.ediblePortionWeight).toFixed(0)}g</td>
                         </tr>
 
-                        <tr className="text-center">
+                        <tr className="text-start">
 
-                          <td className="flex justify-start  uppercase font-extrabold">number of serving:</td>
-                          <td>{pinDetail?.nutritionPost?.yieldAmount}</td>
+                          <td className="flex justify-start font-extrabold">Number of Serving:</td>
+                          <td className="text-center">{pinDetail?.nutritionPost?.yieldAmount}</td>
                         </tr>
 
-                        <tr className="text-center border-t-2 border-black w-full">
+                        <tr className="text-center border-t-2 border-black">
+                          <td className="flex justify-start  font-extrabold"></td>
+                          <td>Amount per serving</td>
+                        </tr>
+
+                        <tr className="text-center ">
 
                           <td className="flex justify-start font-extrabold  ">Energy</td>
                           <td>{(pinDetail?.nutritionPost?.energy).toFixed(0)}kcal</td>
