@@ -488,7 +488,7 @@ const PinDetail = ({ user }) => {
                   </div>
                   <div className="text-center  text-justify align-start text-xs	italic">
 
-                    The result was estimated with Food and Nutrition Research Insitute's Food Composition Table.
+                    The result was estimated with Food and Nutrition Research Insitute's Food Composition Table, PhilFCT.
 
                   </div>
 
