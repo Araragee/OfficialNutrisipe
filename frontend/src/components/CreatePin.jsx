@@ -799,7 +799,7 @@ const CreatePin = ({ user }) => {
 
                         <tr className="text-center border-t-2 border-black">
                           <td className="flex justify-start  font-extrabold"></td>
-                          <td>Amount per serving</td>
+                          <td className="text-xs">Amount per serving</td>
                         </tr>
 
                         <tr className="text-center">
@@ -871,6 +871,8 @@ const CreatePin = ({ user }) => {
                           <td >{(nutrientTable.vitC).toFixed(1)}mg</td>
                         </tr>
 
+                        <tr className="text-center border-t-4  border-black">  </tr>
+
                       </tbody>
 
 
@@ -878,6 +880,12 @@ const CreatePin = ({ user }) => {
                     <hr className="border-gray-500 mt-36" />
 
                   </div>
+                <div className="text-center  text-justify align-start text-xs	italic">
+                            
+                            The result was estimated with Food and Nutrition Research Insitute's Food Composition Table.
+                            
+                          </div>
+
                 </div>
 
                 <div className="mt-3 mb-4">
