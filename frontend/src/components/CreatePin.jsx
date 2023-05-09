@@ -934,7 +934,7 @@ const CreatePin = ({ user }) => {
             ))}
             {/* button for add procedures */}
             <button
-              className="text-nGreen hover:text-white hover:bg-nGreen w-24 h-7.5 float-left py-1  text-xs font-bold text-center text-white bg-gray-50 rounded-full border border-nGreen opacity-70 hover:opacity-100"
+              className="text-nGreen hover:text-white hover:bg-nGreen  w-24 h-6 float-left py-1  mt-2 text-xs font-bold text-center text-white bg-gray-50 rounded-full border"
               onClick={() => handleProcedureAdd()}
             >
               ADD
