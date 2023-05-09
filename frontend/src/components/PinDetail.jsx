@@ -372,7 +372,7 @@ const PinDetail = ({ user }) => {
                     className="ml-2.5 list-disc pl-4"
                     key={i}
                   >
-                    <li className="capitalize" key={i}>
+                    <li className="capitalize text-justify" key={i}>
                       {item}
                     </li>
                   </ol>
@@ -405,7 +405,7 @@ const PinDetail = ({ user }) => {
 
                         <tr className="text-center border-t-2 border-black">
                           <td className="flex justify-start  font-extrabold"></td>
-                          <td>Amount per serving</td>
+                          <td className="text-xs">Amount per serving</td>
                         </tr>
 
                         <tr className="text-center ">
@@ -478,11 +478,17 @@ const PinDetail = ({ user }) => {
                           <td >{(pinDetail?.nutritionPost?.vitC).toFixed(1)}mg</td>
                         </tr>
 
+                        <tr className="text-center border-t-4  border-black">  </tr>
                       </tbody>
 
 
                     </table>
                     <hr className="border-gray-500" />
+
+                  </div>
+                  <div className="text-center  text-justify align-start text-xs	italic">
+
+                    The result was estimated with Food and Nutrition Research Insitute's Food Composition Table.
 
                   </div>
 
