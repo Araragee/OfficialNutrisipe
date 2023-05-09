@@ -2,13 +2,13 @@
 // categories
 
 import dairy from '../assets/categories/dairy.jpg';
-import fats from '../assets/categories/Fats.jpg';
-import fish from '../assets/categories/fish.jpg';
-import fruits from '../assets/categories/Fruits.jpg';
-import meat from '../assets/categories/meat.jpg';
-import protein from '../assets/categories/Protein.jpg';
-import veg from '../assets/categories/veg.jpg';
-import chicken from '../assets/categories/chicken.png';
+import fats from '../assets/categories/fats.png';
+import seafood from '../assets/categories/seafood.png';
+import fruits from '../assets/categories/fruits.png';
+import meat from '../assets/categories/meat.png';
+import protein from '../assets/categories/protein.png';
+import vegetables from '../assets/categories/vegetables.jpg';
+import poultry from '../assets/categories/poultry.png';
 
 export const metrics = [
   {
@@ -41,7 +41,7 @@ export const metrics = [
 export const categories = [
   {
     name: 'Vegetables',
-    image: veg,
+    image: vegetables,
 
   },
   {
@@ -62,7 +62,7 @@ export const categories = [
   },
   {
     name: 'Fish and Seafoods',
-    image: fish,
+    image: seafood,
   },
   {
     name: 'Meat',
@@ -70,7 +70,7 @@ export const categories = [
   },
   {
     name: 'Poultry ',
-    image: chicken,
+    image: poultry,
   },
   {
     name: 'others',
