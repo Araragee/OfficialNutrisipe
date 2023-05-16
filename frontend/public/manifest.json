@@ -11,12 +11,20 @@
   "screenshots": [
     {
       "src": "1.png",
-      "sizes": "1366x670",
+      "sizes": "1366x736",
       "type": "image/png"
     },
     {
       "src": "2.png",
-      "sizes": "427x615",
+      "sizes": "1366x737",
+      "type": "image/png"
+    },{
+      "src": "3.png",
+      "sizes": "1366x736",
+      "type": "image/png"
+    },{
+      "src": "4.png",
+      "sizes": "1308x710",
       "type": "image/png"
     }
   ],
